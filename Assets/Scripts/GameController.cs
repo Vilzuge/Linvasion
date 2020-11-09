@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 
     //TEST controlling enemy
     public EnemyHandler enemy;
+    public EnemySpawner enemySpawner;
 
     //Player & enemy units
     public Transform playerUnits;
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
         enemy = GameObject.Find("Enemy").GetComponent<EnemyHandler>();
         playerUnits = GameObject.Find("PlayerUnits").transform;
         enemyUnits = GameObject.Find("EnemyUnits").transform;
+        enemySpawner = GameObject.Find("EnemyUnits").GetComponent<EnemySpawner>();
     }
 
     void Update()
@@ -41,6 +43,9 @@ public class GameController : MonoBehaviour
                 child.gameObject.GetComponent<EnemyHandler>().moveEnemy();
             }
             Debug.Log("Enemy turn over..");
+
+            //Spawn new enemies
+            enemySpawner.SpawnUnitWave();
 
             //Switch back to players turn
             isPlayerTurn = true;
