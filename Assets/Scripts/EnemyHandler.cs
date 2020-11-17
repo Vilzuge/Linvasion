@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 /*
 -------------------------------------------
 This script handles the the enemy behaviour
@@ -16,9 +17,11 @@ public class EnemyHandler : MonoBehaviour
     public int enemyRow;
     public int enemyCol;
 
+    public Image healthBar;
+
     void Start()
     {
-        enemyHealth = 1;
+        enemyHealth = 2;
         enemyRow = (int)transform.position.x;
         enemyCol = (int)transform.position.z;
         playerUnits = GameObject.Find("PlayerUnits").transform;
@@ -32,6 +35,8 @@ public class EnemyHandler : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        healthBar.fillAmount = enemyHealth * 0.5f;
 
         reachesDestination();
     }
@@ -57,6 +62,12 @@ public class EnemyHandler : MonoBehaviour
                 Debug.Log("tank destroyed");
             }
         }
+    }
+
+    public void takeDamage(int damage)
+    {
+        enemyHealth = enemyHealth - damage;
+        healthBar.fillAmount = enemyHealth * 50f;
     }
 
     public void reachesDestination()

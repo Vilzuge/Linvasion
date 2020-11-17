@@ -51,6 +51,39 @@ public class DrawShooting : MonoBehaviour
             }
         }
     }
+
+    public void DrawLaserGrid(int rowPos, int colPos)
+    {
+        for (int row = 0; row <= 5; row++)
+        {
+            for (int col = 0; col <= 5; col++)
+            {
+                if (row == rowPos && !(row == rowPos && col == colPos))
+                {
+                    //Check every tile inside the gameboard change the material if shootable
+                    foreach (Transform child in transform)
+                    {
+                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
+                        {
+                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = shootableTile;
+                        }
+                    }
+                }
+                else if (col == colPos && !(row == rowPos && col == colPos))
+                {
+                    //Check every tile inside the gameboard change the material if shootable
+                    foreach (Transform child in transform)
+                    {
+                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
+                        {
+                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = shootableTile;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void ResetShootingGrid()
     {
         Debug.Log("Palautetaan väri!");
