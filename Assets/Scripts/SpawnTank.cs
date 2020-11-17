@@ -20,7 +20,6 @@ public class SpawnTank : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         movementScript = GameObject.Find("GameBoard").GetComponent<DrawMovement>();
         playerUnits = GameObject.Find("PlayerUnits").transform;
     }
@@ -50,7 +49,7 @@ public class SpawnTank : MonoBehaviour
         //Spawning the tank to the coordinates and giving it correct attributes
         spawnedTank = Instantiate(tankPrefab, new Vector3(parentRow, 0.1f, parentCol), Quaternion.identity * Quaternion.Euler(-90f,0f,0f));
         spawnedTank.transform.parent = playerUnits;
-        transform.parent.gameObject.GetComponent<TileState>().isOccupied = true;
+        //transform.parent.gameObject.GetComponent<TileState>().isOccupied = true;
         spawnedTank.GetComponent<PlayerTank>().rowPos = parentRow;
         spawnedTank.GetComponent<PlayerTank>().colPos = parentCol;
 

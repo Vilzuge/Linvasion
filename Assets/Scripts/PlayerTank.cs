@@ -17,13 +17,14 @@ public class PlayerTank : MonoBehaviour
     public DrawShooting shootingScript;
     public ToggleAim aimScript;
     public GameObject allEnemies;
+    public Transform playerUnits;
 
     //Properties of the default tank
     public bool isSelected = false;
     public bool hasAction = true;
     public int rowPos;
     public int colPos;
-    public int moveMinttu = 3;
+    public int moveMinttu = 2;
 
     //Properties of raycast
     public float rayLength;
@@ -41,10 +42,10 @@ public class PlayerTank : MonoBehaviour
 
     void Update()
     {
+        playerUnits = GameObject.Find("PlayerUnits").transform;
         handleMovement();
         if (aimScript.isAiming && isSelected)
         {
-            shootingScript.DrawShootingGrid(rowPos, colPos);
             handleShooting();
         }
     }
@@ -55,9 +56,10 @@ public class PlayerTank : MonoBehaviour
 
     public void handleMovement()
     {
-        //Handle movement if the tank is selected and a movable tile is selected
-        if (isSelected && Input.GetMouseButtonDown(0) && moveMinttu > 0) //!EventSystem.current.IsPointerOverGameObject() add later if needed
+        //Handle movement if the tank is selected and a movable tile is selected, and we are not aiming currently
+        if (isSelected && Input.GetMouseButtonDown(0) && moveMinttu > 0 && !aimScript.isAiming) //!EventSystem.current.IsPointerOverGameObject() add later if needed
         {
+            //shootingScript.DrawShootingGrid(rowPos, colPos);
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, rayLength, layerMask))
@@ -76,7 +78,6 @@ public class PlayerTank : MonoBehaviour
                     rowPos = rowToWalk;
                     colPos = colToWalk;
                     movementScript.ResetMovement();
-
                 }
                 else
                 {
@@ -84,38 +85,46 @@ public class PlayerTank : MonoBehaviour
                 }
             }
         }
+
+        if(!isSelected)
+        {
+            GetComponent<MeshRenderer>().material = defaultMaterial;
+        }
     }
 
     public void handleShooting()
     {
-        if (isSelected && Input.GetMouseButtonDown(0) && hasAction) //!EventSystem.current.IsPointerOverGameObject() add later if needed
+        if (hasAction)
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, rayLength, layerMask))
+            shootingScript.DrawShootingGrid(rowPos, colPos);
+            if (isSelected && Input.GetMouseButtonDown(0)) //!EventSystem.current.IsPointerOverGameObject() add later if needed
             {
-                Debug.Log(hit.collider.name);
-                Debug.Log(hit.transform.parent.gameObject.GetComponent<TileState>().RowIndex);
-                Debug.Log(hit.transform.parent.gameObject.GetComponent<TileState>().ColIndex);
-                int rowToShoot = hit.transform.parent.gameObject.GetComponent<TileState>().RowIndex;
-                int colToShoot = hit.transform.parent.gameObject.GetComponent<TileState>().ColIndex;
-
-                if (isShootable(rowToShoot, colToShoot))
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, rayLength, layerMask))
                 {
-                    Debug.Log("This cell is shootable!");
-                    Debug.Log("You shot the cell!!");
+                    Debug.Log(hit.collider.name);
+                    Debug.Log(hit.transform.parent.gameObject.GetComponent<TileState>().RowIndex);
+                    Debug.Log(hit.transform.parent.gameObject.GetComponent<TileState>().ColIndex);
+                    int rowToShoot = hit.transform.parent.gameObject.GetComponent<TileState>().RowIndex;
+                    int colToShoot = hit.transform.parent.gameObject.GetComponent<TileState>().ColIndex;
 
-                    //handle the shooting enemies
-                    damageCell(rowToShoot, colToShoot);
-                    hasAction = false;
-                    aimScript.isAiming = false;
-                    shootingScript.ResetShootingGrid();
+                    if (isShootable(rowToShoot, colToShoot))
+                    {
+                        Debug.Log("This cell is shootable!");
+                        Debug.Log("You shot the cell!!");
 
-
-                }
-                else
-                {
-                    Debug.Log("Not shootable!");
+                        //handle the shooting enemies
+                        damageCell(rowToShoot, colToShoot);
+                        hasAction = false;
+                        isSelected = false;
+                        aimScript.isAiming = false;
+                        shootingScript.ResetShootingGrid();
+                    }
+                    else
+                    {
+                        Debug.Log("Not shootable!");
+                    }
                 }
             }
         }
@@ -129,7 +138,17 @@ public class PlayerTank : MonoBehaviour
         {
             Debug.Log("This tank is now selected.");
             isSelected = true;
+
             //should deselect other tanks!
+            foreach (Transform child in playerUnits)
+            {
+                if (!GameObject.ReferenceEquals(child.gameObject, this.gameObject))
+                {
+                    child.GetComponent<PlayerTank>().isSelected = false;
+                    child.GetComponent<MeshRenderer>().material = defaultMaterial;
+                    movementScript.ResetMovement();
+                }
+            }
 
             GetComponent<MeshRenderer>().material = selectedMaterial;
             //Drawing the board with possible movement tiles
@@ -182,7 +201,8 @@ public class PlayerTank : MonoBehaviour
     //Replenish the attributes of the tank when new turn starts
     public void replenishTank()
     {
-        moveMinttu = 3;
+        moveMinttu = 2;
+        hasAction = true;
     }
 
 

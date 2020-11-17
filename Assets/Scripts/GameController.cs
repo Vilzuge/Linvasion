@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /*
 -------------------------------------------
 This script keeps track of the gamestate
@@ -48,6 +49,11 @@ public class GameController : MonoBehaviour
             enemySpawner.SpawnUnitWave();
 
             //Switch back to players turn
+            foreach (Transform child in playerUnits)
+            {
+                //Do stuff with the enemies
+                child.gameObject.GetComponent<PlayerTank>().replenishTank();
+            }
             isPlayerTurn = true;
         }
 
@@ -61,6 +67,7 @@ public class GameController : MonoBehaviour
         if (hasPlayerLost)
         {
             Debug.Log("You lost...");
+            SceneManager.LoadScene("LoseScreen");
         }
     }
 

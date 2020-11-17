@@ -112,10 +112,14 @@ MonoBehaviour:
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
   movementScript: {fileID: 0}
+  shootingScript: {fileID: 0}
+  aimScript: {fileID: 0}
+  allEnemies: {fileID: 0}
   isSelected: 0
+  hasAction: 1
   rowPos: 0
   colPos: 0
-  moveMinttu: 3
+  moveMinttu: 2
   rayLength: 100
   layerMask:
     serializedVersion: 2
