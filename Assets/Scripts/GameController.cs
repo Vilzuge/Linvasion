@@ -18,6 +18,10 @@ public class GameController : MonoBehaviour
     public EnemyHandler enemy;
     public EnemySpawner enemySpawner;
 
+    //
+    public PlayerTank normalTank;
+    public LaserTank laserTank;
+
     //Player & enemy units
     public Transform playerUnits;
     public Transform enemyUnits;
@@ -51,7 +55,6 @@ public class GameController : MonoBehaviour
             //Switch back to players turn
             foreach (Transform child in playerUnits)
             {
-                //Do stuff with the enemies
                 child.gameObject.GetComponent<PlayerTank>().replenishTank();
             }
             isPlayerTurn = true;

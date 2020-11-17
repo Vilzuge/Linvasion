@@ -113,10 +113,10 @@ public class LaserTank : MonoBehaviour
                     if (isShootable(rowToShoot, colToShoot))
                     {
                         Debug.Log("This cell is shootable!");
-                        Debug.Log("You shot the cell!!");
+                        Debug.Log("You shot the laser!!");
 
                         //handle the shooting enemies
-                        damageCell(rowToShoot, colToShoot);
+                        damagePlus(rowToShoot, colToShoot);
                         hasAction = false;
                         isSelected = false;
                         aimScript.isAiming = false;
@@ -206,14 +206,33 @@ public class LaserTank : MonoBehaviour
         hasAction = true;
     }
 
-
-    public void damageCell(int rowToShoot, int colToShoot)
+    public void damagePlus(int rowToShoot, int colToShoot)
     {
         foreach (Transform child in allEnemies.transform)
         {
             if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
             {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 2;
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot-1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot+1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot-1)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot+1)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
             }
         }
     }
