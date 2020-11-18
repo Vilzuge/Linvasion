@@ -760,6 +760,8 @@ MonoBehaviour:
   hasPlayerLost: 0
   enemy: {fileID: 0}
   enemySpawner: {fileID: 0}
+  normalTank: {fileID: 0}
+  laserTank: {fileID: 0}
   playerUnits: {fileID: 0}
   enemyUnits: {fileID: 0}
 --- !u!4 &958863127
@@ -1486,8 +1488,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1992053168}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1889,88 +1890,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989267815}
   m_CullTransparentMesh: 0
---- !u!1001 &1992053167
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1320918626}
-    m_Modifications:
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1887762016524886358, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserTank
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125998346100838917, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: rowPos
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125998346100838917, guid: 50008ec170e79064e95e1acad9770adc,
-        type: 3}
-      propertyPath: colPos
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 50008ec170e79064e95e1acad9770adc, type: 3}
---- !u!4 &1992053168 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1259175154831899628, guid: 50008ec170e79064e95e1acad9770adc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1992053167}
-  m_PrefabAsset: {fileID: 0}
