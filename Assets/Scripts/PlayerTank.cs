@@ -18,6 +18,7 @@ public class PlayerTank : MonoBehaviour
     public ToggleAim aimScript;
     public GameObject allEnemies;
     public Transform playerUnits;
+    public SoundManagerScript soundManager;
 
     //Properties of the default tank
     public bool isSelected = false;
@@ -36,6 +37,7 @@ public class PlayerTank : MonoBehaviour
         selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
         movementScript = GameObject.Find("GameBoard").GetComponent<DrawMovement>();
         shootingScript = GameObject.Find("GameBoard").GetComponent<DrawShooting>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
         aimScript = GameObject.Find("Aim").GetComponent<ToggleAim>();
         allEnemies = GameObject.Find("EnemyUnits");
     }
@@ -116,6 +118,7 @@ public class PlayerTank : MonoBehaviour
 
                         //handle the shooting enemies
                         damageCell(rowToShoot, colToShoot);
+                        soundManager.PlaySound("playerShoot");
                         hasAction = false;
                         isSelected = false;
                         aimScript.isAiming = false;

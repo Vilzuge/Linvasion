@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnUnit(int row)
     {
         //Spawning the enemy to the coordinates and giving it correct attributes
-        spawnedEnemy = Instantiate(enemyPrefab, new Vector3(row, 0.3f, 5), Quaternion.identity);
+        spawnedEnemy = Instantiate(enemyPrefab, new Vector3(row, 0.3f, 5), Quaternion.identity * Quaternion.Euler(-90f, 0f, -90f));
         spawnedEnemy.transform.parent = enemyUnits;
         spawnedEnemy.GetComponent<EnemyHandler>().enemyRow = row;
         spawnedEnemy.GetComponent<EnemyHandler>().enemyCol = 5;

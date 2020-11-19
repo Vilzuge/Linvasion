@@ -12,6 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb881220b88929f43811a639e972b57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}
+  movementScript: {fileID: 0}
+  shootingScript: {fileID: 0}
+  aimScript: {fileID: 0}
+  allEnemies: {fileID: 0}
+  playerUnits: {fileID: 0}
+  isSelected: 0
+  hasAction: 1
+  rowPos: 0
+  colPos: 0
+  moveMinttu: 2
+  rayLength: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &10451156655748031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,23 +103,29 @@ PrefabInstance:
     - target: {fileID: 1250976382179444819, guid: e597f84d05803b54b878fbac334d23cf,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1250976382179444819, guid: e597f84d05803b54b878fbac334d23cf,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1250976382179444819, guid: e597f84d05803b54b878fbac334d23cf,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
         type: 3}
       propertyPath: m_Name
       value: LaserTank
       objectReference: {fileID: 0}
+    - target: {fileID: 2806736462009763830, guid: e597f84d05803b54b878fbac334d23cf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5495902117074765545, guid: 8cbc18013835c764c869fef50189cc1b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e597f84d05803b54b878fbac334d23cf, type: 3}
 --- !u!1 &1887762016524886358 stripped

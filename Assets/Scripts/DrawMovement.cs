@@ -59,7 +59,7 @@ public class DrawMovement : MonoBehaviour
     }
 
     //Drawing the spawnable grid
-    public void DrawSpawnGrid()
+    public void DrawSpawnGrid(string type)
     {
         foreach (Transform child in transform)
         {

@@ -13,6 +13,7 @@ public class SpawnTank : MonoBehaviour
     public Transform playerUnits;
     public InterfaceHandler interfaceHandler;
     public DrawMovement movementScript;
+    public SoundManagerScript soundManager;
 
     public int parentRow;
     public int parentCol;
@@ -22,6 +23,7 @@ public class SpawnTank : MonoBehaviour
     {
         movementScript = GameObject.Find("GameBoard").GetComponent<DrawMovement>();
         playerUnits = GameObject.Find("PlayerUnits").transform;
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,10 @@ public class SpawnTank : MonoBehaviour
         //Spawning the tank to the coordinates and giving it correct attributes
         spawnedTank = Instantiate(tankPrefab, new Vector3(parentRow, 0.1f, parentCol), Quaternion.identity * Quaternion.Euler(-90f,0f,0f));
         spawnedTank.transform.parent = playerUnits;
+
+        //Sound of the spawning
+        soundManager.PlaySound("spawn");
+
         //transform.parent.gameObject.GetComponent<TileState>().isOccupied = true;
         spawnedTank.GetComponent<PlayerTank>().rowPos = parentRow;
         spawnedTank.GetComponent<PlayerTank>().colPos = parentCol;
