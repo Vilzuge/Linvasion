@@ -9,7 +9,7 @@ This script keeps track of the gamestate
 */
 public class GameController : MonoBehaviour
 {
-    //Different attributes regarding the gamestate
+    //Different attributes regarding the gamestate, public for testing
     public bool isPlayerTurn;
     public bool hasPlayerWon;
     public bool hasPlayerLost;
@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     public EnemyHandler enemy;
     public EnemySpawner enemySpawner;
 
-    //
     public PlayerTank normalTank;
     public LaserTank laserTank;
 

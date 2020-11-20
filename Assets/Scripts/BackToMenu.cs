@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+/*
+-------------------------------------------
+This script handles "back to menu" buttons
+-------------------------------------------
+*/
 public class BackToMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //If the button is clicked, move back to menu.
     public void backToMenu()
     {
         SceneManager.LoadScene("MainMenu");

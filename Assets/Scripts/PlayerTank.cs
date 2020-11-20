@@ -11,16 +11,17 @@ This script handles default tank of the player
 */
 public class PlayerTank : MonoBehaviour
 {
-    public Material defaultMaterial;
-    public Material selectedMaterial;
-    public DrawMovement movementScript;
-    public DrawShooting shootingScript;
-    public ToggleAim aimScript;
-    public GameObject allEnemies;
-    public Transform playerUnits;
-    public SoundManagerScript soundManager;
+    private Material defaultMaterial;
+    private Material selectedMaterial;
+    private DrawMovement movementScript;
+    private DrawShooting shootingScript;
+    private ToggleAim aimScript;
+    private GameObject allEnemies;
+    private Transform playerUnits;
+    private SoundManagerScript soundManager;
 
     //Properties of the default tank
+    [Header("Tank Attributes")]
     public bool isSelected = false;
     public bool hasAction = true;
     public int rowPos;
@@ -28,7 +29,7 @@ public class PlayerTank : MonoBehaviour
     public int moveMinttu = 2;
 
     //Properties of raycast
-    public float rayLength;
+    private float rayLength;
     public LayerMask layerMask;
 
     void Start()
@@ -40,6 +41,7 @@ public class PlayerTank : MonoBehaviour
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
         aimScript = GameObject.Find("Aim").GetComponent<ToggleAim>();
         allEnemies = GameObject.Find("EnemyUnits");
+        rayLength = 100;
     }
 
     void Update()

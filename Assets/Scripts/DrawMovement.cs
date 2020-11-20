@@ -9,9 +9,9 @@ This script handles the visuals of movement
 public class DrawMovement : MonoBehaviour
 {
     //Materials for different tilestates
-    public Material defaultTile;
-    public Material moveableTile;
-    public Material spawnableTile;
+    private static Material defaultTile;
+    private static Material moveableTile;
+    private static Material spawnableTile;
 
     void Start()
     {
@@ -58,7 +58,7 @@ public class DrawMovement : MonoBehaviour
         }
     }
 
-    //Drawing the spawnable grid
+    //Drawing the spawnable grid - spawning it self is handled in the CubeVisual for now
     public void DrawSpawnGrid(string type)
     {
         foreach (Transform child in transform)

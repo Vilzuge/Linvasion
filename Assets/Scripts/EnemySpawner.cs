@@ -5,13 +5,16 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject spawnedEnemy;
-    public Transform enemyUnits;
+    private GameObject spawnedEnemy;
+    private Transform enemyUnits;
 
+    //Attributes for calculating spawning positions
+    private int newNumber;
+    public List<int> list = new List<int>();
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Finding the enemies parent
         enemyUnits = GameObject.Find("EnemyUnits").transform;
     }
 
@@ -21,11 +24,9 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    public int newNumber;
-    public List<int> list = new List<int>();
     public void SpawnUnitWave()
     {
-        //Calculating spawn coordinates for the enemies Z=5, Y=0.3, X something in between 0 and 5
+        //Calculating spawn coordinates for the enemies Z=5, Y=0.3, X=? something in between 0 and 5
         for (int i = 0; i < 5; i++)
         {
             newNumber = Random.Range(0, 6);
@@ -42,10 +43,9 @@ public class EnemySpawner : MonoBehaviour
         list.Clear();
     }
 
-
+    //Spawning the enemy to the coordinates and giving it correct attributes
     public void SpawnUnit(int row)
     {
-        //Spawning the enemy to the coordinates and giving it correct attributes
         spawnedEnemy = Instantiate(enemyPrefab, new Vector3(row, 0.3f, 5), Quaternion.identity * Quaternion.Euler(-90f, 0f, -90f));
         spawnedEnemy.transform.parent = enemyUnits;
         spawnedEnemy.GetComponent<EnemyHandler>().enemyRow = row;

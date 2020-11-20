@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardStatus : MonoBehaviour
+public class SkyboxRotate : MonoBehaviour
 {
-    public int[,] OccupiedStatus = new int[6, 6] { { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 } };
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +13,7 @@ public class BoardStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * 1);
+        //To set the speed, just multiply Time.time with whatever amount you want.
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+-------------------------------------------
+This script handles the visuals of the shootable tiles
+-------------------------------------------
+*/
 public class DrawShooting : MonoBehaviour
 {
     //Materials for different tilestates
-    public Material defaultTile;
-    public Material shootableTile;
+    private static Material defaultTile;
+    private static Material shootableTile;
 
     void Start()
     {
@@ -52,38 +56,7 @@ public class DrawShooting : MonoBehaviour
         }
     }
 
-    public void DrawLaserGrid(int rowPos, int colPos)
-    {
-        for (int row = 0; row <= 5; row++)
-        {
-            for (int col = 0; col <= 5; col++)
-            {
-                if (row == rowPos && !(row == rowPos && col == colPos))
-                {
-                    //Check every tile inside the gameboard change the material if shootable
-                    foreach (Transform child in transform)
-                    {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
-                        {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = shootableTile;
-                        }
-                    }
-                }
-                else if (col == colPos && !(row == rowPos && col == colPos))
-                {
-                    //Check every tile inside the gameboard change the material if shootable
-                    foreach (Transform child in transform)
-                    {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
-                        {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = shootableTile;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+    //Resets the shooting grid back to normal tiles
     public void ResetShootingGrid()
     {
         Debug.Log("Palautetaan väri!");

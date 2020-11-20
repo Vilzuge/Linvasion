@@ -109,21 +109,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1390a2730cbb3dc4493bac74b02ef1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
-  movementScript: {fileID: 0}
-  shootingScript: {fileID: 0}
-  aimScript: {fileID: 0}
-  allEnemies: {fileID: 0}
   isSelected: 0
   hasAction: 1
   rowPos: 0
   colPos: 0
   moveMinttu: 2
-  rayLength: 100
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
 --- !u!95 &2922500697172407937
 Animator:
   serializedVersion: 3

@@ -10,13 +10,14 @@ This script handles the the enemy behaviour
 */
 public class EnemyHandler : MonoBehaviour
 {
-    public Transform playerUnits;
-    public GameObject gameController;
+    //Objects needed for the enemy handling
+    private Transform playerUnits;
+    private GameObject gameController;
 
+    //Enemy attributes, some are public for testing reasons
     public int enemyHealth;
     public int enemyRow;
     public int enemyCol;
-
     public Image healthBar;
 
     void Start()
@@ -33,15 +34,17 @@ public class EnemyHandler : MonoBehaviour
         //Kill the enemy if it's health is 0
         if (enemyHealth <= 0)
         {
+            //PLAY A SOUND HERE
             Destroy(gameObject);
         }
 
         healthBar.fillAmount = enemyHealth * 0.5f;
 
+        //Check if reached the backline
         reachesDestination();
     }
 
-    //Example function for moving the enemy (testing purposes)
+    //Moving the enemy closer to backline
     public void moveEnemy()
     {
         int newEnemyCol = enemyCol - 1;
@@ -51,6 +54,7 @@ public class EnemyHandler : MonoBehaviour
     }
 
 
+    //Check if reached a tank
     public void hitsTank()
     {
         foreach (Transform child in playerUnits)
@@ -59,17 +63,20 @@ public class EnemyHandler : MonoBehaviour
             int tankCol = child.gameObject.GetComponent<PlayerTank>().colPos;
             if (tankRow == enemyRow && tankCol == enemyCol)
             {
+                //Do something here when the enemy hits the tank
                 Debug.Log("tank destroyed");
             }
         }
     }
 
+    //Taking damage from the player, and updating health bar
     public void takeDamage(int damage)
     {
         enemyHealth = enemyHealth - damage;
         healthBar.fillAmount = enemyHealth * 50f;
     }
 
+    //Check if enemy reached the backline
     public void reachesDestination()
     {
         if (enemyCol == 0)
@@ -77,10 +84,4 @@ public class EnemyHandler : MonoBehaviour
             gameController.GetComponent<GameController>().hasPlayerLost = true;
         }
     }
-    /*
-    public void OnMouseDown()
-    {
-        moveEnemy();
-    }
-    */
 }
