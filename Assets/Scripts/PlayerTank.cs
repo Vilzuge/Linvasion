@@ -29,7 +29,7 @@ public class PlayerTank : MonoBehaviour
     public int moveMinttu = 2;
 
     //Properties of raycast
-    private float rayLength;
+    public float rayLength;
     public LayerMask layerMask;
 
     void Start()
@@ -41,7 +41,6 @@ public class PlayerTank : MonoBehaviour
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
         aimScript = GameObject.Find("Aim").GetComponent<ToggleAim>();
         allEnemies = GameObject.Find("EnemyUnits");
-        rayLength = 100;
     }
 
     void Update()
