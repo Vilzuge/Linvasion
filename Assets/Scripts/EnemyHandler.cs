@@ -35,6 +35,7 @@ public class EnemyHandler : MonoBehaviour
         if (enemyHealth <= 0)
         {
             //PLAY A SOUND HERE
+            InterfaceHandler.scoreValue += 100;
             Destroy(gameObject);
         }
 

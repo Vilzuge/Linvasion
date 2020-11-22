@@ -54,7 +54,14 @@ public class GameController : MonoBehaviour
             //Switch back to players turn
             foreach (Transform child in playerUnits)
             {
-                child.gameObject.GetComponent<PlayerTank>().replenishTank();
+                if (child.gameObject.GetComponent<LaserTank>() == null)
+                {
+                    child.gameObject.GetComponent<PlayerTank>().replenishTank();
+                }
+                else
+                {
+                    child.gameObject.GetComponent<LaserTank>().replenishTank();
+                }
             }
             isPlayerTurn = true;
         }

@@ -11,6 +11,7 @@ public class TileState : MonoBehaviour
     public GameObject tankPrefab;
     public bool isOccupied = false;
     public bool isSpawnable = false;
+    public bool isLaserSpawnable = false;
     public int RowIndex;
     public int ColIndex;
     void Start()

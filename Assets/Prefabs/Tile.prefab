@@ -242,10 +242,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankPrefab: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
     type: 3}
+  laserPrefab: {fileID: 1887762016524886358, guid: 50008ec170e79064e95e1acad9770adc,
+    type: 3}
   spawnedTank: {fileID: 0}
   playerUnits: {fileID: 0}
   interfaceHandler: {fileID: 0}
   movementScript: {fileID: 0}
+  soundManager: {fileID: 0}
   parentRow: 0
   parentCol: 0
   canSpawn: 0
+  canSpawnLaser: 0

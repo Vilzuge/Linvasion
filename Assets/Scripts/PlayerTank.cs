@@ -81,6 +81,7 @@ public class PlayerTank : MonoBehaviour
                     rowPos = rowToWalk;
                     colPos = colToWalk;
                     movementScript.ResetMovement();
+                    isSelected = false;
                 }
                 else
                 {
@@ -216,7 +217,7 @@ public class PlayerTank : MonoBehaviour
         {
             if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
             {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+                child.GetComponent<EnemyHandler>().enemyHealth -= 2;
             }
         }
     }

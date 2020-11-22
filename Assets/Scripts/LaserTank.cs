@@ -18,6 +18,7 @@ public class LaserTank : MonoBehaviour
     public ToggleAim aimScript;
     public GameObject allEnemies;
     public Transform playerUnits;
+    private SoundManagerScript soundManager;
 
     //Properties of the default tank
     public bool isSelected = false;
@@ -38,6 +39,7 @@ public class LaserTank : MonoBehaviour
         shootingScript = GameObject.Find("GameBoard").GetComponent<DrawShooting>();
         aimScript = GameObject.Find("Aim").GetComponent<ToggleAim>();
         allEnemies = GameObject.Find("EnemyUnits");
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
     }
 
     void Update()
@@ -79,6 +81,7 @@ public class LaserTank : MonoBehaviour
                     rowPos = rowToWalk;
                     colPos = colToWalk;
                     movementScript.ResetMovement();
+                    isSelected = false;
                 }
                 else
                 {
@@ -117,6 +120,7 @@ public class LaserTank : MonoBehaviour
 
                         //handle the shooting enemies
                         damagePlus(rowToShoot, colToShoot);
+                        soundManager.PlaySound("laserShoot");
                         hasAction = false;
                         isSelected = false;
                         aimScript.isAiming = false;

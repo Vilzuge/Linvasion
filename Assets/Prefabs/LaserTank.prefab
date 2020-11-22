@@ -24,10 +24,10 @@ MonoBehaviour:
   rowPos: 0
   colPos: 0
   moveMinttu: 2
-  rayLength: 0
+  rayLength: 100
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!1001 &10451156655748031
 PrefabInstance:
   m_ObjectHideFlags: 0

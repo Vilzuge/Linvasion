@@ -59,14 +59,27 @@ public class DrawMovement : MonoBehaviour
     }
 
     //Drawing the spawnable grid - spawning it self is handled in the CubeVisual for now
-    public void DrawSpawnGrid(string type)
+    public void DrawSpawnGrid()
     {
         foreach (Transform child in transform)
         {
-            if (child.gameObject.GetComponent<TileState>().ColIndex <= 2 && child.gameObject.GetComponent<TileState>().isOccupied == false)
+            if (child.gameObject.GetComponent<TileState>().ColIndex <= 1 && child.gameObject.GetComponent<TileState>().isOccupied == false)
             {
                 child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = spawnableTile;
                 child.gameObject.GetComponent<TileState>().isSpawnable = true;
+            }
+        }
+    }
+
+    //Drawing the spawnable grid - spawning it self is handled in the CubeVisual for now
+    public void DrawLaserSpawnGrid()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.GetComponent<TileState>().ColIndex <= 1 && child.gameObject.GetComponent<TileState>().isOccupied == false)
+            {
+                child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = spawnableTile;
+                child.gameObject.GetComponent<TileState>().isLaserSpawnable = true;
             }
         }
     }
@@ -78,6 +91,7 @@ public class DrawMovement : MonoBehaviour
         {
             child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = defaultTile;
             child.gameObject.GetComponent<TileState>().isSpawnable = false;
+            child.gameObject.GetComponent<TileState>().isLaserSpawnable = false;
         }
     }
 }

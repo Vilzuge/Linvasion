@@ -24,7 +24,15 @@ public class TankSpawner : MonoBehaviour
     public void ChooseSpawn()
     {
         //Show's the possible tiles for spawning and changes them to spawnable
-        movementScript.DrawSpawnGrid(tankType);
+        movementScript.DrawSpawnGrid();
+        //Makes the UI button unclickable after the tank has been deployed
+        GetComponent<Button>().interactable = false;
+    }
+
+    public void ChooseLaserSpawn()
+    {
+        //Show's the possible tiles for spawning and changes them to spawnable
+        movementScript.DrawLaserSpawnGrid();
         //Makes the UI button unclickable after the tank has been deployed
         GetComponent<Button>().interactable = false;
     }
