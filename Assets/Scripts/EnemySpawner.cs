@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnUnitWave()
     {
         //Calculating spawn coordinates for the enemies Z=5, Y=0.3, X=? something in between 0 and 5
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             newNumber = Random.Range(0, 6);
             if (!list.Contains(newNumber)) {

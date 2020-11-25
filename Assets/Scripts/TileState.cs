@@ -12,6 +12,8 @@ public class TileState : MonoBehaviour
     public bool isOccupied = false;
     public bool isSpawnable = false;
     public bool isLaserSpawnable = false;
+    public bool isStrongSpawnable = false;
+
     public int RowIndex;
     public int ColIndex;
     void Start()

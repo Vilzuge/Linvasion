@@ -84,6 +84,18 @@ public class DrawMovement : MonoBehaviour
         }
     }
 
+    public void DrawStrongSpawnGrid()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.GetComponent<TileState>().ColIndex <= 1 && child.gameObject.GetComponent<TileState>().isOccupied == false)
+            {
+                child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = spawnableTile;
+                child.gameObject.GetComponent<TileState>().isStrongSpawnable = true;
+            }
+        }
+    }
+
     //Resetting the spawnable grid to normal tiles
     public void ResetSpawnGrid()
     {
@@ -92,6 +104,7 @@ public class DrawMovement : MonoBehaviour
             child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = defaultTile;
             child.gameObject.GetComponent<TileState>().isSpawnable = false;
             child.gameObject.GetComponent<TileState>().isLaserSpawnable = false;
+            child.gameObject.GetComponent<TileState>().isStrongSpawnable = false;
         }
     }
 }

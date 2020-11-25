@@ -9,24 +9,23 @@ using UnityEngine.EventSystems;
 This script handles default tank of the player
 -------------------------------------------
 */
-public class PlayerTank : MonoBehaviour
+public class StrongTank : MonoBehaviour
 {
-    private Material defaultMaterial;
-    private Material selectedMaterial;
-    private DrawMovement movementScript;
-    private DrawShooting shootingScript;
-    private ToggleAim aimScript;
-    private GameObject allEnemies;
-    private Transform playerUnits;
+    public Material defaultMaterial;
+    public Material selectedMaterial;
+    public DrawMovement movementScript;
+    public DrawShooting shootingScript;
+    public ToggleAim aimScript;
+    public GameObject allEnemies;
+    public Transform playerUnits;
     private SoundManagerScript soundManager;
 
     //Properties of the default tank
-    [Header("Tank Attributes")]
     public bool isSelected = false;
     public bool hasAction = true;
     public int rowPos;
     public int colPos;
-    public int moveMinttu = 3;
+    public int moveMinttu = 1;
 
     //Properties of raycast
     public float rayLength;
@@ -34,13 +33,13 @@ public class PlayerTank : MonoBehaviour
 
     void Start()
     {
-        defaultMaterial = Resources.Load<Material>("Materials/TankNormal");
+        defaultMaterial = Resources.Load<Material>("Materials/StrongTank");
         selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
         movementScript = GameObject.Find("GameBoard").GetComponent<DrawMovement>();
         shootingScript = GameObject.Find("GameBoard").GetComponent<DrawShooting>();
-        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
         aimScript = GameObject.Find("Aim").GetComponent<ToggleAim>();
         allEnemies = GameObject.Find("EnemyUnits");
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
     }
 
     void Update()
@@ -53,7 +52,8 @@ public class PlayerTank : MonoBehaviour
         }
     }
 
-    void OnMouseUp() {
+    void OnMouseUp()
+    {
         selectedCheck();
     }
 
@@ -90,7 +90,7 @@ public class PlayerTank : MonoBehaviour
             }
         }
 
-        if(!isSelected)
+        if (!isSelected)
         {
             GetComponent<MeshRenderer>().material = defaultMaterial;
         }
@@ -116,11 +116,11 @@ public class PlayerTank : MonoBehaviour
                     if (isShootable(rowToShoot, colToShoot))
                     {
                         Debug.Log("This cell is shootable!");
-                        Debug.Log("You shot the cell!!");
+                        Debug.Log("You shot the laser!!");
 
                         //handle the shooting enemies
-                        damageCell(rowToShoot, colToShoot);
-                        soundManager.PlaySound("playerShoot");
+                        damagePlus(rowToShoot, colToShoot);
+                        soundManager.PlaySound("laserShoot");
                         hasAction = false;
                         isSelected = false;
                         aimScript.isAiming = false;
@@ -180,8 +180,8 @@ public class PlayerTank : MonoBehaviour
         }
         else
         {
-        //not moveable
-        return false;
+            //not moveable
+            return false;
         }
     }
 
@@ -190,7 +190,7 @@ public class PlayerTank : MonoBehaviour
     public bool isShootable(int rowPosition, int colPosition)
     {
         //if the row or column index is the same than the place the tank is, the tile is shootable
-        if(rowPosition == rowPos || colPosition == colPos)
+        if (rowPosition == rowPos || colPosition == colPos)
         {
             //is shootable
             return true;
@@ -206,18 +206,37 @@ public class PlayerTank : MonoBehaviour
     //Replenish the attributes of the tank when new turn starts
     public void replenishTank()
     {
-        moveMinttu = 3;
+        moveMinttu = 2;
         hasAction = true;
     }
 
-
-    public void damageCell(int rowToShoot, int colToShoot)
+    public void damagePlus(int rowToShoot, int colToShoot)
     {
         foreach (Transform child in allEnemies.transform)
         {
             if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
             {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 2;
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot - 1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot + 1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot - 1)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
+            }
+
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot + 1)
+            {
+                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
             }
         }
     }

@@ -36,4 +36,12 @@ public class TankSpawner : MonoBehaviour
         //Makes the UI button unclickable after the tank has been deployed
         GetComponent<Button>().interactable = false;
     }
+
+    public void ChooseStrongSpawn()
+    {
+        //Show's the possible tiles for spawning and changes them to spawnable
+        movementScript.DrawStrongSpawnGrid();
+        //Makes the UI button unclickable after the tank has been deployed
+        GetComponent<Button>().interactable = false;
+    }
 }

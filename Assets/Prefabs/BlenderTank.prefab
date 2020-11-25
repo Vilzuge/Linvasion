@@ -114,7 +114,7 @@ MonoBehaviour:
   hasAction: 1
   rowPos: 0
   colPos: 0
-  moveMinttu: 2
+  moveMinttu: 3
   rayLength: 100
   layerMask:
     serializedVersion: 2

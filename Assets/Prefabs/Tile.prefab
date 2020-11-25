@@ -49,6 +49,8 @@ MonoBehaviour:
     type: 3}
   isOccupied: 0
   isSpawnable: 0
+  isLaserSpawnable: 0
+  isStrongSpawnable: 0
   RowIndex: 0
   ColIndex: 0
 --- !u!1 &4973255113366725408
@@ -243,6 +245,8 @@ MonoBehaviour:
   tankPrefab: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
     type: 3}
   laserPrefab: {fileID: 1887762016524886358, guid: 50008ec170e79064e95e1acad9770adc,
+    type: 3}
+  strongPrefab: {fileID: 8112629444009552362, guid: 36e0ffd19fcc4e749ba3ad65e43a3b43,
     type: 3}
   spawnedTank: {fileID: 0}
   playerUnits: {fileID: 0}
