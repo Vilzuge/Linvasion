@@ -11,8 +11,8 @@ This script handles default tank of the player
 */
 public class PlayerTank : MonoBehaviour
 {
-    private Material defaultMaterial;
-    private Material selectedMaterial;
+    public Material defaultMaterial;
+    public Material selectedMaterial;
     private DrawMovement movementScript;
     private DrawShooting shootingScript;
     private ToggleAim aimScript;
@@ -147,11 +147,22 @@ public class PlayerTank : MonoBehaviour
             //should deselect other tanks!
             foreach (Transform child in playerUnits)
             {
-                if (!GameObject.ReferenceEquals(child.gameObject, this.gameObject))
+                GameObject childTank = child.gameObject;
+                if (childTank.GetComponent<LaserTank>() != null)
                 {
-                    child.GetComponent<PlayerTank>().isSelected = false;
-                    child.GetComponent<MeshRenderer>().material = defaultMaterial;
+                    child.GetComponent<LaserTank>().isSelected = false;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<LaserTank>().defaultMaterial;
                     movementScript.ResetMovement();
+                }
+                else if (childTank.GetComponent<StrongTank>() != null)
+                {
+                    child.GetComponent<StrongTank>().isSelected = false;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<StrongTank>().defaultMaterial;
+                    movementScript.ResetMovement();
+                }
+                else
+                {
+                    Debug.Log("Something went wrong with selecting...");
                 }
             }
 

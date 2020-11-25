@@ -147,11 +147,23 @@ public class LaserTank : MonoBehaviour
             //should deselect other tanks!
             foreach (Transform child in playerUnits)
             {
-                if (!GameObject.ReferenceEquals(child.gameObject, this.gameObject))
+                GameObject childTank = child.gameObject;
+
+                if (childTank.GetComponent<PlayerTank>() != null)
                 {
                     child.GetComponent<PlayerTank>().isSelected = false;
-                    child.GetComponent<MeshRenderer>().material = defaultMaterial;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<PlayerTank>().defaultMaterial;
                     movementScript.ResetMovement();
+                }
+                else if (childTank.GetComponent<StrongTank>() != null)
+                {
+                    child.GetComponent<StrongTank>().isSelected = false;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<StrongTank>().defaultMaterial;
+                    movementScript.ResetMovement();
+                }
+                else
+                {
+                    Debug.Log("Proceed...");
                 }
             }
 

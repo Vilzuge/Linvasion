@@ -25,7 +25,7 @@ public class StrongTank : MonoBehaviour
     public bool hasAction = true;
     public int rowPos;
     public int colPos;
-    public int moveMinttu = 1;
+    public int moveMinttu = 2;
 
     //Properties of raycast
     public float rayLength;
@@ -100,7 +100,7 @@ public class StrongTank : MonoBehaviour
     {
         if (hasAction)
         {
-            shootingScript.DrawShootingGrid(rowPos, colPos);
+            shootingScript.DrawStrongShootingGrid(rowPos, colPos);
             if (isSelected && Input.GetMouseButtonDown(0)) //!EventSystem.current.IsPointerOverGameObject() add later if needed
             {
                 RaycastHit hit;
@@ -119,7 +119,7 @@ public class StrongTank : MonoBehaviour
                         Debug.Log("You shot the laser!!");
 
                         //handle the shooting enemies
-                        damagePlus(rowToShoot, colToShoot);
+                        damageLine(rowToShoot, colToShoot);
                         soundManager.PlaySound("laserShoot");
                         hasAction = false;
                         isSelected = false;
@@ -147,11 +147,22 @@ public class StrongTank : MonoBehaviour
             //should deselect other tanks!
             foreach (Transform child in playerUnits)
             {
-                if (!GameObject.ReferenceEquals(child.gameObject, this.gameObject))
+                GameObject childTank = child.gameObject;
+                if (childTank.GetComponent<PlayerTank>() != null)
                 {
                     child.GetComponent<PlayerTank>().isSelected = false;
-                    child.GetComponent<MeshRenderer>().material = defaultMaterial;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<PlayerTank>().defaultMaterial;
                     movementScript.ResetMovement();
+                }
+                else if (childTank.GetComponent<LaserTank>() != null)
+                {
+                    child.GetComponent<LaserTank>().isSelected = false;
+                    child.GetComponent<MeshRenderer>().material = child.GetComponent<LaserTank>().defaultMaterial;
+                    movementScript.ResetMovement();
+                }
+                else
+                {
+                    Debug.Log("Proceed...");
                 }
             }
 
@@ -210,31 +221,11 @@ public class StrongTank : MonoBehaviour
         hasAction = true;
     }
 
-    public void damagePlus(int rowToShoot, int colToShoot)
+    public void damageLine(int rowToShoot, int colToShoot)
     {
         foreach (Transform child in allEnemies.transform)
         {
-            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
-            {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
-            }
-
-            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot - 1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
-            {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
-            }
-
-            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot + 1 && child.GetComponent<EnemyHandler>().enemyCol == colToShoot)
-            {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
-            }
-
-            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot - 1)
-            {
-                child.GetComponent<EnemyHandler>().enemyHealth -= 1;
-            }
-
-            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot && child.GetComponent<EnemyHandler>().enemyCol == colToShoot + 1)
+            if (child.GetComponent<EnemyHandler>().enemyRow == rowToShoot)
             {
                 child.GetComponent<EnemyHandler>().enemyHealth -= 1;
             }

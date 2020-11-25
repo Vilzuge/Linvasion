@@ -51,23 +51,6 @@ public class EnemyHandler : MonoBehaviour
         int newEnemyCol = enemyCol - 1;
         transform.position = new Vector3(enemyRow, 0.3f, newEnemyCol);
         enemyCol = newEnemyCol;
-        hitsTank();
-    }
-
-
-    //Check if reached a tank
-    public void hitsTank()
-    {
-        foreach (Transform child in playerUnits)
-        {
-            int tankRow = child.gameObject.GetComponent<PlayerTank>().rowPos;
-            int tankCol = child.gameObject.GetComponent<PlayerTank>().colPos;
-            if (tankRow == enemyRow && tankCol == enemyCol)
-            {
-                //Do something here when the enemy hits the tank
-                Debug.Log("tank destroyed");
-            }
-        }
     }
 
     //Taking damage from the player, and updating health bar

@@ -41,6 +41,7 @@ public class SpawnTank : MonoBehaviour
     {
         canSpawn = transform.parent.gameObject.GetComponent<TileState>().isSpawnable;
         canSpawnLaser = transform.parent.gameObject.GetComponent<TileState>().isLaserSpawnable;
+        canSpawnStrong = transform.parent.gameObject.GetComponent<TileState>().isStrongSpawnable;
         if (canSpawn)
         {
             Spawning();

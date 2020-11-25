@@ -23,7 +23,7 @@ MonoBehaviour:
   hasAction: 1
   rowPos: 0
   colPos: 0
-  moveMinttu: 1
+  moveMinttu: 2
   rayLength: 100
   layerMask:
     serializedVersion: 2
@@ -126,7 +126,9 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8758959070691749579, guid: 50008ec170e79064e95e1acad9770adc, type: 3}
+    - {fileID: 7125998346100838917, guid: 50008ec170e79064e95e1acad9770adc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 50008ec170e79064e95e1acad9770adc, type: 3}
 --- !u!1 &8112629444009552362 stripped
 GameObject:
