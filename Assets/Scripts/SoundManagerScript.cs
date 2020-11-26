@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundManagerScript : MonoBehaviour
 {
 
-    public AudioClip playerShoot, laserShoot, spawnTank;
+    public AudioClip playerShoot, laserShoot, strongShoot, spawnTank;
     public static AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,9 @@ public class SoundManagerScript : MonoBehaviour
                 break;
             case "laserShoot":
                 audioSrc.PlayOneShot(laserShoot);
+                break;
+            case "strongShoot":
+                audioSrc.PlayOneShot(strongShoot);
                 break;
             case "spawn":
                 audioSrc.PlayOneShot(spawnTank);

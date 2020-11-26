@@ -120,7 +120,7 @@ public class StrongTank : MonoBehaviour
 
                         //handle the shooting enemies
                         damageLine(rowToShoot, colToShoot);
-                        soundManager.PlaySound("laserShoot");
+                        soundManager.PlaySound("strongShoot");
                         hasAction = false;
                         isSelected = false;
                         aimScript.isAiming = false;
