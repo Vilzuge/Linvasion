@@ -22,6 +22,7 @@ public class SpawnTank : MonoBehaviour
     public bool canSpawn;
     public bool canSpawnLaser;
     public bool canSpawnStrong;
+    public bool tileIsOccupied;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class SpawnTank : MonoBehaviour
         movementScript = GameObject.Find("GameBoard").GetComponent<DrawMovement>();
         playerUnits = GameObject.Find("PlayerUnits").transform;
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+        tileIsOccupied = transform.parent.GetComponent<TileState>().isOccupied;
     }
 
     // Update is called once per frame
@@ -42,6 +44,7 @@ public class SpawnTank : MonoBehaviour
         canSpawn = transform.parent.gameObject.GetComponent<TileState>().isSpawnable;
         canSpawnLaser = transform.parent.gameObject.GetComponent<TileState>().isLaserSpawnable;
         canSpawnStrong = transform.parent.gameObject.GetComponent<TileState>().isStrongSpawnable;
+
         if (canSpawn)
         {
             Spawning();
@@ -79,6 +82,7 @@ public class SpawnTank : MonoBehaviour
         interfaceHandler.unSpawned -= 1;
 
         //Resetting spawn area
+        //transform.parent.GetComponent<TileState>().isOccupied = true;
         movementScript.ResetSpawnGrid();
     }
 
@@ -104,6 +108,7 @@ public class SpawnTank : MonoBehaviour
         interfaceHandler.unSpawned -= 1;
 
         //Resetting spawn area
+        //transform.parent.GetComponent<TileState>().isOccupied = true;
         movementScript.ResetSpawnGrid();
     }
 
@@ -129,6 +134,7 @@ public class SpawnTank : MonoBehaviour
         interfaceHandler.unSpawned -= 1;
 
         //Resetting spawn area
+        //transform.parent.GetComponent<TileState>().isOccupied = true;
         movementScript.ResetSpawnGrid();
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1867531, g: 0.19384658, b: 0.22549915, a: 1}
+  m_IndirectSpecularColor: {r: 0.18501031, g: 0.1921565, b: 0.22359318, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -822,7 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 666539080}
   m_Layer: 0
-  m_Name: ----------UNITS----------
+  m_Name: =====UNITS=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1791,7 +1791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1119705188}
   m_Layer: 0
-  m_Name: ----------UI/SYSTEM----------
+  m_Name: =====UI/SYSTEM=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2172,7 +2172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1416605605}
   m_Layer: 0
-  m_Name: ----------CAMERA/LIGHT----------
+  m_Name: =====CAMERA/LIGHT=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2287,7 +2287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1720050928}
   m_Layer: 0
-  m_Name: ----------BOARD----------
+  m_Name: =====BOARD=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3036,7 +3036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2081760156}
   m_Layer: 0
-  m_Name: ----------SOUND----------
+  m_Name: =====SOUND=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
