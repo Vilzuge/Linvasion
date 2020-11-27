@@ -19,6 +19,9 @@ MonoBehaviour:
   aimScript: {fileID: 0}
   allEnemies: {fileID: 0}
   playerUnits: {fileID: 0}
+  explosion: {fileID: 0}
+  projectile: {fileID: 4229069522357350749, guid: 26a953afe7e7c674c9091fcf4399cdd9,
+    type: 3}
   isSelected: 0
   hasAction: 1
   rowPos: 0

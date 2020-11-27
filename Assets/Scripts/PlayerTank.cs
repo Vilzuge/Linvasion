@@ -13,6 +13,7 @@ public class PlayerTank : MonoBehaviour
 {
     public Material defaultMaterial;
     public Material selectedMaterial;
+    public ParticleSystem explosion;
     private DrawMovement movementScript;
     private DrawShooting shootingScript;
     private ToggleAim aimScript;
@@ -231,5 +232,8 @@ public class PlayerTank : MonoBehaviour
                 child.GetComponent<EnemyHandler>().enemyHealth -= 2;
             }
         }
+
+        //playing particle effects!
+        Instantiate(explosion, new Vector3(rowToShoot, 0.2f, colToShoot), Quaternion.identity);
     }
 }

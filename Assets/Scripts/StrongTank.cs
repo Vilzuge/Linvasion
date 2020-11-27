@@ -19,6 +19,8 @@ public class StrongTank : MonoBehaviour
     public GameObject allEnemies;
     public Transform playerUnits;
     private SoundManagerScript soundManager;
+    public ParticleSystem explosion;
+    public GameObject projectile;
 
     //Properties of the default tank
     public bool isSelected = false;
@@ -230,5 +232,7 @@ public class StrongTank : MonoBehaviour
                 child.GetComponent<EnemyHandler>().enemyHealth -= 1;
             }
         }
+        var spear = Instantiate(projectile, transform.position, transform.rotation * Quaternion.Euler(-90f, 0f, 0f));
+        spear.GetComponent<Rigidbody>().AddForce(0, 100, 1500);
     }
 }

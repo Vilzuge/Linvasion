@@ -19,6 +19,7 @@ public class LaserTank : MonoBehaviour
     public GameObject allEnemies;
     public Transform playerUnits;
     private SoundManagerScript soundManager;
+    public ParticleSystem explosion;
 
     //Properties of the default tank
     public bool isSelected = false;
@@ -251,5 +252,11 @@ public class LaserTank : MonoBehaviour
                 child.GetComponent<EnemyHandler>().enemyHealth -= 1;
             }
         }
+        //creating all the explosions
+        Instantiate(explosion, new Vector3(rowToShoot, 0.2f, colToShoot), Quaternion.identity);
+        Instantiate(explosion, new Vector3(rowToShoot-1, 0.2f, colToShoot), Quaternion.identity);
+        Instantiate(explosion, new Vector3(rowToShoot+1, 0.2f, colToShoot), Quaternion.identity);
+        Instantiate(explosion, new Vector3(rowToShoot, 0.2f, colToShoot-1), Quaternion.identity);
+        Instantiate(explosion, new Vector3(rowToShoot, 0.2f, colToShoot+1), Quaternion.identity);
     }
 }

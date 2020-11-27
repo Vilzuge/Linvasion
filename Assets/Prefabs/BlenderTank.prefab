@@ -110,6 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1390a2730cbb3dc4493bac74b02ef1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}
+  explosion: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
+    type: 3}
   isSelected: 0
   hasAction: 1
   rowPos: 0
