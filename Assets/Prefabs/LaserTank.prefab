@@ -122,6 +122,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserTank
       objectReference: {fileID: 0}
+    - target: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerUnit
+      objectReference: {fileID: 0}
     - target: {fileID: 2806736462009763830, guid: e597f84d05803b54b878fbac334d23cf,
         type: 3}
       propertyPath: m_Mesh

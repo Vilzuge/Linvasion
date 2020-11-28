@@ -185,6 +185,15 @@ public class PlayerTank : MonoBehaviour
     //Check if the selected tile is walkable by the tank
     public bool isWalkable(int rowPosition, int colPosition)
     {
+        foreach (Transform child in playerUnits)
+        {
+            if (child.position.x == rowPosition && child.position.z == colPosition)
+            {
+                return false;
+            }
+        }
+
+
         if ((System.Math.Abs(rowPosition - rowPos) + System.Math.Abs(colPosition - colPos)) <= moveMinttu)
         {
             //is moveable
