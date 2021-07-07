@@ -7,10 +7,10 @@ using UnityEngine;
 This script handles "back to menu" buttons
 -------------------------------------------
 */
-public class BackToMenu : MonoBehaviour
+public class SceneSwitcher: MonoBehaviour
 {
     //If the button is clicked, move back to menu.
-    public void backToMenu()
+    public void SwitchToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }

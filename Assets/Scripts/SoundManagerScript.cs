@@ -18,7 +18,7 @@ public class SoundManagerScript : MonoBehaviour
     {
         
     }
-
+    
     public void PlaySound(string clip)
     {
         switch (clip)
