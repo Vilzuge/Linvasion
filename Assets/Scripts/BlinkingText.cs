@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class BlinkingText : MonoBehaviour
 {
     Text text;
@@ -20,7 +21,6 @@ public class BlinkingText : MonoBehaviour
             text.text = " ";
             yield return new WaitForSeconds(1f);
         }
-
     }
     void StartBlinking()
     {

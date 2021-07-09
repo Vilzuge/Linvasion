@@ -4,7 +4,11 @@ using UnityEngine;
 
 /*
 -------------------------------------------
+OUTDATED
+
 This script handles the visuals of movement
+
+OUTDATED
 -------------------------------------------
 */
 

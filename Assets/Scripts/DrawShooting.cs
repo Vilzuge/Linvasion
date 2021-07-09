@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
 -------------------------------------------
+OUTDATED
+
 This script handles the visuals of the shootable tiles
+
+OUTDATED
 -------------------------------------------
 */
 public class DrawShooting : MonoBehaviour
