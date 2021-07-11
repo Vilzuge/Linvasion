@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class BoardGenerator : EditorWindow
 {
-   private string objectName = "";
-   private int objectID = 1;
-   private GameObject objectToSpawn;
-   private float objectScale;
-   private float spawnRadius;
+   private int gridDimension = 8;
+   private GameObject gameBoard;
+   private GameObject defaultTile;
+
 
    [MenuItem("Tools/Board Generator")]
    public static void ShowWindow()
@@ -19,42 +18,40 @@ public class BoardGenerator : EditorWindow
 
    private void OnGUI()
    {
-      GUILayout.Label("Spawn New Object", EditorStyles.boldLabel);
+      GUILayout.Label("Generate new game board", EditorStyles.boldLabel);
+      defaultTile = EditorGUILayout.ObjectField("Single tile", defaultTile, typeof(GameObject), false) as GameObject;
 
-      objectName = EditorGUILayout.TextField("Base Name", objectName);
-      objectID = EditorGUILayout.IntField("Object ID", objectID);
-      objectScale = EditorGUILayout.Slider("Object Scale", objectScale, 0.5f, 3f);
-      spawnRadius = EditorGUILayout.FloatField("Spawn Radius", spawnRadius);
-      objectToSpawn = EditorGUILayout.ObjectField("Prefab to Spawn", objectToSpawn, typeof(GameObject), false) as GameObject;
-
-      if (GUILayout.Button("Spawn Object"))
+      if (GUILayout.Button("Spawn new board"))
       {
-         SpawnObject();
+         FindBoard();
+         GenerateBoard();
       }
    }
 
-   private void SpawnObject()
+   private void GenerateBoard()
    {
-      if (objectToSpawn == null)
+      foreach (Transform child in gameBoard.transform)
+      {
+         GameObject.DestroyImmediate(child.gameObject);
+      }
+      
+      for (int row = 0; row <= gridDimension - 1; row++)
+      {
+         for (int col = 0; col <= gridDimension - 1; col++)
+         {
+            GameObject newTile = Instantiate(defaultTile, new Vector3(row, -0.5f, col), Quaternion.identity, gameBoard.transform);
+         }
+      }
+   }
+
+   private void FindBoard()
+   {
+      gameBoard = GameObject.Find("GameBoard");
+      
+      if (gameBoard == null)
       {
          Debug.LogError("Error: Please assign an object to be spawned.");
          return;
       }
-
-      if (objectName == string.Empty)
-      {
-         Debug.LogError("Error: Please enter a base name for the object.");
-         return;
-      }
-
-      Vector2 spawnCircle = Random.insideUnitCircle * spawnRadius;
-      Vector3 spawnPos = new Vector3(spawnCircle.x, 0f, spawnCircle.y);
-
-      GameObject newObject = Instantiate(objectToSpawn, spawnPos, Quaternion.identity);
-      newObject.name = objectName + objectID;
-      newObject.transform.localScale = Vector3.one * objectScale;
-
-      objectID++;
-
    }
 }
