@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
+/*
+-------------------------------------------
+Tool for generating a new random gameboard to the scene
 
+Created initially to learn about editor scripts in Unity but was found quite useful later
+-------------------------------------------
+*/
 public class BoardGenerator : EditorWindow
 {
    private int gridDimension = 8;
@@ -50,6 +56,7 @@ public class BoardGenerator : EditorWindow
    
    private void GenerateBoard()
    {
+      // GENERATING A NEW GAMEBOARD TO A LIST
       boardTileArray = new List<GameObject>();
       int totalTiles = gridDimension * gridDimension;
       
@@ -69,14 +76,14 @@ public class BoardGenerator : EditorWindow
 
    private void SpawnBoard()
    {
-      // EMPTY THE GAMEBOARD
+      // EMPTY THE OLD GAMEBOARD
       var tempList = gameBoard.transform.Cast<Transform>().ToList();
       foreach (var child in tempList)
       {
          GameObject.DestroyImmediate(child.gameObject);
       }
       
-      // SPAWNING THE NEW BOARD
+      // SPAWNING THE NEW GAMEBOARD
       for (int row = 0; row <= gridDimension - 1; row++)
       {
          for (int col = 0; col <= gridDimension - 1; col++)
@@ -85,17 +92,24 @@ public class BoardGenerator : EditorWindow
             string tileType = boardTileArray[tileIndex].name;
             Debug.Log(tileIndex);
             Debug.Log(boardTileArray[tileIndex].name);
+            
             GameObject newTile = Instantiate(boardTileArray[tileIndex], new Vector3(row, -0.5f, col), Quaternion.identity, gameBoard.transform);
-
             newTile.GetComponent<BaseTile>().rowIndex = row;
             newTile.GetComponent<BaseTile>().colIndex = col;
-            //newTile.name = "juuh";
+            newTile.name = $"({row},{col}) {tileType}";
          }
       }
+      
+      // ASSIGNING VALUES TO GRID MANAGER
+      gameBoard.GetComponent<GridManager>().dimension = gridDimension;
    }
 
    private void EmptyBoard()
    {
+      if (gameBoard == null)
+      {
+         return;
+      }
       // EMPTY THE GAMEBOARD
       var tempList = gameBoard.transform.Cast<Transform>().ToList();
       foreach (var child in tempList)

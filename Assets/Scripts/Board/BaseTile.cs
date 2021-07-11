@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
 -------------------------------------------
-Logic of a single tile in the gameboard
+Base tile that other tile types are extended from
 -------------------------------------------
 */
 public class BaseTile : MonoBehaviour
 {
     public int rowIndex;
     public int colIndex;
-    public bool isOccupied;
+    public bool isOccupied = false;
     public bool isWalkable;
     
     public GameObject currentOccupant;
@@ -18,7 +18,7 @@ public class BaseTile : MonoBehaviour
 
     void Start()
     {
-        isOccupied = false;
+        
     }
     void Update()
     {

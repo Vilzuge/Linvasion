@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6555836324079461156}
-  - component: {fileID: -8486682839451490410}
+  - component: {fileID: 5052146553989738686}
   m_Layer: 0
   m_Name: TileWater
   m_TagString: Untagged
@@ -29,11 +29,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7126140480026226361}
-  - {fileID: 1994202609397673126}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8486682839451490410
+--- !u!114 &5052146553989738686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1358931825539846307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24ad141761e3eb4890a46361ac79e4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 973f28964e94cdb4f81455713669dc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rowIndex: 0
@@ -76,11 +75,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4973255113366725408}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.001, z: 0}
+  m_LocalPosition: {x: 0, y: 0.501, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6555836324079461156}
-  m_RootOrder: 1
+  m_Father: {fileID: 7126140480026226361}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &9098018397990374412
 MeshFilter:
@@ -143,7 +142,6 @@ GameObject:
   - component: {fileID: 5591009653605343433}
   - component: {fileID: 1827305472611224145}
   - component: {fileID: 2374271231787768996}
-  - component: {fileID: 5270330502699724216}
   m_Layer: 0
   m_Name: CubeVisual
   m_TagString: Untagged
@@ -161,7 +159,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1994202609397673126}
   m_Father: {fileID: 6555836324079461156}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,32 +226,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5270330502699724216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469532798141328718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc352fa3072f02e4fbf388ca20d7b01b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tankPrefab: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
-    type: 3}
-  laserPrefab: {fileID: 1887762016524886358, guid: 50008ec170e79064e95e1acad9770adc,
-    type: 3}
-  strongPrefab: {fileID: 8112629444009552362, guid: 36e0ffd19fcc4e749ba3ad65e43a3b43,
-    type: 3}
-  spawnedTank: {fileID: 0}
-  playerUnits: {fileID: 0}
-  interfaceHandler: {fileID: 0}
-  movementScript: {fileID: 0}
-  soundManager: {fileID: 0}
-  parentRow: 0
-  parentCol: 0
-  canSpawn: 0
-  canSpawnLaser: 0
-  canSpawnStrong: 0
-  tileIsOccupied: 0

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+/*
+-------------------------------------------
+Copy paste from a video for reference
+-------------------------------------------
+*/
 public class ObjectSpawner : EditorWindow
 {
    private string objectName = "";

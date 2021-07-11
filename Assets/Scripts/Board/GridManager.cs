@@ -17,6 +17,9 @@ public class GridManager : MonoBehaviour
     private static Material _moveableTile;
     private static Material _spawnableTile;
     private static Material _shootableTile;
+
+    public int dimension;
+    
     void Start()
     {
         //Loading the materials
@@ -27,18 +30,19 @@ public class GridManager : MonoBehaviour
     }
 
     // DRAWING MOVEMENT
-    public void DrawMovementGrid(int rowPos, int colPos, int movement)
+    public void DrawMovementGrid(int rowPos, int colPos, int movementValue)
     {
-        for (var row = 0; row <= 5; row++)
+        for (var row = 0; row <= dimension-1; row++)
         {
-            for (var col = 0; col <= 5; col++)
+            for (var col = 0; col <= dimension-1; col++)
             {
-                if ((System.Math.Abs(rowPos - row) + System.Math.Abs(colPos - col)) <= movement)
+                // Check are we inside the movement radius
+                if ((System.Math.Abs(rowPos - row) + System.Math.Abs(colPos - col)) <= movementValue)
                 {
-                    //Check every tile inside the gameboard change the material if moveable
+                    // Change the material if can be moved on
                     foreach (Transform child in transform)
                     {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col && child.gameObject.GetComponent<TileState>().isOccupied == false)
+                        if (child.gameObject.GetComponent<BaseTile>().rowIndex == row && child.gameObject.GetComponent<BaseTile>().colIndex == col && child.gameObject.GetComponent<BaseTile>().isOccupied == false)
                         {
                             child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _moveableTile;
                         }
