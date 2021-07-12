@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
     // DRAWING MOVEMENT
     public void DrawMovementGrid(int rowPos, int colPos, int movementValue)
     {
+        Debug.Log("Coloring movable tiles.");
         for (var row = 0; row <= dimension-1; row++)
         {
             for (var col = 0; col <= dimension-1; col++)
@@ -44,7 +45,7 @@ public class GridManager : MonoBehaviour
                     {
                         if (child.gameObject.GetComponent<BaseTile>().rowIndex == row && child.gameObject.GetComponent<BaseTile>().colIndex == col && child.gameObject.GetComponent<BaseTile>().isOccupied == false)
                         {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _moveableTile;
+                            child.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = _moveableTile;
                         }
                     }
                 }
@@ -58,7 +59,7 @@ public class GridManager : MonoBehaviour
         Debug.Log("Palautetaan väri!");
         foreach (Transform child in transform)
         {
-            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _defaultTile;
+            child.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = _defaultTile;
         }
     }
     
@@ -67,6 +68,7 @@ public class GridManager : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
+            // Assigning the spawn area happens here
             if (child.gameObject.GetComponent<TileState>().ColIndex <= 1 && child.gameObject.GetComponent<TileState>().isOccupied == false)
             {
                 child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _spawnableTile;
