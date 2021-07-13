@@ -21,4 +21,17 @@ public class PlayerManager : MonoBehaviour
     {
         
     }
+    
+    /*
+    private void MyMouseClick()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        if (hit)
+        {
+            // Call methods here
+            Debug.Log("Raycast Hit -> " + hit.transform.name);
+        }
+    }
+    */
 }

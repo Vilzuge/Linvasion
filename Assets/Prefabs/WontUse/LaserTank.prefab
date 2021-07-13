@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7125998346100838917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887762016524886358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb881220b88929f43811a639e972b57e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
-  movementScript: {fileID: 0}
-  shootingScript: {fileID: 0}
-  aimScript: {fileID: 0}
-  allEnemies: {fileID: 0}
-  playerUnits: {fileID: 0}
-  explosion: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
-    type: 3}
-  isSelected: 0
-  hasAction: 1
-  rowPos: 0
-  colPos: 0
-  moveMinttu: 2
-  rayLength: 100
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!1001 &10451156655748031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,9 +106,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -456214193529332364, guid: e597f84d05803b54b878fbac334d23cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e597f84d05803b54b878fbac334d23cf, type: 3}
---- !u!1 &1887762016524886358 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1880126163704468201, guid: e597f84d05803b54b878fbac334d23cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 10451156655748031}
-  m_PrefabAsset: {fileID: 0}

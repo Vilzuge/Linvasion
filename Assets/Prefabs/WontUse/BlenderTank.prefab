@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2806736462009763830}
   - component: {fileID: 78655458074325820}
   - component: {fileID: 644667953150296295}
-  - component: {fileID: -456214193529332364}
   - component: {fileID: 2922500697172407937}
   m_Layer: 0
   m_Name: BlenderTank
@@ -98,31 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.057098903, y: 0.15150914, z: 0.046697944}
   m_Center: {x: 0.0008616876, y: 0.010751208, z: 0.013348974}
---- !u!114 &-456214193529332364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880126163704468201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1390a2730cbb3dc4493bac74b02ef1f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
-  explosion: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
-    type: 3}
-  isSelected: 0
-  hasAction: 1
-  rowPos: 0
-  colPos: 0
-  moveMinttu: 3
-  rayLength: 100
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!95 &2922500697172407937
 Animator:
   serializedVersion: 3

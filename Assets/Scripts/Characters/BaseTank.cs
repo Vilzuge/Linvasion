@@ -18,11 +18,9 @@ public class BaseTank : MonoBehaviour
     // PARTICLE SYSTEMS
     public ParticleSystem explosionEffect;
     
-    // BOARDMANAGER
-    public GridManager gridManager;
-    
-    // SOUNDMANAGER
-    public SoundManagerScript soundManager;
+    // Managers
+    private GridManager gridManager;
+    private SoundManagerScript soundManager;
 
     // PROPERTIES
     [field: Header("Tank Attributes")]
@@ -35,9 +33,9 @@ public class BaseTank : MonoBehaviour
     
     
     void Start()
-    {
-        RowPos = 3;
-        int myrowpos = RowPos;
+    { 
+        gridManager = GameObject.Find("GameBoard").GetComponent<GridManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
     }
 
     void Update()
@@ -46,9 +44,10 @@ public class BaseTank : MonoBehaviour
     }
     
     // HANDLING MOVEMENT
-    public void handleMovement()
+    public void moveTo(int row, int col)
     {
-        
+        // If the cell is valid, move there
+        transform.position = new Vector3(row, 0.1f, col);
     }
 
     // HANDLING SHOOTING
