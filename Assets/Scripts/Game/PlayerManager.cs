@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /*
 -------------------------------------------
@@ -19,19 +20,14 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    
-    /*
-    private void MyMouseClick()
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-        if (hit)
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            // Call methods here
-            Debug.Log("Raycast Hit -> " + hit.transform.name);
+            Debug.Log("Moii");
         }
     }
-    */
+    
+    private void MyMouseClick()
+    {
+        
+    }
 }

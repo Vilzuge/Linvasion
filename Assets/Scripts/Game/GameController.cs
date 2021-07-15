@@ -29,41 +29,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        //Handle enemy turn
-        if (!isPlayerTurn)
-        {
-            foreach (Transform child in enemyUnits)
-            {
-                //Do stuff with the enemies
-            }
-            Debug.Log("Enemy turn over..");
 
-            //Spawn new enemies
-
-            //Switch back to players turn and replenish
-            foreach (Transform child in playerUnits)
-            {
-
-            }
-            isPlayerTurn = true;
-        }
-
-        //Handle ending the game, pop a win screen etc
-        if (hasPlayerWon)
-        {
-            Debug.Log("You won!!!");
-        }
-
-        //Handle ending the game, pop a lose screen etc
-        if (hasPlayerLost)
-        {
-            Debug.Log("You lost...");
-            SceneManager.LoadScene("LoseScreen");
-        }
     }
 
     public void ChangeTurn()
     {
-        isPlayerTurn = false;
+
     }
 }

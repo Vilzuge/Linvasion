@@ -11,31 +11,33 @@ This script handles default tank of the player
 */
 public class BaseTank : MonoBehaviour
 {
-    // MATERIALS NORMAL/SELECTED
+    // VISUALS
     public Material defaultMaterial;
     public Material selectedMaterial;
-    
-    // PARTICLE SYSTEMS
     public ParticleSystem explosionEffect;
     
-    // Managers
+    // MANAGERS
     private GridManager gridManager;
     private SoundManagerScript soundManager;
 
     // PROPERTIES
-    [field: Header("Tank Attributes")]
-    public int RowPos { get; set; }
-    public int ColPos { get; set; }
+    protected int RowPos { get; set; }
+    protected int ColPos { get; set; }
 
     //private int statMovement = 3;
     //private bool hasAction = true;
 
     
     
-    void Start()
+    public virtual void Start()
     { 
         gridManager = GameObject.Find("GameBoard").GetComponent<GridManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+        var position = transform.position;
+        RowPos = (int)position.x;
+        ColPos = (int)position.z;
+        Debug.Log("From base: " + RowPos.ToString());
+        Debug.Log("From base: " + ColPos.ToString());
     }
 
     void Update()
