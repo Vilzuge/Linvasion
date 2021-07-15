@@ -27,8 +27,8 @@ public class BaseTank : MonoBehaviour
     public int RowPos { get; set; }
     public int ColPos { get; set; }
 
-    private int statMovement = 3;
-    private bool hasAction = true;
+    //private int statMovement = 3;
+    //private bool hasAction = true;
 
     
     

@@ -56,100 +56,36 @@ public class GridManager : MonoBehaviour
     // RESET MOVEMENT DRAW
     public void ResetMovement()
     {
-        Debug.Log("Palautetaan väri!");
-        foreach (Transform child in transform)
-        {
-            child.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = _defaultTile;
-        }
+
     }
     
     // DRAW SPAWNING GRID FOR THE SELECTED TANK
     public void DrawSpawnGrid(string tankType)
     {
-        foreach (Transform child in transform)
-        {
-            // Assigning the spawn area happens here
-            if (child.gameObject.GetComponent<TileState>().ColIndex <= 1 && child.gameObject.GetComponent<TileState>().isOccupied == false)
-            {
-                child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _spawnableTile;
-                child.gameObject.GetComponent<TileState>().isSpawnable = true;
-            }
-        }
+
     }
 
     public void ResetSpawnGrid()
     {
-        foreach (Transform child in transform)
-        {
-            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _defaultTile;
-            child.gameObject.GetComponent<TileState>().isSpawnable = false;
-            child.gameObject.GetComponent<TileState>().isLaserSpawnable = false;
-            child.gameObject.GetComponent<TileState>().isStrongSpawnable = false;
-        }
+
     }
     
     
     //Calculates the tiles where the tank can move and recolours them, requires its position and movement attribute
     public void DrawShootingGrid(int rowPos, int colPos)
     {
-        for (int row = 0; row <= 5; row++)
-        {
-            for (int col = 0; col <= 5; col++)
-            {
-                if (row == rowPos && !(row == rowPos && col == colPos))
-                {
-                    //Check every tile inside the gameboard change the material if shootable
-                    foreach (Transform child in transform)
-                    {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
-                        {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _shootableTile;
-                        }
-                    }
-                } else if (col == colPos && !(row == rowPos && col == colPos))
-                {
-                    //Check every tile inside the gameboard change the material if shootable
-                    foreach (Transform child in transform)
-                    {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
-                        {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _shootableTile;
-                        }
-                    }
-                }
-            }
-        }
+
     }
 
     public void DrawStrongShootingGrid(int rowPos, int colPos)
     {
-        for (int row = 0; row <= 5; row++)
-        {
-            for (int col = 0; col <= 5; col++)
-            {
-                if (row == rowPos && !(row == rowPos && col == colPos))
-                {
-                    //Check every tile inside the gameboard change the material if shootable
-                    foreach (Transform child in transform)
-                    {
-                        if (child.gameObject.GetComponent<TileState>().RowIndex == row && child.gameObject.GetComponent<TileState>().ColIndex == col)
-                        {
-                            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _shootableTile;
-                        }
-                    }
-                }
-            }
-        }
+
     }
 
     //Resets the shooting grid back to normal tiles
     public void ResetShootingGrid()
     {
-        Debug.Log("Palautetaan väri!");
-        foreach (Transform child in transform)
-        {
-            child.Find("Quad").gameObject.GetComponent<MeshRenderer>().material = _defaultTile;
-        }
+
     }
     
     
