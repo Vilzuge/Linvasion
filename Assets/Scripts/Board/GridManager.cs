@@ -1,6 +1,10 @@
-﻿using System.Collections;
+﻿using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System.Xml;
+using UnityEditor;
 
 /*
 -------------------------------------------
@@ -18,8 +22,16 @@ public class GridManager : MonoBehaviour
     private static Material _spawnableTile;
     private static Material _shootableTile;
 
-    public int dimension;
-    
+    public int dimension = 8;
+
+    private GameObject[,] gridArray;
+    public GameObject grassTile;
+    public GameObject waterTile;
+
+    void Awake()
+    {
+        gridArray = new GameObject[dimension, dimension];
+    }
     void Start()
     {
         //Loading the materials
@@ -27,7 +39,56 @@ public class GridManager : MonoBehaviour
         _moveableTile = Resources.Load<Material>("Materials/GroundHighlight");
         _spawnableTile = Resources.Load<Material>("Materials/GroundSpawnable");
         _shootableTile = Resources.Load<Material>("Materials/GroundShootable");
+        
+        GenerateBoard();
+        Debug.Log("Board generated");
+        
     }
+
+    
+    // Generating the gameboard
+    private void GenerateBoard()
+    {
+        var tempList = transform.Cast<Transform>().ToList();
+        foreach (var child in tempList)
+        {
+            GameObject.DestroyImmediate(child.gameObject);
+        }
+        
+        // GENERATING A NEW GAMEBOARD TO AN ARRAY
+        for (int row = 0; row <= dimension - 1; row++)
+        {
+            for (int col = 0; col <= dimension - 1; col++)
+            {
+                float randomChance = Random.Range(0.0f, 1.0f);
+                if (randomChance < 1.0f)
+                {
+                    GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
+                    gridArray[row, col] = newTile;
+                    newTile.GetComponent<BaseTile>().row = row;
+                    newTile.GetComponent<BaseTile>().col = col;
+                    newTile.name = $"({row},{col}) {newTile.name}";
+                }
+                else
+                {
+                    GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
+                    gridArray[row, col] = newTile;
+                    newTile.GetComponent<BaseTile>().row = row;
+                    newTile.GetComponent<BaseTile>().col = col;
+                    newTile.name = $"({row},{col}) {newTile.name}";
+                }
+            }
+        }
+    }
+
+    public GameObject TileFromPosition(int row, int col)
+    {
+        return gridArray[row, col];
+    }
+
+
+
+
 
     // DRAWING MOVEMENT
     public void DrawMovementGrid(int rowPos, int colPos, int movementValue)
@@ -43,7 +104,7 @@ public class GridManager : MonoBehaviour
                     // Change the material if can be moved on
                     foreach (Transform child in transform)
                     {
-                        if (child.gameObject.GetComponent<BaseTile>().rowIndex == row && child.gameObject.GetComponent<BaseTile>().colIndex == col && child.gameObject.GetComponent<BaseTile>().isOccupied == false)
+                        if (child.gameObject.GetComponent<BaseTile>().row == row && child.gameObject.GetComponent<BaseTile>().col == col /* && child.gameObject.GetComponent<BaseTile>().isOccupied == false */)
                         {
                             child.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = _moveableTile;
                         }

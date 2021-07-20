@@ -8,20 +8,17 @@ Base tile that other tile types are extended from
 */
 public class BaseTile : MonoBehaviour
 {
-    public int rowIndex;
-    public int colIndex;
-    public bool isOccupied = false;
-    public bool isWalkable;
-    
-    public GameObject currentOccupant;
+    public int row;
+    public int col;
 
+    public int gCost;
+    public int hCost;
 
-    void Start()
+    public int fCost
     {
-        
-    }
-    void Update()
-    {
-
+        get
+        {
+            return gCost + hCost;
+        }
     }
 }
