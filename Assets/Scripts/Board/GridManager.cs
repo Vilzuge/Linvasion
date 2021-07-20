@@ -21,8 +21,10 @@ public class GridManager : MonoBehaviour
     private static Material _moveableTile;
     private static Material _spawnableTile;
     private static Material _shootableTile;
-
-    public int dimension = 8;
+    
+    
+    public const int BOARD_SIZE = 8;
+    [SerializeField] private Transform firstTileTransform;
 
     private GameObject[,] gridArray;
     public GameObject grassTile;
@@ -30,8 +32,11 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-        gridArray = new GameObject[dimension, dimension];
+        gridArray = new GameObject[BOARD_SIZE, BOARD_SIZE];
     }
+    
+    
+    
     void Start()
     {
         //Loading the materials
@@ -44,7 +49,8 @@ public class GridManager : MonoBehaviour
         Debug.Log("Board generated");
         
     }
-
+    
+    
     
     // Generating the gameboard
     private void GenerateBoard()
@@ -55,10 +61,10 @@ public class GridManager : MonoBehaviour
             GameObject.DestroyImmediate(child.gameObject);
         }
         
-        // GENERATING A NEW GAMEBOARD TO AN ARRAY
-        for (int row = 0; row <= dimension - 1; row++)
+        // GENERATING AND SPAWNING NEW GAMEBOARD, STORED IN ARRAY
+        for (int row = 0; row <= BOARD_SIZE - 1; row++)
         {
-            for (int col = 0; col <= dimension - 1; col++)
+            for (int col = 0; col <= BOARD_SIZE - 1; col++)
             {
                 float randomChance = Random.Range(0.0f, 1.0f);
                 if (randomChance < 1.0f)
@@ -80,13 +86,27 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    
 
-    public GameObject TileFromPosition(int row, int col)
+    public void OnTileSelected(Vector3 inputPosition)
     {
-        return gridArray[row, col];
+        Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
+        Debug.Log("Row: " + coordinates.x + "Col: " + coordinates.y);
     }
 
-
+    /*
+    private Vector2Int CalculatePositionFromCoordinates(Vector2Int coordinates)
+    {
+        return 
+    }
+    */
+    
+    private Vector2Int CalculateCoordinatesFromPosition(Vector3 inputPosition)
+    {
+        int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).x + 0.5f);
+        int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).z + 0.5f);
+        return new Vector2Int(x, y);
+    }
 
 
 
@@ -94,9 +114,9 @@ public class GridManager : MonoBehaviour
     public void DrawMovementGrid(int rowPos, int colPos, int movementValue)
     {
         Debug.Log("Coloring movable tiles.");
-        for (var row = 0; row <= dimension-1; row++)
+        for (var row = 0; row <= BOARD_SIZE-1; row++)
         {
-            for (var col = 0; col <= dimension-1; col++)
+            for (var col = 0; col <= BOARD_SIZE-1; col++)
             {
                 // Check are we inside the movement radius
                 if ((System.Math.Abs(rowPos - row) + System.Math.Abs(colPos - col)) <= movementValue)

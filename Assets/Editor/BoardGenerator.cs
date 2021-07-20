@@ -101,7 +101,7 @@ public class BoardGenerator : EditorWindow
       }
       
       // ASSIGNING VALUES TO GRID MANAGER
-      gameBoard.GetComponent<GridManager>().dimension = gridDimension;
+      //gameBoard.GetComponent<GridManager>().BOARD_SIZE = gridDimension;
    }
 
    private void EmptyBoard()

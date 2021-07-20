@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ColliderInputReceiver : InputReceiver
 {
@@ -8,13 +9,14 @@ public class ColliderInputReceiver : InputReceiver
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out hit))
             {
                 clickPosition = hit.point;
+                OnInputReceived();
             }
         }
     }
@@ -23,7 +25,8 @@ public class ColliderInputReceiver : InputReceiver
     {
         foreach (var handler in inputHandlers)
         {
-            handler.processInput(clickPosition, null, null);
+            handler.ProcessInput(clickPosition, null, null);
+            Debug.Log("Handlers were called");
         }
     }
 }

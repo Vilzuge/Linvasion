@@ -20,10 +20,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            Debug.Log("Moii");
-        }
+
     }
     
     private void MyMouseClick()

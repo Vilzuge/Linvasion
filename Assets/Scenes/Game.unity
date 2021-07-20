@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.21970996, g: 0.22200093, b: 0.25834736, a: 1}
+  m_IndirectSpecularColor: {r: 0.22390226, g: 0.22616366, b: 0.26308292, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2321,6 +2321,8 @@ GameObject:
   - component: {fileID: 1805138031}
   - component: {fileID: 1805138032}
   - component: {fileID: 1805138033}
+  - component: {fileID: 1805138034}
+  - component: {fileID: 1805138035}
   m_Layer: 0
   m_Name: GameBoard
   m_TagString: Untagged
@@ -2354,7 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8bdb4a20fa9e745989fb8de13f0ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimension: 8
+  firstTileTransform: {fileID: 0}
   grassTile: {fileID: 1358931825539846307, guid: ae0f9f5e9cb91f54d9f15f86f5c049c3,
     type: 3}
   waterTile: {fileID: 1358931825539846307, guid: 7a850d5876373884a800af96594934e3,
@@ -2369,6 +2371,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21934eb71522fc64aad8e925bdde1ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1805138034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805138030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23fbd6b0b135b743a3ebdabaee21654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1805138035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805138030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064b5182befdaa141b1bf634882832a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1840039834
