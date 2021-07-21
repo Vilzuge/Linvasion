@@ -9,31 +9,25 @@ This script keeps track of the gamestate
 */
 public class GameController : MonoBehaviour
 {
-    //Different attributes regarding the gamestate, public for testing
-    public bool isPlayerTurn;
-    public bool hasPlayerWon;
-    public bool hasPlayerLost;
+    protected GameState state;
 
-    //Player & enemy units
-    public Transform playerUnits;
-    public Transform enemyUnits;
-
-    void Start()
+    public void SetGameState(GameState state)
     {
-        isPlayerTurn = true;
-        hasPlayerWon = false;
-        hasPlayerLost = false;
-        playerUnits = GameObject.Find("PlayerUnits").transform;
-        enemyUnits = GameObject.Find("EnemyUnits").transform;
+        this.state = state;
     }
 
-    void Update()
+    private bool IsGameInProgress()
     {
-
+        return state == GameState.Play;
     }
-
-    public void ChangeTurn()
+    
+    
+    public bool CanPerformMove()
     {
-
+        if (!IsGameInProgress())
+        {
+            return false;
+        }
+        return true;
     }
 }

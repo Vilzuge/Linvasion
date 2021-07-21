@@ -24,15 +24,22 @@ public class GridManager : MonoBehaviour
     
     
     public const int BOARD_SIZE = 8;
-    [SerializeField] private Transform firstTileTransform;
-
-    private GameObject[,] gridArray;
+    [SerializeField] private GameController controller;
+    private BaseTile selectedTile;
+    
+    //ARRAYS OF TILES AND UNITS
+    private GameObject[,] tileArray;
+    private GameObject[,] unitArray;
+    
     public GameObject grassTile;
     public GameObject waterTile;
+    public GameObject exampleTank;
+    
 
     void Awake()
     {
-        gridArray = new GameObject[BOARD_SIZE, BOARD_SIZE];
+        tileArray = new GameObject[BOARD_SIZE, BOARD_SIZE];
+        unitArray = new GameObject[BOARD_SIZE, BOARD_SIZE];
     }
     
     
@@ -44,15 +51,19 @@ public class GridManager : MonoBehaviour
         _moveableTile = Resources.Load<Material>("Materials/GroundHighlight");
         _spawnableTile = Resources.Load<Material>("Materials/GroundSpawnable");
         _shootableTile = Resources.Load<Material>("Materials/GroundShootable");
+        Debug.Log("Materials loaded");
         
         GenerateBoard();
         Debug.Log("Board generated");
+        
+        InitializeGame();
+        Debug.Log("Game initialized");
         
     }
     
     
     
-    // Generating the gameboard
+    // GENERATING GAMEBOARD
     private void GenerateBoard()
     {
         var tempList = transform.Cast<Transform>().ToList();
@@ -70,7 +81,7 @@ public class GridManager : MonoBehaviour
                 if (randomChance < 1.0f)
                 {
                     GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
-                    gridArray[row, col] = newTile;
+                    tileArray[row, col] = newTile;
                     newTile.GetComponent<BaseTile>().row = row;
                     newTile.GetComponent<BaseTile>().col = col;
                     newTile.name = $"({row},{col}) {newTile.name}";
@@ -78,12 +89,31 @@ public class GridManager : MonoBehaviour
                 else
                 {
                     GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
-                    gridArray[row, col] = newTile;
+                    tileArray[row, col] = newTile;
                     newTile.GetComponent<BaseTile>().row = row;
                     newTile.GetComponent<BaseTile>().col = col;
                     newTile.name = $"({row},{col}) {newTile.name}";
                 }
             }
+        }
+    }
+
+    private void InitializeGame()
+    {
+        controller = Instantiate(controller);
+        controller.SetGameState(GameState.Play);
+        SetDebugTank();
+    }
+
+    // FOR TESTING ONLY
+    private void SetDebugTank()
+    {
+        if (exampleTank)
+        {
+            GameObject tank = exampleTank;
+            
+            unitArray[1, 1] = tank;
+            Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity, transform);
         }
     }
     
@@ -92,15 +122,37 @@ public class GridManager : MonoBehaviour
     {
         Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
         Debug.Log("Row: " + coordinates.x + "Col: " + coordinates.y);
+
+        if (!controller.CanPerformMove())
+        {
+            return;
+        }
+        GameObject unit = GetUnitOnTile(coordinates);
+        if (unit)
+        {
+            Debug.Log(unit.name);
+        }
     }
 
-    /*
-    private Vector2Int CalculatePositionFromCoordinates(Vector2Int coordinates)
+    public GameObject GetUnitOnTile(Vector2Int coordinates)
     {
-        return 
+        if (CheckIfCoordinatesAreOnBoard(coordinates))
+        {
+            return unitArray[coordinates.x, coordinates.y];
+        }
+        return null;
     }
-    */
     
+    public bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
+    {
+        if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BOARD_SIZE || coordinates.y >= BOARD_SIZE)
+        {
+            Debug.Log("Coordinates are not on board!");
+            return false;
+        }
+        return true;
+    }
+
     private Vector2Int CalculateCoordinatesFromPosition(Vector3 inputPosition)
     {
         int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).x + 0.5f);

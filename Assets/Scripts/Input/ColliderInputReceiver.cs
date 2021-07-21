@@ -26,7 +26,6 @@ public class ColliderInputReceiver : InputReceiver
         foreach (var handler in inputHandlers)
         {
             handler.ProcessInput(clickPosition, null, null);
-            Debug.Log("Handlers were called");
         }
     }
 }
