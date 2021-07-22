@@ -11,24 +11,21 @@ This script handles default tank of the player
 */
 public class BaseTank : MonoBehaviour
 {
-    // VISUALS
     public Material defaultMaterial;
     public Material selectedMaterial;
     public ParticleSystem explosionEffect;
     
-    // MANAGERS
     private GridManager gridManager;
     private SoundManagerScript soundManager;
-
-    // PROPERTIES
+    
+    public List<Vector2Int> availableMoves;
+    public bool isPlayersUnit;
+    
     protected int RowPos { get; set; }
     protected int ColPos { get; set; }
 
-    //private int statMovement = 3;
-    //private bool hasAction = true;
 
-    
-    
+
     public virtual void Start()
     { 
         gridManager = GameObject.Find("GameBoard").GetComponent<GridManager>();
@@ -36,57 +33,15 @@ public class BaseTank : MonoBehaviour
         var position = transform.position;
         RowPos = (int)position.x;
         ColPos = (int)position.z;
-        Debug.Log("From base: " + RowPos.ToString());
-        Debug.Log("From base: " + ColPos.ToString());
+        isPlayersUnit = true;
+        //Debug.Log("From base: " + RowPos.ToString());
+        //Debug.Log("From base: " + ColPos.ToString());
     }
 
-    void Update()
+    public bool CanMoveTo(Vector2Int coordinates)
     {
-
-    }
-    
-    // HANDLING MOVEMENT
-    public void moveTo(int row, int col)
-    {
-        // If the cell is valid, move there
-        transform.position = new Vector3(row, 0.1f, col);
+        // return availableMoves.Contains(coordinates);
+        return true; // For testing only
     }
 
-    // HANDLING SHOOTING
-    public void handleShooting()
-    {
-        
-    }
-
-    // HANDLE SELECTION
-    public void selectedCheck()
-    {
-
-    }
-
-
-    //Check if the selected tile is walkable by the tank
-    public bool isWalkable(int rowPosition, int colPosition)
-    {
-        return true;
-    }
-
-    //Is shootable
-    public bool isShootable(int rowPosition, int colPosition)
-    {
-        return true;
-    }
-
-
-    //Replenish the attributes of the tank when new turn starts
-    public void replenishTank()
-    {
-
-    }
-
-
-    public void damageCell(int rowToShoot, int colToShoot)
-    {
-
-    }
 }

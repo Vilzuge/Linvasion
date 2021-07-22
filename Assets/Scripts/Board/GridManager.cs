@@ -23,9 +23,10 @@ public class GridManager : MonoBehaviour
     private static Material _shootableTile;
     
     
+    
     public const int BOARD_SIZE = 8;
     [SerializeField] private GameController controller;
-    private BaseTile selectedTile;
+    private GameObject selectedUnit;
     
     //ARRAYS OF TILES AND UNITS
     private GameObject[,] tileArray;
@@ -33,6 +34,8 @@ public class GridManager : MonoBehaviour
     
     public GameObject grassTile;
     public GameObject waterTile;
+    
+    // FOR TESTING
     public GameObject exampleTank;
     
 
@@ -111,9 +114,8 @@ public class GridManager : MonoBehaviour
         if (exampleTank)
         {
             GameObject tank = exampleTank;
-            
+            tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity, transform);
             unitArray[1, 1] = tank;
-            Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity, transform);
         }
     }
     
@@ -128,10 +130,55 @@ public class GridManager : MonoBehaviour
             return;
         }
         GameObject unit = GetUnitOnTile(coordinates);
-        if (unit)
+        if (selectedUnit)
         {
-            Debug.Log(unit.name);
+            if (unit != null && selectedUnit == unit)
+            {
+                // Deselect the unit (SELECTED UNIT IS BEING PRESSED -> DESELECT)
+                DeselectUnit();
+            }
+            else if (unit != null && selectedUnit != unit && controller.IsTeamTurnActive())
+            {
+                // Select the unit (ANOTHER UNIT IS BEING PRESSED -> SELECT THE NEW ONE)
+                SelectUnit(coordinates);
+            }
+            else if (selectedUnit.GetComponent<BaseTank>().CanMoveTo(coordinates))
+            {
+                // Move to position (UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED)
+                MoveSelectedUnit(coordinates);
+            }
         }
+        else
+        {
+            if (unit != null && controller.IsTeamTurnActive())
+            {
+                SelectUnit(coordinates);
+            }
+        }
+    }
+
+    public void MoveSelectedUnit(Vector2 coordinates)
+    {
+        selectedUnit.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
+        Debug.Log(selectedUnit.name + " was moved");
+
+        // eg: move the unit, update the board, deselect unit, end turn...
+    }
+    
+    private void SelectUnit(Vector2Int coordinates)
+    {
+        GameObject unit = GetUnitOnTile(coordinates);
+        selectedUnit = unit;
+        Debug.Log(selectedUnit.name + " was selected");
+        
+        // TODO: Drawing movable tiles
+    }
+    private void DeselectUnit()
+    {
+        Debug.Log(selectedUnit.name + " was deselected");
+        selectedUnit = null;
+        
+        // TODO: Calling a function to clear movable tiles that were drawn
     }
 
     public GameObject GetUnitOnTile(Vector2Int coordinates)
