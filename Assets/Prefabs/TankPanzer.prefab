@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880126163704468201}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: -0.4, z: 1}
   m_LocalScale: {x: 5.173038, y: 5.173038, z: 5.173038}
   m_Children:
   - {fileID: 9063653255358540922}
@@ -133,7 +133,8 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: 7280b5e4e0bb0c14aafa8c1c3bfc5a6e, type: 2}
   explosionEffect: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
     type: 3}
-  soundManager: {fileID: 0}
+  availableMoves: []
+  isPlayersUnit: 0
   explosion: {fileID: 0}
 --- !u!1 &5969718166440021241
 GameObject:

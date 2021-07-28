@@ -1,5 +1,8 @@
 ﻿
-public enum GameState
+namespace Game
 {
-    Init, Play, Finished
+    public enum GameState
+    {
+        Init, Play, Finished
+    }
 }

@@ -1,24 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LoseScore : MonoBehaviour
+namespace UI
 {
-
-    Text scoreText;
-    int scoreAmount;
-    // Start is called before the first frame update
-    void Start()
+    public class LoseScore : MonoBehaviour
     {
-        scoreText = GetComponent<Text>();
-        scoreAmount = InterfaceHandler.scoreValue;
-        scoreText.text = "Score: " + scoreAmount;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        Text scoreText;
+        int scoreAmount;
+        // Start is called before the first frame update
+        void Start()
+        {
+            scoreText = GetComponent<Text>();
+            scoreAmount = InterfaceHandler.scoreValue;
+            scoreText.text = "Score: " + scoreAmount;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
         
+        }
     }
 }

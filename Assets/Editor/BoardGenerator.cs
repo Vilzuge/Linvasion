@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
+using Board;
+
 /*
 -------------------------------------------
 Tool for generating a new random gameboard to the scene
@@ -63,7 +65,7 @@ public class BoardGenerator : EditorWindow
       for (int i = 0; i <= totalTiles; i++)
       {
          float randomChance = Random.Range(0.0f, 1.0f);
-         if (randomChance < 0.75f)
+         if (randomChance < 1f)
          {
             boardTileArray.Add(grassTile);
          }

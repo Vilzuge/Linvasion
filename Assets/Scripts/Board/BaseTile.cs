@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 /*
 -------------------------------------------
 Base tile that other tile types are extended from
 -------------------------------------------
 */
-public class BaseTile : MonoBehaviour
+namespace Board
 {
-    public int row;
-    public int col;
-
-    public int gCost;
-    public int hCost;
-
-    public int fCost
+    public class BaseTile : MonoBehaviour
     {
-        get
+        public int row;
+        public int col;
+
+        public int gCost;
+        public int hCost;
+
+        public int fCost
         {
-            return gCost + hCost;
+            get
+            {
+                return gCost + hCost;
+            }
         }
     }
 }
