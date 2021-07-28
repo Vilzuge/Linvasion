@@ -14,8 +14,9 @@ namespace Characters
     {
         public Material _defaultMaterial;
         public Material _selectedMaterial;
-        public ParticleSystem explosionEffect;
-    
+        public Canvas myCanvas;
+        public GameObject aimButton;
+
         private GridManager gridManager;
         private SoundManagerScript soundManager;
     
@@ -29,11 +30,14 @@ namespace Characters
         { 
             gridManager = GameObject.Find("GameBoard").GetComponent<GridManager>();
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+            myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         
             var positionPhysically = transform.position;
             position.x = (int)positionPhysically.x;
             position.y = (int)positionPhysically.z;
         
+            
+            
             isPlayersUnit = true;
         
             //Debug.Log("From base: " + position.x.ToString());
@@ -51,6 +55,7 @@ namespace Characters
             position = new Vector2Int(coordinates.x, coordinates.y);
             gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
         }
+        
     
         public virtual void SetSelected() { }
 

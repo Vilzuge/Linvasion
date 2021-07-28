@@ -21,11 +21,13 @@ namespace Characters
         public override void SetSelected()
         {
             GetComponent<MeshRenderer>().material = _selectedMaterial;
+            Instantiate(aimButton);
         }
 
         public override void SetDeselected()
         {
             GetComponent<MeshRenderer>().material = _defaultMaterial;
+            Destroy(aimButton);
         }
     }
 }

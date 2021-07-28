@@ -6,6 +6,8 @@ namespace Characters
     {
         // PARTICLE EFFECTS
         public ParticleSystem explosion;
+        public GameObject panzerAimButton;
+        
 
         // Start is called before the first frame update
         protected override void Start()
@@ -29,11 +31,13 @@ namespace Characters
         public override void SetSelected()
         {
             GetComponent<MeshRenderer>().material = _selectedMaterial;
+            panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
         }
 
         public override void SetDeselected()
         {
             GetComponent<MeshRenderer>().material = _defaultMaterial;
+            Destroy(panzerAimButton);
         }
     }
 }

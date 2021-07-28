@@ -29,7 +29,6 @@ namespace Board
     
         //ARRAYS OF TILES AND UNITS
         private GameObject[,] tileArray;
-        private GameObject[,] unitArray;
 
         public GameObject playerUnits;
         public GameObject enemyUnits;
@@ -45,7 +44,6 @@ namespace Board
         void Awake()
         {
             tileArray = new GameObject[BoardSize, BoardSize];
-            unitArray = new GameObject[BoardSize, BoardSize];
         }
     
     
@@ -111,7 +109,7 @@ namespace Board
             SpawnDebugUnits();
         }
 
-        // FOR TESTING ONLY
+        // FOR TESTING WITHOUT SPAWNING
         private void SpawnDebugUnits()
         {
             if (exampleTank)
@@ -131,20 +129,21 @@ namespace Board
                 enemy.transform.SetParent(enemyUnits.transform);
                 enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
                 enemy.transform.SetParent(enemyUnits.transform);
-                
             }
         }
-    
-
+        
         public void OnTileSelected(Vector3 inputPosition)
         {
             Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
-
+            
+            // IS IT MY TURN?
             if (!controller.CanPerformMove())
             {
                 return;
             }
             GameObject unit = GetUnitOnTile(coordinates);
+            
+            // IF SELECTED UNIT EXISTS
             if (selectedUnit)
             {
                 if (unit != null && selectedUnit == unit)
@@ -164,31 +163,27 @@ namespace Board
                     DeselectUnit();
                 }
             }
+            // IF THERE IS NO SELECTED UNIT
             else
             {
                 if (unit != null && controller.IsTeamTurnActive())
                 {
                     SelectUnit(coordinates);
                 }
-                Debug.Log("ei mittää :D");
+                Debug.Log("Nothing happened.");
             }
         }
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
-            Vector2Int startCoordinates = selectedUnit.GetComponent<BaseTank>().position;
-            
             selectedUnit.GetComponent<BaseTank>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
-
-            // eg: move the unit, update the board, deselect unit, end turn...
         }
     
         private void SelectUnit(Vector2Int coordinates)
         {
             DeselectUnit();
-            GameObject unit = GetUnitOnTile(coordinates);
-            selectedUnit = unit;
+            selectedUnit = GetUnitOnTile(coordinates);
             selectedUnit.GetComponent<BaseTank>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
             // TODO: Drawing movable tiles

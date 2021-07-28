@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultMaterial: {fileID: 0}
   _selectedMaterial: {fileID: 0}
-  explosionEffect: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
+  aimButton: {fileID: 2771757513410737254, guid: 3ec97020687c7f64ca7ce4d191650cf9,
     type: 3}
   availableMoves: []
   isPlayersUnit: 0

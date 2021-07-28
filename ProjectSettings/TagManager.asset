@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Undefined
   - PlayerUnit
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
