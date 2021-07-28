@@ -45,6 +45,12 @@ namespace Characters
             // return availableMoves.Contains(coordinates);
             return true; // For testing only
         }
+
+        public void MoveTo(Vector2Int coordinates)
+        {
+            position = new Vector2Int(coordinates.x, coordinates.y);
+            gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
+        }
     
         public virtual void SetSelected() { }
 

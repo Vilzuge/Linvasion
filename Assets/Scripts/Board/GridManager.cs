@@ -30,12 +30,16 @@ namespace Board
         //ARRAYS OF TILES AND UNITS
         private GameObject[,] tileArray;
         private GameObject[,] unitArray;
+
+        public GameObject playerUnits;
+        public GameObject enemyUnits;
     
         public GameObject grassTile;
         public GameObject waterTile;
     
         // FOR TESTING
         public GameObject exampleTank;
+        public GameObject exampleEnemy;
     
 
         void Awake()
@@ -104,23 +108,30 @@ namespace Board
         {
             controller = Instantiate(controller);
             controller.SetGameState(GameState.Play);
-            SpawnDebugTanks();
+            SpawnDebugUnits();
         }
 
         // FOR TESTING ONLY
-        private void SpawnDebugTanks()
+        private void SpawnDebugUnits()
         {
             if (exampleTank)
             {
                 GameObject tank = exampleTank;
-                tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity, transform);
-                unitArray[1, 1] = tank;
-            
-                tank = Instantiate(tank, new Vector3(2f, -0.4f, 3f), Quaternion.identity, transform);
-                unitArray[2, 3] = tank;
-            
-                tank = Instantiate(tank, new Vector3(2f, -0.4f, 4f), Quaternion.identity, transform);
-                unitArray[2, 4] = tank;
+                tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity);
+                tank.transform.SetParent(playerUnits.transform);
+                tank = Instantiate(tank, new Vector3(2f, -0.4f, 2f), Quaternion.identity);
+                tank.transform.SetParent(playerUnits.transform);
+                tank = Instantiate(tank, new Vector3(5f, -0.4f, 0f), Quaternion.identity);
+                tank.transform.SetParent(playerUnits.transform);
+                
+                GameObject enemy = exampleEnemy;
+                enemy = Instantiate(enemy, new Vector3(4f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+                enemy.transform.SetParent(enemyUnits.transform);
+                enemy = Instantiate(enemy, new Vector3(6f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+                enemy.transform.SetParent(enemyUnits.transform);
+                enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+                enemy.transform.SetParent(enemyUnits.transform);
+                
             }
         }
     
@@ -159,17 +170,15 @@ namespace Board
                 {
                     SelectUnit(coordinates);
                 }
+                Debug.Log("ei mittää :D");
             }
         }
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
             Vector2Int startCoordinates = selectedUnit.GetComponent<BaseTank>().position;
-        
-            unitArray[startCoordinates.x, startCoordinates.y] = null;
-            unitArray[endCoordinates.x, endCoordinates.y] = selectedUnit;
-        
-            selectedUnit.transform.position = new Vector3(endCoordinates.x, -0.4f, endCoordinates.y);
+            
+            selectedUnit.GetComponent<BaseTank>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
 
             // eg: move the unit, update the board, deselect unit, end turn...
@@ -197,7 +206,14 @@ namespace Board
         {
             if (CheckIfCoordinatesAreOnBoard(coordinates))
             {
-                return unitArray[coordinates.x, coordinates.y];
+                foreach (Transform child in playerUnits.transform)
+                {
+                    Vector2Int temp = child.GetComponent<BaseTank>().position;
+                    if (temp.x == coordinates.x && temp.y == coordinates.y)
+                    {
+                        return child.gameObject;
+                    }
+                }
             }
             return null;
         }

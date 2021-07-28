@@ -129,12 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356befa5e19917d47a8363981f5430d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: 6d12870b13e29074ab48b3a609e60ebc, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: 7280b5e4e0bb0c14aafa8c1c3bfc5a6e, type: 2}
+  _defaultMaterial: {fileID: 0}
+  _selectedMaterial: {fileID: 0}
   explosionEffect: {fileID: 5974865512283291979, guid: 99b5ba75e4c19474e8e36e4d8edd346c,
     type: 3}
   availableMoves: []
   isPlayersUnit: 0
+  position: {x: 0, y: 0}
   explosion: {fileID: 0}
 --- !u!1 &5969718166440021241
 GameObject:
