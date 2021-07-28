@@ -4,8 +4,7 @@ namespace Characters
 {
     public class TankPanzer : BaseTank
     {
-        // PARTICLE EFFECTS
-        public ParticleSystem explosion;
+        // UI
         public GameObject panzerAimButton;
         
 
@@ -17,26 +16,15 @@ namespace Characters
             _selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        void Pressed()
-        {
-
-        }
-
         public override void SetSelected()
         {
-            GetComponent<MeshRenderer>().material = _selectedMaterial;
+            base.SetSelected();
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
         }
 
         public override void SetDeselected()
         {
-            GetComponent<MeshRenderer>().material = _defaultMaterial;
+            base.SetDeselected();
             Destroy(panzerAimButton);
         }
     }

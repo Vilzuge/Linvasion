@@ -4,6 +4,9 @@ namespace Characters
 {
     public class TankArtillery : BaseTank
     {
+        // UI
+        public GameObject artilleryAimButton;
+        
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -20,14 +23,14 @@ namespace Characters
     
         public override void SetSelected()
         {
-            GetComponent<MeshRenderer>().material = _selectedMaterial;
-            Instantiate(aimButton);
+            base.SetSelected();
+            artilleryAimButton = Instantiate(aimButton, myCanvas.transform, false);
         }
 
         public override void SetDeselected()
         {
-            GetComponent<MeshRenderer>().material = _defaultMaterial;
-            Destroy(aimButton);
+            base.SetDeselected();
+            Destroy(artilleryAimButton);
         }
     }
 }

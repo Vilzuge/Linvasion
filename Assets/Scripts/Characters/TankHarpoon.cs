@@ -4,6 +4,9 @@ namespace Characters
 {
     public class TankHarpoon : BaseTank
     {
+        // UI
+        public GameObject harpoonAimButton;
+        
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -20,14 +23,14 @@ namespace Characters
     
         public override void SetSelected()
         {
-            GetComponent<MeshRenderer>().material = _selectedMaterial;
-            Instantiate(aimButton);
+            base.SetSelected();
+            harpoonAimButton = Instantiate(aimButton, myCanvas.transform, false);
         }
 
         public override void SetDeselected()
         {
-            GetComponent<MeshRenderer>().material = _defaultMaterial;
-            Destroy(aimButton);
+            base.SetDeselected();
+            Destroy(harpoonAimButton);
         }
     
     }

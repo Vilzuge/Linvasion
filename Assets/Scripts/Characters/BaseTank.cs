@@ -19,6 +19,7 @@ namespace Characters
 
         private GridManager gridManager;
         private SoundManagerScript soundManager;
+        protected TankState state;
     
         public List<Vector2Int> availableMoves;
         public bool isPlayersUnit;
@@ -35,13 +36,9 @@ namespace Characters
             var positionPhysically = transform.position;
             position.x = (int)positionPhysically.x;
             position.y = (int)positionPhysically.z;
-        
+            state = TankState.Unselected;
             
-            
-            isPlayersUnit = true;
-        
-            //Debug.Log("From base: " + position.x.ToString());
-            //Debug.Log("From base: " + position.y.ToString());
+            isPlayersUnit = true; // dumb variable
         }
 
         public bool CanMoveTo(Vector2Int coordinates)
@@ -55,12 +52,18 @@ namespace Characters
             position = new Vector2Int(coordinates.x, coordinates.y);
             gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
         }
-        
-    
-        public virtual void SetSelected() { }
-
-        public virtual void SetDeselected() { }
 
 
+        public virtual void SetSelected()
+        {
+            GetComponent<MeshRenderer>().material = _selectedMaterial;
+            state = TankState.Moving;
+        }
+
+        public virtual void SetDeselected()
+        {
+            GetComponent<MeshRenderer>().material = _defaultMaterial;
+            state = TankState.Unselected;
+        }
     }
 }
