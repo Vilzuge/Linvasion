@@ -6,16 +6,16 @@ namespace InputSystem
 {
     public class BoardInputHandler : MonoBehaviour, IInputHandler
     {
-        private GridManager grid;
+        private Board.Board board;
 
         private void Awake()
         {
-            grid = GetComponent<GridManager>();
+            board = GetComponent<Board.Board>();
         }
     
         public void ProcessInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
-            grid.OnTileSelected(inputPosition);
+            board.OnTileSelected(inputPosition);
         }
     }
 }

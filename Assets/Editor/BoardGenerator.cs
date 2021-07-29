@@ -96,8 +96,8 @@ public class BoardGenerator : EditorWindow
             Debug.Log(boardTileArray[tileIndex].name);
             
             GameObject newTile = Instantiate(boardTileArray[tileIndex], new Vector3(row, -0.5f, col), Quaternion.identity, gameBoard.transform);
-            newTile.GetComponent<BaseTile>().row = row;
-            newTile.GetComponent<BaseTile>().col = col;
+            newTile.GetComponent<BaseTile>().gridX = row;
+            newTile.GetComponent<BaseTile>().gridY = col;
             newTile.name = $"({row},{col}) {tileType}";
          }
       }

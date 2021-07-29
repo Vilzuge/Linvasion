@@ -17,7 +17,7 @@ namespace Characters
         public Canvas myCanvas;
         public GameObject aimButton;
 
-        private GridManager gridManager;
+        private Board.Board board;
         private SoundManagerScript soundManager;
         protected TankState state;
     
@@ -29,7 +29,7 @@ namespace Characters
     
         protected virtual void Start()
         { 
-            gridManager = GameObject.Find("GameBoard").GetComponent<GridManager>();
+            board = GameObject.Find("GameBoard").GetComponent<Board.Board>();
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         
@@ -56,14 +56,23 @@ namespace Characters
 
         public virtual void SetSelected()
         {
-            GetComponent<MeshRenderer>().material = _selectedMaterial;
             state = TankState.Moving;
+            GetComponent<MeshRenderer>().material = _selectedMaterial;
         }
 
         public virtual void SetDeselected()
         {
-            GetComponent<MeshRenderer>().material = _defaultMaterial;
             state = TankState.Unselected;
+            GetComponent<MeshRenderer>().material = _defaultMaterial;
+        }
+
+        public virtual void SetAiming()
+        {
+            state = TankState.Aiming;
+            
+            //TODO: Calculate shootable tiles
+            
+            //TODO: Draw them with gridmanager
         }
     }
 }

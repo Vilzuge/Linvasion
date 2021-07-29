@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6555836324079461156}
-  - component: {fileID: 5052146553989738686}
   m_Layer: 0
   m_Name: TileWater
   m_TagString: Untagged
@@ -32,23 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5052146553989738686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1358931825539846307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973f28964e94cdb4f81455713669dc47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rowIndex: 0
-  colIndex: 0
-  isOccupied: 0
-  isWalkable: 0
-  currentOccupant: {fileID: 0}
 --- !u!1 &4973255113366725408
 GameObject:
   m_ObjectHideFlags: 0

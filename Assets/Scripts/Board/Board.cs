@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using Characters;
 using Game;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 /*
@@ -11,7 +13,7 @@ This script handles the game-board and it's visualization
 
 namespace Board
 {
-    public class GridManager : MonoBehaviour
+    public class Board : MonoBehaviour
     {
         // Start is called before the first frame update
     
@@ -26,12 +28,14 @@ namespace Board
         public const int BoardSize = 8;
         [SerializeField] private GameController controller;
         private GameObject selectedUnit;
-    
+
         //ARRAYS OF TILES AND UNITS
-        private GameObject[,] tileArray;
+        private BaseTile[,] tileArray;
 
         public GameObject playerUnits;
         public GameObject enemyUnits;
+
+        public List<BaseTile> path;
     
         public GameObject grassTile;
         public GameObject waterTile;
@@ -43,7 +47,7 @@ namespace Board
 
         void Awake()
         {
-            tileArray = new GameObject[BoardSize, BoardSize];
+            tileArray = new BaseTile[BoardSize, BoardSize];
         }
     
     
@@ -57,12 +61,17 @@ namespace Board
             _shootableTile = Resources.Load<Material>("Materials/GroundShootable");
             Debug.Log("Materials loaded");
         
-            //GenerateBoard();
-            //Debug.Log("Board generated");
+            GenerateBoard();
+            Debug.Log("Board generated");
         
             InitializeGame();
             Debug.Log("Game initialized");
         
+        }
+
+        void Update()
+        {
+            
         }
     
     
@@ -82,20 +91,26 @@ namespace Board
                 for (int col = 0; col <= BoardSize - 1; col++)
                 {
                     float randomChance = Random.Range(0.0f, 1.0f);
-                    if (randomChance < 1.0f)
+                    if (randomChance < 0.5f)
                     {
                         GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
-                        tileArray[row, col] = newTile;
-                        newTile.GetComponent<BaseTile>().row = row;
-                        newTile.GetComponent<BaseTile>().col = col;
+                        TileGrass component = newTile.AddComponent<TileGrass>();
+                        component.walkable = true;
+                        component.worldPosition = new Vector3(row, -0.5f, col);
+                        component.gridX = row;
+                        component.gridY = col;
+                        tileArray[row, col] = newTile.GetComponent<TileGrass>();
                         newTile.name = $"({row},{col}) {newTile.name}";
                     }
                     else
                     {
                         GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
-                        tileArray[row, col] = newTile;
-                        newTile.GetComponent<BaseTile>().row = row;
-                        newTile.GetComponent<BaseTile>().col = col;
+                        TileWater component = newTile.AddComponent<TileWater>();
+                        component.walkable = false;
+                        component.worldPosition = new Vector3(row, -0.5f, col);
+                        component.gridX = row;
+                        component.gridY = col;
+                        tileArray[row, col] = newTile.GetComponent<TileWater>();
                         newTile.name = $"({row},{col}) {newTile.name}";
                     }
                 }
@@ -131,7 +146,32 @@ namespace Board
                 enemy.transform.SetParent(enemyUnits.transform);
             }
         }
+
+
+        public List<BaseTile> GetNeighbours(BaseTile tile)
+        {
+            List<BaseTile> neighbours = new List<BaseTile>();
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+                    int checkX = tile.gridX + x;
+                    int checkY = tile.gridY + y;
+
+                    if (checkX >= 0 && checkX < BoardSize && checkY >= 0 && checkY < BoardSize)
+                    {
+                        neighbours.Add(tileArray[checkX,checkY]);
+                    }
+                }
+            }
+
+            return neighbours;
+        }
         
+
         public void OnTileSelected(Vector3 inputPosition)
         {
             Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
@@ -176,6 +216,13 @@ namespace Board
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
+            Vector2Int pos = selectedUnit.GetComponent<BaseTank>().position;
+            List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[pos.x, pos.y], tileArray[endCoordinates.x, endCoordinates.y]);
+
+            foreach (BaseTile tile in drawTiles)
+            {
+                tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _moveableTile;
+            }
             selectedUnit.GetComponent<BaseTank>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
         }

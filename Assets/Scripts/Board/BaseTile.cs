@@ -9,12 +9,16 @@ namespace Board
 {
     public class BaseTile : MonoBehaviour
     {
-        public int row;
-        public int col;
-
+        public bool walkable;
+        public Vector3 worldPosition;
+        
+        public int gridX;
+        public int gridY;
+        
         public int gCost;
         public int hCost;
-
+        public BaseTile parent;
+        
         public int fCost
         {
             get
