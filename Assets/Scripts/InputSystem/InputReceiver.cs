@@ -6,7 +6,8 @@ namespace InputSystem
     {
         protected IInputHandler[] inputHandlers;
 
-        public abstract void OnInputReceived();
+        public abstract void OnClickInputReceived();
+        public abstract void OnHoverInputReceived();
 
         private void Awake()
         {

@@ -38,7 +38,7 @@ namespace Characters
             position.y = (int)positionPhysically.z;
             state = TankState.Unselected;
             
-            isPlayersUnit = true; // dumb variable
+            isPlayersUnit = true; //dumb variable
         }
 
         public bool CanMoveTo(Vector2Int coordinates)

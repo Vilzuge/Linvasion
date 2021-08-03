@@ -1,6 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/*
+-------------------------------------------
+This script handles A* pathfinding, but without diagonals, which is determined 
+at Board.cs "GetNeighbours" function that returns the tiles around a specific tile.
+-------------------------------------------
+*/
+
+
 namespace Board
 {
     public class Pathfinding : MonoBehaviour

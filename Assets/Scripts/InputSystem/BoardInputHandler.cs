@@ -13,9 +13,14 @@ namespace InputSystem
             board = GetComponent<Board.Board>();
         }
     
-        public void ProcessInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
+        public void ProcessClickInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
             board.OnTileSelected(inputPosition);
+        }
+        
+        public void ProcessHoverInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
+        {
+            board.OnUnitTargeting(inputPosition);
         }
     }
 }

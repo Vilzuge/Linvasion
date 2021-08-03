@@ -5,6 +5,7 @@ namespace InputSystem
 {
     public interface IInputHandler
     {
-        void ProcessInput(Vector3 inputPosition, GameObject selectedObject, Action callback);
+        void ProcessClickInput(Vector3 inputPosition, GameObject selectedObject, Action callback);
+        void ProcessHoverInput(Vector3 inputPosition, GameObject selectedObject, Action callback);
     }
 }

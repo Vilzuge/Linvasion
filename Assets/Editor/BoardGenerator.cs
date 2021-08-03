@@ -14,11 +14,11 @@ Created initially to learn about editor scripts in Unity but was found quite use
 */
 public class BoardGenerator : EditorWindow
 {
-   private int gridDimension = 8;
    private GameObject gameBoard;
-   private List<GameObject> boardTileArray;
+   private BaseTile[,] boardTileArray;
    private GameObject grassTile;
    private GameObject waterTile;
+   private int BoardSize = 8;
 
 
    [MenuItem("Tools/Board Generator")]
@@ -59,21 +59,7 @@ public class BoardGenerator : EditorWindow
    private void GenerateBoard()
    {
       // GENERATING A NEW GAMEBOARD TO A LIST
-      boardTileArray = new List<GameObject>();
-      int totalTiles = gridDimension * gridDimension;
-      
-      for (int i = 0; i <= totalTiles; i++)
-      {
-         float randomChance = Random.Range(0.0f, 1.0f);
-         if (randomChance < 1f)
-         {
-            boardTileArray.Add(grassTile);
-         }
-         else
-         {
-            boardTileArray.Add(waterTile);
-         }
-      }
+      boardTileArray = new BaseTile[BoardSize, BoardSize];
    }
 
    private void SpawnBoard()
@@ -85,23 +71,35 @@ public class BoardGenerator : EditorWindow
          GameObject.DestroyImmediate(child.gameObject);
       }
       
-      // SPAWNING THE NEW GAMEBOARD
-      for (int row = 0; row <= gridDimension - 1; row++)
+      for (int row = 0; row <= BoardSize - 1; row++)
       {
-         for (int col = 0; col <= gridDimension - 1; col++)
+         for (int col = 0; col <= BoardSize - 1; col++)
          {
-            int tileIndex = row * gridDimension + col;
-            string tileType = boardTileArray[tileIndex].name;
-            Debug.Log(tileIndex);
-            Debug.Log(boardTileArray[tileIndex].name);
-            
-            GameObject newTile = Instantiate(boardTileArray[tileIndex], new Vector3(row, -0.5f, col), Quaternion.identity, gameBoard.transform);
-            newTile.GetComponent<BaseTile>().gridX = row;
-            newTile.GetComponent<BaseTile>().gridY = col;
-            newTile.name = $"({row},{col}) {tileType}";
+            float randomChance = Random.Range(0.0f, 1.0f);
+            if (randomChance < 0.8f)
+            {
+               GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity);
+               TileGrass component = newTile.AddComponent<TileGrass>();
+               component.walkable = true;
+               component.worldPosition = new Vector3(row, -0.5f, col);
+               component.gridX = row;
+               component.gridY = col;
+               boardTileArray[row, col] = newTile.GetComponent<TileGrass>();
+               newTile.name = $"({row},{col}) {newTile.name}";
+            }
+            else
+            {
+               GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.5f, col), Quaternion.identity);
+               TileWater component = newTile.AddComponent<TileWater>();
+               component.walkable = false;
+               component.worldPosition = new Vector3(row, -0.5f, col);
+               component.gridX = row;
+               component.gridY = col;
+               boardTileArray[row, col] = newTile.GetComponent<TileWater>();
+               newTile.name = $"({row},{col}) {newTile.name}";
+            }
          }
       }
-      
       // ASSIGNING VALUES TO GRID MANAGER
       //gameBoard.GetComponent<GridManager>().BOARD_SIZE = gridDimension;
    }

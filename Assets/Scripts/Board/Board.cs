@@ -91,7 +91,7 @@ namespace Board
                 for (int col = 0; col <= BoardSize - 1; col++)
                 {
                     float randomChance = Random.Range(0.0f, 1.0f);
-                    if (randomChance < 0.5f)
+                    if (randomChance < 0.8f)
                     {
                         GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
                         TileGrass component = newTile.AddComponent<TileGrass>();
@@ -160,14 +160,20 @@ namespace Board
                         continue;
                     int checkX = tile.gridX + x;
                     int checkY = tile.gridY + y;
-
+                    
+                    
+                    if (checkX != tile.gridX && checkY != tile.gridY)
+                    {
+                        continue;
+                    }
+                    
+                    
                     if (checkX >= 0 && checkX < BoardSize && checkY >= 0 && checkY < BoardSize)
                     {
                         neighbours.Add(tileArray[checkX,checkY]);
                     }
                 }
             }
-
             return neighbours;
         }
         
@@ -210,19 +216,49 @@ namespace Board
                 {
                     SelectUnit(coordinates);
                 }
-                Debug.Log("Nothing happened.");
             }
+            Debug.Log("Nothing happened.");
+        }
+
+        public void OnUnitTargeting(Vector3 inputPosition)
+        {
+            Vector2Int endPosition = CalculateCoordinatesFromPosition(inputPosition);
+            if (!selectedUnit)
+                return;
+            Vector2Int startPosition = selectedUnit.GetComponent<BaseTank>().position;
+            DrawPath(startPosition, endPosition);
+
+        }
+
+        public void DrawPath(Vector2Int start, Vector2Int end)
+        {
+            List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
+            List<BaseTile> noDrawTiles = new List<BaseTile>();
+            
+            foreach (BaseTile tile in drawTiles)
+            {
+                if (tile.GetComponent<BaseTile>().walkable)
+                    tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _moveableTile;
+            }
+            
+            foreach (BaseTile tile in tileArray)
+            {
+                if (!drawTiles.Contains(tile))
+                {
+                    noDrawTiles.Add(tile);
+                }
+            }
+
+            foreach (BaseTile tile in noDrawTiles)
+            {
+                tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _defaultTile;
+            }
+            
         }
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
             Vector2Int pos = selectedUnit.GetComponent<BaseTank>().position;
-            List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[pos.x, pos.y], tileArray[endCoordinates.x, endCoordinates.y]);
-
-            foreach (BaseTile tile in drawTiles)
-            {
-                tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _moveableTile;
-            }
             selectedUnit.GetComponent<BaseTank>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
         }
