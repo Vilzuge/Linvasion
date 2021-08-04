@@ -71,11 +71,17 @@ namespace Board
 
         void Update()
         {
-            
+            /*
+             * GameObject hoverUnit = GetUnitOnTile(hoverPosition)
+             * if (hoverUnit && hoverUnit.GetComponent<BaseTank>().hasMove)
+             *      TryDrawUnitMovement(GameObject hoverUnit;
+             * else
+             * {
+             *      ClearBoardMovement()
+             * }
+             */
         }
-    
-    
-    
+        
         // GENERATING GAMEBOARD
         private void GenerateBoard()
         {
@@ -182,40 +188,36 @@ namespace Board
         {
             Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
             
-            // IS IT MY TURN?
+            // IS IT PLAYERS TURN
             if (!controller.CanPerformMove())
-            {
                 return;
-            }
+
             GameObject unit = GetUnitOnTile(coordinates);
             
             // IF SELECTED UNIT EXISTS
             if (selectedUnit)
             {
                 if (unit != null && selectedUnit == unit)
-                {
                     // Deselect the unit (SELECTED UNIT IS BEING PRESSED -> DESELECT)
                     DeselectUnit();
-                }
+
                 else if (unit != null && selectedUnit != unit && controller.IsTeamTurnActive())
-                {
                     // Select the unit (ANOTHER UNIT IS BEING PRESSED -> SELECT THE NEW ONE)
                     SelectUnit(coordinates);
-                }
+
                 else if (selectedUnit.GetComponent<BaseTank>().CanMoveTo(coordinates))
                 {
                     // Move to position (UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED)
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
+                    //ClearBoardMovement();
                 }
             }
             // IF THERE IS NO SELECTED UNIT
             else
             {
                 if (unit != null && controller.IsTeamTurnActive())
-                {
                     SelectUnit(coordinates);
-                }
             }
             Debug.Log("Nothing happened.");
         }
@@ -226,13 +228,30 @@ namespace Board
             if (!selectedUnit)
                 return;
             Vector2Int startPosition = selectedUnit.GetComponent<BaseTank>().position;
-            DrawPath(startPosition, endPosition);
-
+            if (endPosition.x >= 0 && endPosition.y >= 0 && endPosition.x <= BoardSize-1 && endPosition.y <= BoardSize-1)
+                DrawPath(startPosition, endPosition);
         }
 
+        public void ClearBoardMovement()
+        {
+            foreach (BaseTile tile in tileArray)
+            {
+                tile.SetDefaultMaterial();
+            }
+        }
+
+        public void DrawMovableTiles(GameObject hoverUnit)
+        {
+            
+        }
+        
         public void DrawPath(Vector2Int start, Vector2Int end)
         {
+            if (!tileArray[end.x, end.y].walkable)
+                return;
+            
             List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
+            drawTiles = drawTiles.Where(tile => tile.GetComponent<BaseTile>().walkable).ToList();
             List<BaseTile> noDrawTiles = new List<BaseTile>();
             
             foreach (BaseTile tile in drawTiles)
@@ -251,7 +270,8 @@ namespace Board
 
             foreach (BaseTile tile in noDrawTiles)
             {
-                tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _defaultTile;
+                if (tile.walkable)
+                    tile.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = _defaultTile;
             }
             
         }

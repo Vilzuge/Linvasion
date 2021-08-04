@@ -47,7 +47,7 @@ namespace Board
 
                 foreach (BaseTile neighbour in board.GetNeighbours(currentTile))
                 {
-                    if (!neighbour.walkable || closedSet.Contains(neighbour))
+                    if ( !neighbour.walkable || closedSet.Contains(neighbour))
                     {
                         continue;
                     }
