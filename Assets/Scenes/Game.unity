@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.19765067, g: 0.2036466, b: 0.2361894, a: 1}
+  m_IndirectSpecularColor: {r: 0.21611795, g: 0.21942478, b: 0.25377747, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2071,6 +2071,7 @@ GameObject:
   - component: {fileID: 1805138034}
   - component: {fileID: 1805138035}
   - component: {fileID: 1805138036}
+  - component: {fileID: 1805138037}
   m_Layer: 0
   m_Name: GameBoard
   m_TagString: Untagged
@@ -2106,7 +2107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3151240689583596779, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
     type: 3}
-  generator: {fileID: 1805138036}
   playerUnits: {fileID: 1683225348}
   enemyUnits: {fileID: 636441419}
   path: []
@@ -2171,6 +2171,24 @@ MonoBehaviour:
     type: 3}
   waterTile: {fileID: 1358931825539846307, guid: 7a850d5876373884a800af96594934e3,
     type: 3}
+--- !u!114 &1805138037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805138030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f02d463ce04d94c9abd404b1ca33ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exampleTank: {fileID: 1880126163704468201, guid: 2762173e8f6b3bf4ab5c8af4af28dbc4,
+    type: 3}
+  exampleEnemy: {fileID: 8681533556981278644, guid: 2a1969e7bfad49a449759c0c95d6b79e,
+    type: 3}
+  playerUnits: {fileID: 1683225348}
+  enemyUnits: {fileID: 636441419}
 --- !u!1 &1840039834
 GameObject:
   m_ObjectHideFlags: 0

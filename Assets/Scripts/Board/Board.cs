@@ -25,7 +25,6 @@ namespace Board
         
         public const int BoardSize = 8;
         [SerializeField] private GameController controller;
-        private BoardGenerator generator;
         private GameObject selectedUnit;
 
         //ARRAYS OF TILES AND UNITS
@@ -39,16 +38,10 @@ namespace Board
     
         public GameObject grassTile;
         public GameObject waterTile;
-    
-        // FOR TESTING
-        public GameObject exampleTank;
-        public GameObject exampleEnemy;
-    
-
+        
         void Awake()
         {
             tileArray = new BaseTile[BoardSize, BoardSize];
-            generator = gameObject.GetComponent<BoardGenerator>();
         }
         
         void Start()
@@ -58,11 +51,11 @@ namespace Board
             _moveableTile = Resources.Load<Material>("Materials/GroundHighlight");
             _spawnableTile = Resources.Load<Material>("Materials/GroundSpawnable");
             _shootableTile = Resources.Load<Material>("Materials/GroundShootable");
-            mousePosition = new Vector2Int(0, 0);
+            mousePosition = new Vector2Int();
             Debug.Log("Materials loaded");
         
             //GenerateBoard();
-            tileArray = generator.GenerateBoard();
+            tileArray = GetComponent<BoardGenerator>().GenerateBoard();
             Debug.Log("Board generated");
         
             InitializeGame();
@@ -86,31 +79,9 @@ namespace Board
         {
             controller = Instantiate(controller);
             controller.SetGameState(GameState.Play);
-            SpawnDebugUnits();
+            GetComponent<SpawnDebug>().SpawnDebugUnits();
         }
 
-        // Spawning units to hardcoded positions for testing 
-        private void SpawnDebugUnits()
-        {
-            if (exampleTank)
-            {
-                GameObject tank = exampleTank;
-                tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity);
-                tank.transform.SetParent(playerUnits.transform);
-                tank = Instantiate(tank, new Vector3(2f, -0.4f, 2f), Quaternion.identity);
-                tank.transform.SetParent(playerUnits.transform);
-                tank = Instantiate(tank, new Vector3(5f, -0.4f, 0f), Quaternion.identity);
-                tank.transform.SetParent(playerUnits.transform);
-                
-                GameObject enemy = exampleEnemy;
-                enemy = Instantiate(enemy, new Vector3(4f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-                enemy.transform.SetParent(enemyUnits.transform);
-                enemy = Instantiate(enemy, new Vector3(6f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-                enemy.transform.SetParent(enemyUnits.transform);
-                enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-                enemy.transform.SetParent(enemyUnits.transform);
-            }
-        }
 
 
         // Get neighbour tiles of a tile (top bottom right left, no diagonals)
@@ -195,10 +166,10 @@ namespace Board
         {
             Vector2Int endPosition = CalculateCoordinatesFromPosition(inputPosition);
             mousePosition = endPosition;
-            if (!selectedUnit || mousePosition == null)
+            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition))
                 return;
             Vector2Int startPosition = selectedUnit.GetComponent<BaseUnit>().position;
-            if (endPosition.x >= 0 && endPosition.y >= 0 && endPosition.x <= BoardSize-1 && endPosition.y <= BoardSize-1)
+            if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
                 DrawPath(startPosition, endPosition);
         }
 
@@ -206,7 +177,6 @@ namespace Board
         {
             foreach (BaseTile tile in tileArray)
             {
-                //if (tile.GetComponent<TileGrass>())
                 tile.SetDefaultMaterial();
             }
         }
@@ -245,7 +215,8 @@ namespace Board
                 return;
             
             List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
-            drawTiles = drawTiles.Where(tile => tile.GetComponent<BaseTile>().walkable).ToList();
+            if (drawTiles.Any())
+                drawTiles = drawTiles.Where(tile => tile.GetComponent<BaseTile>().walkable).ToList();
             List<BaseTile> noDrawTiles = new List<BaseTile>();
             
             foreach (BaseTile tile in drawTiles)
@@ -298,7 +269,6 @@ namespace Board
             Debug.Log(selectedUnit.name + " will be deselected");
             selectedUnit.GetComponent<BaseUnit>().SetDeselected();
             selectedUnit = null;
-            // TODO: Calling a function to clear movable tiles that were drawn
         }
 
         public GameObject GetUnitOnTile(Vector2Int coordinates)
@@ -325,7 +295,7 @@ namespace Board
             }
             return null;
         }
-    
+        
         public bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
         {
             if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BoardSize || coordinates.y >= BoardSize)

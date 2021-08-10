@@ -13,7 +13,7 @@ namespace Environment
         // Update is called once per frame
         void Update()
         {
-            RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2);
+            RenderSettings.skybox.SetFloat("_Rotation", Time.time * 1.25f);
             //To set the speed, just multiply Time.time with whatever amount you want.
         }
     }
