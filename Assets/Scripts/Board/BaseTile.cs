@@ -10,8 +10,8 @@ namespace Board
 {
     public class BaseTile : MonoBehaviour
     {
-        protected static Material defaultTile;
-        protected static Material moveableTile;
+        protected Material defaultTile;
+        protected Material moveableTile;
         
         public bool walkable;
         public Vector3 worldPosition;

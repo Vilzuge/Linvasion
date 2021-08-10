@@ -10,17 +10,21 @@ This script handles default tank of the player
 */
 namespace Characters
 {
-    public class BaseTank : MonoBehaviour
+    public class BaseUnit : MonoBehaviour
     {
         public Material _defaultMaterial;
         public Material _selectedMaterial;
         public Canvas myCanvas;
         public GameObject aimButton;
 
-        private Board.Board board;
+        protected Board.Board board;
         private SoundManagerScript soundManager;
-        protected TankState state;
+        public TankState state;
+        public int health;
+        public int movementValue;
+        public int damageValue;
     
+        
         public List<Vector2Int> availableMoves;
         public bool isPlayersUnit;
 
@@ -33,12 +37,9 @@ namespace Characters
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         
-            var positionPhysically = transform.position;
-            position.x = (int)positionPhysically.x;
-            position.y = (int)positionPhysically.z;
-            state = TankState.Unselected;
-            
-            isPlayersUnit = true; //dumb variable
+            var positionWorld = transform.position;
+            position.x = (int)positionWorld.x;
+            position.y = (int)positionWorld.z;
         }
 
         public bool CanMoveTo(Vector2Int coordinates)
@@ -56,8 +57,12 @@ namespace Characters
 
         public virtual void SetSelected()
         {
-            state = TankState.Moving;
+            state = TankState.Selected;
             GetComponent<MeshRenderer>().material = _selectedMaterial;
+            foreach (Vector2Int item in availableMoves)
+            {
+                Debug.Log(item);
+            }
         }
 
         public virtual void SetDeselected()
@@ -69,10 +74,11 @@ namespace Characters
         public virtual void SetAiming()
         {
             state = TankState.Aiming;
+        }
+
+        public virtual void TryToShoot(Vector2Int coords)
+        {
             
-            //TODO: Calculate shootable tiles
-            
-            //TODO: Draw them with gridmanager
         }
     }
 }

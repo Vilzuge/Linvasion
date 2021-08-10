@@ -2,7 +2,7 @@
 
 namespace Characters
 {
-    public class TankArtillery : BaseTank
+    public class TankArtillery : BaseUnit
     {
         // UI
         public GameObject artilleryAimButton;
@@ -13,6 +13,8 @@ namespace Characters
             base.Start();
             _defaultMaterial = Resources.Load<Material>("Materials/TankArtillery");
             _selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            state = TankState.Unselected;
+            isPlayersUnit = true;
         }
     
         // Update is called once per frame

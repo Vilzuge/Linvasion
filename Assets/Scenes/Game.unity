@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1606445, g: 0.16700146, b: 0.19541642, a: 1}
+  m_IndirectSpecularColor: {r: 0.19765067, g: 0.2036466, b: 0.2361894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2070,10 +2070,11 @@ GameObject:
   - component: {fileID: 1805138033}
   - component: {fileID: 1805138034}
   - component: {fileID: 1805138035}
+  - component: {fileID: 1805138036}
   m_Layer: 0
   m_Name: GameBoard
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2105,9 +2106,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3151240689583596779, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
     type: 3}
+  generator: {fileID: 1805138036}
   playerUnits: {fileID: 1683225348}
   enemyUnits: {fileID: 636441419}
   path: []
+  mousePosition: {x: 0, y: 0}
   grassTile: {fileID: 1358931825539846307, guid: ae0f9f5e9cb91f54d9f15f86f5c049c3,
     type: 3}
   waterTile: {fileID: 1358931825539846307, guid: 7a850d5876373884a800af96594934e3,
@@ -2152,6 +2155,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064b5182befdaa141b1bf634882832a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1805138036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805138030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c48585e31aa6584bb45d40e64eceeb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassTile: {fileID: 1358931825539846307, guid: ae0f9f5e9cb91f54d9f15f86f5c049c3,
+    type: 3}
+  waterTile: {fileID: 1358931825539846307, guid: 7a850d5876373884a800af96594934e3,
+    type: 3}
 --- !u!1 &1840039834
 GameObject:
   m_ObjectHideFlags: 0

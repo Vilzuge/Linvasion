@@ -2,7 +2,7 @@
 
 namespace Characters
 {
-    public class TankHarpoon : BaseTank
+    public class TankHarpoon : BaseUnit
     {
         // UI
         public GameObject harpoonAimButton;
@@ -13,6 +13,8 @@ namespace Characters
             base.Start();
             _defaultMaterial = Resources.Load<Material>("Materials/TankHarpoon");
             _selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            state = TankState.Unselected;
+            isPlayersUnit = true;
         }
 
         // Update is called once per frame
