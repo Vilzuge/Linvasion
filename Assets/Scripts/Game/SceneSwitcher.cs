@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 /*
 -------------------------------------------
-This script handles "back to menu" buttons
+This script handle scene switches in the game
 -------------------------------------------
 */
 namespace Game

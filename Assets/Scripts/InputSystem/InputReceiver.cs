@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+-------------------------------------------
+Base class for input receivers
+-------------------------------------------
+*/
+
 namespace InputSystem
 {
     public abstract class InputReceiver : MonoBehaviour

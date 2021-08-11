@@ -6,12 +6,14 @@ using UnityEngine;
 Base tile that other tile types are extended from
 -------------------------------------------
 */
+
 namespace Board
 {
-    public class BaseTile : MonoBehaviour
+    public class TileBase : MonoBehaviour
     {
         protected Material defaultTile;
         protected Material moveableTile;
+        protected Material pathTile;
         
         public bool walkable;
         public Vector3 worldPosition;
@@ -21,7 +23,7 @@ namespace Board
         
         public int gCost;
         public int hCost;
-        public BaseTile parent;
+        public TileBase parent;
 
         public virtual void Start()
         {
@@ -36,10 +38,10 @@ namespace Board
             }
         }
 
-        public virtual void SetDefaultMaterial()
-        {
-            
-        }
+        public virtual void SetDefaultMaterial() { }
         
+        public virtual void SetMovableMaterial() { }
+        
+        public virtual void SetPathMaterial() { }
     }
 }

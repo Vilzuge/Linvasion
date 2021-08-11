@@ -5,9 +5,10 @@ using UnityEngine;
 
 /*
 -------------------------------------------
-This script handles default tank of the player
+Base class for players units
 -------------------------------------------
 */
+
 namespace Characters
 {
     public class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>

@@ -15,7 +15,7 @@ Created initially to learn about editor scripts in Unity but was found quite use
 public class BoardGenerator : EditorWindow
 {
    private GameObject gameBoard;
-   private BaseTile[,] boardTileArray;
+   private TileBase[,] boardTileArray;
    private GameObject grassTile;
    private GameObject waterTile;
    private int BoardSize = 8;
@@ -59,7 +59,7 @@ public class BoardGenerator : EditorWindow
    private void GenerateBoard()
    {
       // GENERATING A NEW GAMEBOARD TO A LIST
-      boardTileArray = new BaseTile[BoardSize, BoardSize];
+      boardTileArray = new TileBase[BoardSize, BoardSize];
    }
 
    private void SpawnBoard()

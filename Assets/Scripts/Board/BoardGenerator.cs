@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/*
+-------------------------------------------
+This script generates a new gameboard
+-------------------------------------------
+*/
+
 namespace Board
 {
     public class BoardGenerator : MonoBehaviour
     {
         
-        public BaseTile[,] tileArray;
+        public TileBase[,] tileArray;
         public GameObject grassTile;
         public GameObject waterTile;
         public const int BoardSize = 8;
         
         void Awake()
         {
-            tileArray = new BaseTile[BoardSize, BoardSize];
+            tileArray = new TileBase[BoardSize, BoardSize];
         }
         
-        public BaseTile[,] GenerateBoard()
+        public TileBase[,] GenerateBoard()
         {
             var tempList = transform.Cast<Transform>().ToList();
             foreach (var child in tempList)

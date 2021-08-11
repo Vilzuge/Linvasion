@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/*
+-------------------------------------------
+Regular panzer tank
+-------------------------------------------
+*/
+
 namespace Characters
 {
     public class TankPanzer : BaseUnit

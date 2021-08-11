@@ -1,6 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
+/*
+-------------------------------------------
+Interface for input handlers
+-------------------------------------------
+*/
+
 namespace InputSystem
 {
     public interface IInputHandler

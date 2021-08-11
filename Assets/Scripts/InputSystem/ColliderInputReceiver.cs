@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+-------------------------------------------
+Input receiver for the colliders (tiles)
+-------------------------------------------
+*/
+
 namespace InputSystem
 {
     public class ColliderInputReceiver : InputReceiver

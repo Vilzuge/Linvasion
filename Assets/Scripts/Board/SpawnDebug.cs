@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+-------------------------------------------
+This script spawns units for testing purposes before spawning is implemented
+-------------------------------------------
+*/
+
 public class SpawnDebug : MonoBehaviour
 {
     public GameObject exampleTank;
     public GameObject exampleEnemy;
     public GameObject playerUnits;
     public GameObject enemyUnits;
-
-    private void Start()
-    {
-    }
-
+    
     public void SpawnDebugUnits()
     {
-        if (exampleTank)
+        if (exampleTank && exampleEnemy)
         {
             GameObject tank = exampleTank;
             tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity);

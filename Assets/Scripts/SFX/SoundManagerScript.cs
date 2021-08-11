@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+-------------------------------------------
+Sound manager that can be used to play soundeffects in the game
+-------------------------------------------
+*/
+
 namespace SFX
 {
     public class SoundManagerScript : MonoBehaviour

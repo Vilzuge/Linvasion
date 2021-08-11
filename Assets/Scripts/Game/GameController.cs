@@ -2,9 +2,10 @@
 
 /*
 -------------------------------------------
-This script keeps track of the gamestate
+This script keeps track of the game that is being played
 -------------------------------------------
 */
+
 namespace Game
 {
     public class GameController : MonoBehaviour
@@ -14,11 +15,11 @@ namespace Game
 
         void Start()
         {
-            isPlayersTurn = true; // FOR TESTING
+            isPlayersTurn = true;
         }
-        public void SetGameState(GameState state)
+        public void SetGameState(GameState stateToSet)
         {
-            this.state = state;
+            state = stateToSet;
         }
 
         public bool IsTeamTurnActive()

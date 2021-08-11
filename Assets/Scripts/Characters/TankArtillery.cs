@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+-------------------------------------------
+Artillery unit
+-------------------------------------------
+*/
+
 namespace Characters
 {
     public class TankArtillery : BaseUnit

@@ -8,7 +8,6 @@ at Board.cs "GetNeighbours" function that returns the tiles around a specific ti
 -------------------------------------------
 */
 
-
 namespace Board
 {
     public class Pathfinding : MonoBehaviour
@@ -20,44 +19,44 @@ namespace Board
             board = GetComponent<Board>();
         }
         
-        public List<BaseTile> FindPath(BaseTile startTile, BaseTile targetTile)
+        public List<TileBase> FindPath(TileBase start, TileBase target)
         {
-            List<BaseTile> openSet = new List<BaseTile>();
-            HashSet<BaseTile> closedSet = new HashSet<BaseTile>();
-            openSet.Add(startTile);
+            List<TileBase> openSet = new List<TileBase>();
+            HashSet<TileBase> closedSet = new HashSet<TileBase>();
+            openSet.Add(start);
 
             while (openSet.Count > 0)
             {
-                BaseTile currentTile = openSet[0];
+                TileBase current = openSet[0];
                 for (int i = 1; i < openSet.Count; i++)
                 {
-                    if (openSet[i].fCost < currentTile.fCost || openSet[i].fCost == currentTile.fCost && openSet[i].hCost < currentTile.hCost)
+                    if (openSet[i].fCost < current.fCost || openSet[i].fCost == current.fCost && openSet[i].hCost < current.hCost)
                     {
-                        currentTile = openSet[i];
+                        current = openSet[i];
                     }
                 }
 
-                openSet.Remove(currentTile);
-                closedSet.Add(currentTile);
+                openSet.Remove(current);
+                closedSet.Add(current);
 
-                if (currentTile == targetTile)
+                if (current == target)
                 {
-                    return RetracePath(startTile, targetTile);
+                    return RetracePath(start, target);
                 }
 
-                foreach (BaseTile neighbour in board.GetNeighbours(currentTile))
+                foreach (TileBase neighbour in board.GetNeighbours(current))
                 {
                     if ( !neighbour.walkable || closedSet.Contains(neighbour))
                     {
                         continue;
                     }
 
-                    int newMovementCostToNeighbour = currentTile.gCost + GetDistance(currentTile, neighbour);
+                    int newMovementCostToNeighbour = current.gCost + GetDistance(current, neighbour);
                     if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                     {
                         neighbour.gCost = newMovementCostToNeighbour;
-                        neighbour.hCost = GetDistance(neighbour, targetTile);
-                        neighbour.parent = currentTile;
+                        neighbour.hCost = GetDistance(neighbour, target);
+                        neighbour.parent = current;
 
                         if (!openSet.Contains(neighbour))
                         {
@@ -69,24 +68,24 @@ namespace Board
             return null;
         }
 
-        public List<BaseTile> RetracePath(BaseTile startTile, BaseTile endTile)
+        public List<TileBase> RetracePath(TileBase start, TileBase end)
         {
-            List<BaseTile> path = new List<BaseTile>();
-            BaseTile currentTile = endTile;
+            List<TileBase> path = new List<TileBase>();
+            TileBase current = end;
 
-            while (currentTile != startTile)
+            while (current != start)
             {
-                path.Add(currentTile);
-                currentTile = currentTile.parent;
+                path.Add(current);
+                current = current.parent;
             }
             path.Reverse();
             return path;
         }
         
-        int GetDistance(BaseTile tileA, BaseTile tileB)
+        int GetDistance(TileBase a, TileBase b)
         {
-            int dstX = Mathf.Abs(tileA.gridX - tileB.gridX);
-            int dstY = Mathf.Abs(tileA.gridY - tileB.gridY);
+            int dstX = Mathf.Abs(a.gridX - b.gridX);
+            int dstY = Mathf.Abs(a.gridY - b.gridY);
 
             if (dstX > dstY)
                 return 14 * dstY + 10 * (dstX - dstY);

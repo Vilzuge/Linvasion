@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+-------------------------------------------
+Flying enemy unit
+-------------------------------------------
+*/
+
 namespace Characters
 {
     public class EnemyFly : BaseEnemy

@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+-------------------------------------------
+Harpoon tank
+-------------------------------------------
+*/
+
 namespace Characters
 {
     public class TankHarpoon : BaseUnit

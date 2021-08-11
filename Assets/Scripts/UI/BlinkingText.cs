@@ -2,6 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+-------------------------------------------
+Class for blinking text in the UI
+-------------------------------------------
+*/
+
 namespace UI
 {
     public class BlinkingText : MonoBehaviour

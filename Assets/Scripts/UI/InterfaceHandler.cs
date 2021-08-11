@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 /*
 -------------------------------------------
-This script handles the changes in tje games interface
+From old version of the game, name is dumb but was used to track unitspawning
 -------------------------------------------
 */
 

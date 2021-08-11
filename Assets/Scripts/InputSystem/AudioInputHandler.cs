@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+-------------------------------------------
+Input handler for audio
+-------------------------------------------
+*/
+
 namespace InputSystem
 {
     public class AudioInputHandler : MonoBehaviour

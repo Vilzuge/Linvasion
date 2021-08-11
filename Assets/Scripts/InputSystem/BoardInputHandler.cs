@@ -2,6 +2,12 @@
 using Board;
 using UnityEngine;
 
+/*
+-------------------------------------------
+Input handler for the gameboard
+-------------------------------------------
+*/
+
 namespace InputSystem
 {
     public class BoardInputHandler : MonoBehaviour, IInputHandler
@@ -20,7 +26,7 @@ namespace InputSystem
         
         public void ProcessHoverInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
-            board.OnUnitTargeting(inputPosition);
+            board.TrackMousePosition(inputPosition);
         }
     }
 }

@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IKillable
-{
-    void Kill();
-}
+/*
+-------------------------------------------
+Interfaces for damaging and killing units and enemies
+-------------------------------------------
+*/
 
-public interface IDamageable<T>
+namespace Characters
 {
-    void Damage(T damageTaken);
+    public interface IKillable
+    {
+        void Kill();
+    }
+
+    public interface IDamageable<T>
+    {
+        void Damage(T damageTaken);
+    }
 }
