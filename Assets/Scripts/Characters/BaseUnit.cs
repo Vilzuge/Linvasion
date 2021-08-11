@@ -10,7 +10,7 @@ This script handles default tank of the player
 */
 namespace Characters
 {
-    public class BaseUnit : MonoBehaviour
+    public class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
     {
         public Material _defaultMaterial;
         public Material _selectedMaterial;
@@ -79,6 +79,20 @@ namespace Characters
         public virtual void TryToShoot(Vector2Int coords)
         {
             
+        }
+
+        /* INTERFACES */
+        public void Kill()
+        {
+            Destroy(this);
+        }
+
+        public void Damage(int damageTaken)
+        {
+            health -= damageTaken;
+            Debug.Log(this.name + " to be killed.");
+            if (health <= 0)
+                Kill();
         }
     }
 }

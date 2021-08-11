@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7400104921944530917}
   - component: {fileID: 3873879267490358432}
   - component: {fileID: 4352106837964524226}
-  - component: {fileID: 3916196089547984243}
   m_Layer: 0
   m_Name: EnemyFly
   m_TagString: Untagged
@@ -83,29 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3916196089547984243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8681533556981278644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a4da18ae954bf40b0c8fb6b561e556, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultMaterial: {fileID: 0}
-  _selectedMaterial: {fileID: 0}
-  myCanvas: {fileID: 0}
-  aimButton: {fileID: 0}
-  state: 0
-  health: 0
-  movementValue: 0
-  damageValue: 0
-  availableMoves: []
-  isPlayersUnit: 0
-  position: {x: 0, y: 0}
 --- !u!1001 &6082308659070415675
 PrefabInstance:
   m_ObjectHideFlags: 0
