@@ -8,7 +8,7 @@ Harpoon tank
 
 namespace Characters
 {
-    public class TankHarpoon : BaseUnit
+    public class TankHarpoon : TankBase
     {
         // UI
         public GameObject harpoonAimButton;

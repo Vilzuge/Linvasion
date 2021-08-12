@@ -11,7 +11,7 @@ Base class for players units
 
 namespace Characters
 {
-    public class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
+    public class TankBase : MonoBehaviour, IKillable, IDamageable<int>
     {
         public Material defaultMaterial;
         public Material selectedMaterial;

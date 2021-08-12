@@ -8,7 +8,7 @@ Artillery unit
 
 namespace Characters
 {
-    public class TankArtillery : BaseUnit
+    public class TankArtillery : TankBase
     {
         // UI
         public GameObject artilleryAimButton;

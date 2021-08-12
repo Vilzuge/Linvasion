@@ -11,7 +11,7 @@ Regular panzer tank
 
 namespace Characters
 {
-    public class TankPanzer : BaseUnit
+    public class TankPanzer : TankBase
     {
         // UI
         public GameObject panzerAimButton;
@@ -75,11 +75,14 @@ namespace Characters
         {
             base.TryToShoot(tileToShoot);
             Vector2Int tilePos = new Vector2Int(tileToShoot.gridX, tileToShoot.gridY);
-            
+
             if (availableShots.Contains(tileToShoot))
+            {
                 board.ApplyDamage(tilePos, damageValue);
-            
-            Debug.Log("You shot at " + tilePos);
+                Debug.Log("You shot at " + tilePos);
+            }
+            else
+                Debug.Log("You cant shoot there...");
         }
     }
 }

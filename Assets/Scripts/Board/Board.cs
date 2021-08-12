@@ -45,7 +45,7 @@ namespace Board
         void Update()
         {
             GameObject hoverUnit = GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<BaseUnit>())
+            if (hoverUnit && hoverUnit.GetComponent<TankBase>())
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -77,8 +77,8 @@ namespace Board
             if (selectedUnit)
             {
                 // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS -> TRY SHOOTING WITH THE UNIT
-                if (selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
-                    selectedUnit.GetComponent<BaseUnit>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
+                if (selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
+                    selectedUnit.GetComponent<TankBase>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
                 
                 // SELECTED UNIT IS BEING PRESSED -> DESELECT
                 else if (unitObject != null && selectedUnit == unitObject)
@@ -89,7 +89,7 @@ namespace Board
                     SelectUnit(coordinates);
                 
                 // UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED
-                else if (selectedUnit.GetComponent<BaseUnit>().CanMoveTo(coordinates) && selectedUnit.GetComponent<BaseUnit>().state == TankState.Selected)
+                else if (selectedUnit.GetComponent<TankBase>().CanMoveTo(coordinates) && selectedUnit.GetComponent<TankBase>().state == TankState.Selected)
                 {
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
@@ -100,7 +100,7 @@ namespace Board
             else
             {
                 // NO UNITS SELECTED -> SELECT THE NEW ONE
-                if (unitObject != null && controller.IsTeamTurnActive() && unitObject.GetComponent<BaseUnit>())
+                if (unitObject != null && controller.IsTeamTurnActive() && unitObject.GetComponent<TankBase>())
                 {
                     SelectUnit(coordinates);
                 }
@@ -117,9 +117,9 @@ namespace Board
         // Draw path if unit is selected
         public void TryDrawPath()
         {
-            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) || selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
+            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) || selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
                 return;
-            Vector2Int startPosition = selectedUnit.GetComponent<BaseUnit>().position;
+            Vector2Int startPosition = selectedUnit.GetComponent<TankBase>().position;
             if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
                 DrawPath(startPosition, mousePosition);
         }
@@ -154,8 +154,8 @@ namespace Board
 
         public void DrawMovableTiles(GameObject hoverUnit)
         {
-            int moves = hoverUnit.transform.GetComponent<BaseUnit>().movementValue;
-            Vector2Int myPos = hoverUnit.transform.GetComponent<BaseUnit>().position;
+            int moves = hoverUnit.transform.GetComponent<TankBase>().movementValue;
+            Vector2Int myPos = hoverUnit.transform.GetComponent<TankBase>().position;
             List<TileBase> moveTiles = CalculateMovableTiles(myPos, moves);
             
             foreach (TileBase tile in moveTiles)
@@ -219,11 +219,11 @@ namespace Board
             TileBase damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
             GameObject damagedUnit = GetUnitOnTile(coordsShotAt);
             
-            if (damagedUnit.GetComponent<BaseUnit>())
-                damagedUnit.GetComponent<BaseUnit>().Damage(damageValue);
+            if (damagedUnit.GetComponent<TankBase>())
+                damagedUnit.GetComponent<TankBase>().Damage(damageValue);
             
-            else if (damagedUnit.GetComponent<BaseEnemy>())
-                damagedUnit.GetComponent<BaseEnemy>().Damage(damageValue);
+            else if (damagedUnit.GetComponent<EnemyBase>())
+                damagedUnit.GetComponent<EnemyBase>().Damage(damageValue);
         }
         
         /*
@@ -235,8 +235,8 @@ namespace Board
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
-            Vector2Int pos = selectedUnit.GetComponent<BaseUnit>().position;
-            selectedUnit.GetComponent<BaseUnit>().MoveTo(endCoordinates);
+            Vector2Int pos = selectedUnit.GetComponent<TankBase>().position;
+            selectedUnit.GetComponent<TankBase>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
         }
     
@@ -244,7 +244,7 @@ namespace Board
         {
             DeselectUnit();
             selectedUnit = GetUnitOnTile(coordinates);
-            selectedUnit.GetComponent<BaseUnit>().SetSelected();
+            selectedUnit.GetComponent<TankBase>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
             // TODO: Drawing movable tiles
         }
@@ -252,7 +252,7 @@ namespace Board
         {
             if (!selectedUnit) return;
             Debug.Log(selectedUnit.name + " will be deselected");
-            selectedUnit.GetComponent<BaseUnit>().SetDeselected();
+            selectedUnit.GetComponent<TankBase>().SetDeselected();
             selectedUnit = null;
         }
 
@@ -262,7 +262,7 @@ namespace Board
             {
                 foreach (Transform child in playerUnits.transform)
                 {
-                    Vector2Int temp = child.GetComponent<BaseUnit>().position;
+                    Vector2Int temp = child.GetComponent<TankBase>().position;
                     if (temp.x == coordinates.x && temp.y == coordinates.y)
                     {
                         return child.gameObject;
@@ -271,7 +271,7 @@ namespace Board
                 
                 foreach (Transform child in enemyUnits.transform)
                 {
-                    Vector2Int temp = child.GetComponent<BaseEnemy>().position;
+                    Vector2Int temp = child.GetComponent<EnemyBase>().position;
                     if (temp.x == coordinates.x && temp.y == coordinates.y)
                     {
                         return child.gameObject;

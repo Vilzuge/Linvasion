@@ -10,7 +10,7 @@ Base class for enemies
 
 namespace Characters
 {
-    public class BaseEnemy : MonoBehaviour, IKillable, IDamageable<int>
+    public class EnemyBase : MonoBehaviour, IKillable, IDamageable<int>
     {
 
         public int health;
