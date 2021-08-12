@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.21611795, g: 0.21942478, b: 0.25377747, a: 1}
+  m_IndirectSpecularColor: {r: 0.22132146, g: 0.2243931, b: 0.25937024, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2107,18 +2107,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3151240689583596779, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
     type: 3}
-  playerUnits: {fileID: 1683225348}
-  enemyUnits: {fileID: 636441419}
   path: []
   mousePosition: {x: 0, y: 0}
-  grassTile: {fileID: 1358931825539846307, guid: ae0f9f5e9cb91f54d9f15f86f5c049c3,
-    type: 3}
-  waterTile: {fileID: 1358931825539846307, guid: 7a850d5876373884a800af96594934e3,
-    type: 3}
-  exampleTank: {fileID: 1880126163704468201, guid: 2762173e8f6b3bf4ab5c8af4af28dbc4,
-    type: 3}
-  exampleEnemy: {fileID: 8681533556981278644, guid: 2a1969e7bfad49a449759c0c95d6b79e,
-    type: 3}
+  playerUnits: {fileID: 1683225348}
+  enemyUnits: {fileID: 636441419}
 --- !u!114 &1805138033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2611,7 +2603,7 @@ PrefabInstance:
     - target: {fileID: 3151240689583596778, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3151240689583596778, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
         type: 3}
@@ -2621,7 +2613,7 @@ PrefabInstance:
     - target: {fileID: 3151240689583596778, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3151240689583596778, guid: 1e57f7c64659ab24b9e1f1017e89f74e,
         type: 3}
