@@ -13,8 +13,8 @@ namespace Characters
 {
     public class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
     {
-        public Material _defaultMaterial;
-        public Material _selectedMaterial;
+        public Material defaultMaterial;
+        public Material selectedMaterial;
         public Canvas myCanvas;
         public GameObject aimButton;
 
@@ -26,8 +26,8 @@ namespace Characters
         public int damageValue;
     
         
-        public List<Vector2Int> availableMoves;
-        public bool isPlayersUnit;
+        public List<TileBase> availableMoves;
+        public List<TileBase> availableShots;
 
         public Vector2Int position;
     
@@ -38,6 +38,7 @@ namespace Characters
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         
+            state = TankState.Unselected;
             var positionWorld = transform.position;
             position.x = (int)positionWorld.x;
             position.y = (int)positionWorld.z;
@@ -53,39 +54,46 @@ namespace Characters
         {
             position = new Vector2Int(coordinates.x, coordinates.y);
             gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
+            availableMoves = CalculateMovableTiles();
+            availableShots = CalculateAvailableShots();
+        }
+        
+        public virtual List<TileBase> CalculateMovableTiles()
+        {
+            return board.CalculateMovableTiles(position, movementValue);
+        }
+
+        public virtual List<TileBase> CalculateAvailableShots()
+        {
+            return null;
         }
 
 
         public virtual void SetSelected()
         {
             state = TankState.Selected;
-            GetComponent<MeshRenderer>().material = _selectedMaterial;
-            foreach (Vector2Int item in availableMoves)
-            {
-                Debug.Log(item);
-            }
+            GetComponent<MeshRenderer>().material = selectedMaterial;
         }
 
         public virtual void SetDeselected()
         {
             state = TankState.Unselected;
-            GetComponent<MeshRenderer>().material = _defaultMaterial;
+            GetComponent<MeshRenderer>().material = defaultMaterial;
         }
 
         public virtual void SetAiming()
         {
             state = TankState.Aiming;
+            board.DrawShootableTiles(availableShots);
         }
-
-        public virtual void TryToShoot(Vector2Int coords)
-        {
-            
-        }
-
-        /* INTERFACES */
+        
+        public virtual void TryToShoot(TileBase tileToShoot) { }
+        
+        
+        /* INTERFACE STUFF */
         public void Kill()
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         public void Damage(int damageTaken)

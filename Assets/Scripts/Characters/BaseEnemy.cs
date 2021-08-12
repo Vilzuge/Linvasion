@@ -32,7 +32,7 @@ namespace Characters
         
         public void Kill()
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         public void Damage(int damageTaken)

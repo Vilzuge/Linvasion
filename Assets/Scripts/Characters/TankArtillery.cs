@@ -17,10 +17,9 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            _defaultMaterial = Resources.Load<Material>("Materials/TankArtillery");
-            _selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            defaultMaterial = Resources.Load<Material>("Materials/TankArtillery");
+            selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
             state = TankState.Unselected;
-            isPlayersUnit = true;
         }
     
         // Update is called once per frame

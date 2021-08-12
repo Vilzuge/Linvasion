@@ -15,6 +15,7 @@ namespace Board
             defaultTile = Resources.Load<Material>("Materials/GroundGreen");
             moveableTile = Resources.Load<Material>("Materials/GroundHighlight");
             pathTile = Resources.Load<Material>("Materials/GroundSpawnable");
+            aimTile = Resources.Load<Material>("Materials/GroundAiming");
         }
         
         
@@ -31,6 +32,11 @@ namespace Board
         public override void SetPathMaterial()
         {
             transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = pathTile;
+        }
+        
+        public override void SetShootableMaterial()
+        {
+            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = aimTile;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Board;
+using UnityEngine;
 using UnityEngine.UI;
 
 /*
@@ -19,15 +21,16 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            _defaultMaterial = Resources.Load<Material>("Materials/TankPanzer");
-            _selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            defaultMaterial = Resources.Load<Material>("Materials/TankPanzer");
+            selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
             panzerAimButton.SetActive(false);
-            state = TankState.Unselected;
-            isPlayersUnit = true;
+            
             movementValue = 3;
-            damageValue = 1;
+            damageValue = 2;
             health = 3;
+            availableMoves = CalculateMovableTiles();
+            availableShots = CalculateAvailableShots();
         }
 
         public override void SetSelected()
@@ -50,11 +53,33 @@ namespace Characters
             // Todo: draw shootable tiles
         }
 
-        public override void TryToShoot(Vector2Int coords)
+        public override List<TileBase> CalculateAvailableShots()
         {
-            base.TryToShoot(coords);
-            board.ApplyDamage(coords, damageValue);
-            Debug.Log("You shot at " + coords);
+            base.CalculateAvailableShots();
+            TileBase[,] tiles = board.GetTileArray();
+            List<TileBase> tileList = new List<TileBase>();
+            
+            foreach (TileBase tile in tiles)
+            {
+                if (tile.gridX == position.x || tile.gridY == position.y)
+                {
+                    if (tile.gridX == position.x && tile.gridY == position.y)
+                        continue;
+                    tileList.Add(tile);
+                }
+            }
+            return tileList;
+        }
+
+        public override void TryToShoot(TileBase tileToShoot)
+        {
+            base.TryToShoot(tileToShoot);
+            Vector2Int tilePos = new Vector2Int(tileToShoot.gridX, tileToShoot.gridY);
+            
+            if (availableShots.Contains(tileToShoot))
+                board.ApplyDamage(tilePos, damageValue);
+            
+            Debug.Log("You shot at " + tilePos);
         }
     }
 }

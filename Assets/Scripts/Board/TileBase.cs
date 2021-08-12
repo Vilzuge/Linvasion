@@ -14,6 +14,7 @@ namespace Board
         protected Material defaultTile;
         protected Material moveableTile;
         protected Material pathTile;
+        protected Material aimTile;
         
         public bool walkable;
         public Vector3 worldPosition;
@@ -43,5 +44,9 @@ namespace Board
         public virtual void SetMovableMaterial() { }
         
         public virtual void SetPathMaterial() { }
+        
+        public virtual void SetShootableMaterial() { }
+        
+        
     }
 }

@@ -52,8 +52,6 @@ namespace Board
                 ClearBoardMovement();
             }
             TryDrawPath();
-            
-            
         }
         
         // Initialize the game, set a controller and spawn (debug) units
@@ -78,8 +76,12 @@ namespace Board
             // IF SELECTED UNIT EXISTS
             if (selectedUnit)
             {
+                // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS -> TRY SHOOTING WITH THE UNIT
+                if (selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
+                    selectedUnit.GetComponent<BaseUnit>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
+                
                 // SELECTED UNIT IS BEING PRESSED -> DESELECT
-                if (unitObject != null && selectedUnit == unitObject)
+                else if (unitObject != null && selectedUnit == unitObject)
                     DeselectUnit();
 
                 // ANOTHER UNIT IS BEING PRESSED -> SELECT THE NEW ONE
@@ -92,12 +94,6 @@ namespace Board
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
                     ClearBoardMovement();
-                }
-                
-                // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS
-                else if (selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
-                {
-                    selectedUnit.GetComponent<BaseUnit>().TryToShoot(coordinates);
                 }
             }
             // IF THERE IS NO SELECTED UNIT
@@ -121,7 +117,7 @@ namespace Board
         // Draw path if unit is selected
         public void TryDrawPath()
         {
-            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition))
+            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) || selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
                 return;
             Vector2Int startPosition = selectedUnit.GetComponent<BaseUnit>().position;
             if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
@@ -160,26 +156,20 @@ namespace Board
         {
             int moves = hoverUnit.transform.GetComponent<BaseUnit>().movementValue;
             Vector2Int myPos = hoverUnit.transform.GetComponent<BaseUnit>().position;
-            List<TileBase> moveTiles = new List<TileBase>();
-            moveTiles.Add(tileArray[myPos.x, myPos.y]);
-
-            for (int i = 0; i < moves; i++)
-            {
-                foreach (TileBase tile in moveTiles.ToList())
-                {
-                    List<TileBase> neighbours = GetNeighbours(tile);
-                    foreach (TileBase loopTile in neighbours)
-                    {
-                        if (!moveTiles.Contains(loopTile))
-                            if (loopTile is TileGrass)
-                                moveTiles.Add(loopTile);
-                    }
-                }
-            }
+            List<TileBase> moveTiles = CalculateMovableTiles(myPos, moves);
             
             foreach (TileBase tile in moveTiles)
             {
                 tile.SetMovableMaterial();
+            }
+            
+        }
+        
+        public void DrawShootableTiles(List<TileBase> tilesToShoot)
+        {
+            foreach (TileBase tile in tilesToShoot)
+            {
+                tile.SetShootableMaterial();
             }
             
         }
@@ -228,8 +218,20 @@ namespace Board
         {
             TileBase damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
             GameObject damagedUnit = GetUnitOnTile(coordsShotAt);
-            damagedUnit.GetComponent<BaseUnit>().health -= damageValue;
+            
+            if (damagedUnit.GetComponent<BaseUnit>())
+                damagedUnit.GetComponent<BaseUnit>().Damage(damageValue);
+            
+            else if (damagedUnit.GetComponent<BaseEnemy>())
+                damagedUnit.GetComponent<BaseEnemy>().Damage(damageValue);
         }
+        
+        /*
+        public void ApplyMovement(Vector2Int coordsShotAt, int damageValue)
+        {
+
+        }
+        */
 
         public void MoveSelectedUnit(Vector2Int endCoordinates)
         {
@@ -294,6 +296,31 @@ namespace Board
             int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).x + 0.5f);
             int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).z + 0.5f);
             return new Vector2Int(x, y);
+        }
+        
+        public List<TileBase> CalculateMovableTiles(Vector2Int unitPos, int unitMovement)
+        {
+            List<TileBase> moveTiles = new List<TileBase>();
+            moveTiles.Add(tileArray[unitPos.x, unitPos.y]);
+            for (int i = 0; i < unitMovement; i++)
+            {
+                foreach (TileBase tile in moveTiles.ToList())
+                {
+                    List<TileBase> neighbours = GetNeighbours(tile);
+                    foreach (TileBase loopTile in neighbours)
+                    {
+                        if (!moveTiles.Contains(loopTile))
+                            if (loopTile is TileGrass)
+                                moveTiles.Add(loopTile);
+                    }
+                }
+            }
+            return moveTiles;
+        }
+
+        public TileBase[,] GetTileArray()
+        {
+            return tileArray;
         }
     }
 }

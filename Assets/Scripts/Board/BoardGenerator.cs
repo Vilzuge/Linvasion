@@ -38,7 +38,7 @@ namespace Board
                 for (int col = 0; col <= BoardSize - 1; col++)
                 {
                     float randomChance = Random.Range(0.0f, 1.0f);
-                    if (randomChance < 0.8f)
+                    if (randomChance < 1.0f)
                     {
                         GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity, transform);
                         TileGrass component = newTile.AddComponent<TileGrass>();
