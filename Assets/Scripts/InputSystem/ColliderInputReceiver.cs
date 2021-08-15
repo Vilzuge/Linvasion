@@ -32,11 +32,14 @@ namespace InputSystem
             }
             else
             {
-                Physics.Raycast(ray, out hit);
-                mousePosition = hit.point;
+                if (Physics.Raycast(ray, out hit))
+                    mousePosition = hit.point;
+                else
+                {
+                    mousePosition = new Vector3(-1, -1, -1);
+                }
                 OnHoverInputReceived();
             }
-
         }
 
         public override void OnClickInputReceived()

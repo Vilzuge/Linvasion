@@ -15,7 +15,7 @@ namespace Board
             defaultTile = Resources.Load<Material>("Materials/GroundWater");
         }
         
-        public override void SetDefaultMaterial()
+        public override void SetDefault()
         {
             transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = defaultTile;
         }

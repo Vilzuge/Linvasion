@@ -15,7 +15,8 @@ namespace Board
         protected Material moveableTile;
         protected Material pathTile;
         protected Material aimTile;
-        
+
+        public TileState state;
         public bool walkable;
         public Vector3 worldPosition;
         
@@ -28,7 +29,7 @@ namespace Board
 
         public virtual void Start()
         {
-            
+            state = TileState.Default;
         }
 
         public int fCost
@@ -39,14 +40,25 @@ namespace Board
             }
         }
 
-        public virtual void SetDefaultMaterial() { }
-        
-        public virtual void SetMovableMaterial() { }
-        
-        public virtual void SetPathMaterial() { }
-        
-        public virtual void SetShootableMaterial() { }
-        
+        public virtual void SetDefault()
+        {
+            state = TileState.Default;
+        }
+
+        public virtual void SetMovable()
+        {
+            state = TileState.Movable;
+        }
+
+        public virtual void SetPathfind()
+        {
+            state = TileState.Pathfind;
+        }
+
+        public virtual void SetShootable()
+        {
+            state = TileState.Shootable;
+        }
         
     }
 }

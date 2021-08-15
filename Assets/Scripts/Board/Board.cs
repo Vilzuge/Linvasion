@@ -48,6 +48,7 @@ namespace Board
                 DrawMovableTiles(hoverUnit);
             else
             {
+                ClearBoardPathfinding();
                 ClearBoardMovement();
             }
             TryDrawPath();
@@ -93,6 +94,7 @@ namespace Board
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
                     ClearBoardMovement();
+                    ClearBoardPathfinding();
                 }
             }
             // IF THERE IS NO SELECTED UNIT
@@ -116,8 +118,12 @@ namespace Board
         // Draw path if unit is selected
         public void TryDrawPath()
         {
-            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) || selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
+            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) ||
+                selectedUnit.GetComponent<TankBase>().state != TankState.Selected)
+            {
+                ClearBoardPathfinding();
                 return;
+            }
             Vector2Int startPosition = selectedUnit.GetComponent<TankBase>().position;
             if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
                 DrawPath(startPosition, mousePosition);
@@ -159,7 +165,7 @@ namespace Board
             
             foreach (TileBase tile in moveTiles)
             {
-                tile.SetMovableMaterial();
+                tile.SetMovable();
             }
             
         }
@@ -168,7 +174,7 @@ namespace Board
         {
             foreach (TileBase tile in tilesToShoot)
             {
-                tile.SetShootableMaterial();
+                tile.SetShootable();
             }
             
         }
@@ -186,7 +192,7 @@ namespace Board
             foreach (TileBase tile in drawTiles)
             {
                 if (tile.GetComponent<TileBase>().walkable)
-                    tile.SetPathMaterial();
+                    tile.SetPathfind();
             }
             
             foreach (TileBase tile in tileArray)
@@ -200,7 +206,7 @@ namespace Board
             foreach (TileBase tile in noDrawTiles)
             {
                 if (tile.walkable)
-                    tile.SetDefaultMaterial();
+                    tile.SetDefault();
             }
             
         }
@@ -209,7 +215,17 @@ namespace Board
         {
             foreach (TileBase tile in tileArray)
             {
-                tile.SetDefaultMaterial();
+                if (tile.state == TileState.Movable)
+                    tile.SetDefault();
+            }
+        }
+        
+        public void ClearBoardPathfinding()
+        {
+            foreach (TileBase tile in tileArray)
+            {
+                if (tile.state == TileState.Pathfind)
+                    tile.SetDefault();
             }
         }
 
@@ -284,7 +300,6 @@ namespace Board
         {
             if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BoardSize || coordinates.y >= BoardSize)
             {
-                Debug.Log("Coordinates are NOT on board!!!");
                 return false;
             }
             return true;
@@ -292,6 +307,8 @@ namespace Board
 
         private Vector2Int CalculateCoordinatesFromPosition(Vector3 inputPosition)
         {
+            if (inputPosition == new Vector3(-1, -1, -1))
+                return new Vector2Int(-1, -1);
             int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).x + 0.5f);
             int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).z + 0.5f);
             return new Vector2Int(x, y);
