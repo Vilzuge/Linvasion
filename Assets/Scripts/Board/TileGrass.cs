@@ -12,13 +12,12 @@ namespace Board
     {
         public override void Start()
         {
-            defaultTile = Resources.Load<Material>("Materials/GroundGreen");
-            moveableTile = Resources.Load<Material>("Materials/GroundHighlight");
-            pathTile = Resources.Load<Material>("Materials/GroundSpawnable");
-            aimTile = Resources.Load<Material>("Materials/GroundAiming");
+            defaultTile = Resources.Load<Material>("Materials/M_GroundGrass");
+            moveableTile = Resources.Load<Material>("Materials/M_GroundMovable");
+            pathTile = Resources.Load<Material>("Materials/M_GroundPathfind");
+            aimTile = Resources.Load<Material>("Materials/M_GroundShootable");
         }
-        
-        
+
         public override void SetDefaultMaterial()
         {
             transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = defaultTile;

@@ -12,7 +12,7 @@ namespace Board
     {
         public override void Start()
         {
-            defaultTile = Resources.Load<Material>("Materials/GroundShootable");
+            defaultTile = Resources.Load<Material>("Materials/GroundWater");
         }
         
         public override void SetDefaultMaterial()

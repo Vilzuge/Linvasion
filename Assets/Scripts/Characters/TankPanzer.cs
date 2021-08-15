@@ -21,8 +21,8 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            defaultMaterial = Resources.Load<Material>("Materials/TankPanzer");
-            selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            defaultMaterial = Resources.Load<Material>("Materials/M_TankPanzer");
+            selectedMaterial = Resources.Load<Material>("Materials/M_TankSelected");
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
             panzerAimButton.SetActive(false);
             

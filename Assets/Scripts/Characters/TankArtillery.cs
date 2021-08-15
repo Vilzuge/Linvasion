@@ -17,8 +17,8 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            defaultMaterial = Resources.Load<Material>("Materials/TankArtillery");
-            selectedMaterial = Resources.Load<Material>("Materials/TankSelected");
+            defaultMaterial = Resources.Load<Material>("Materials/M_TankArtillery");
+            selectedMaterial = Resources.Load<Material>("Materials/M_TankSelected");
             state = TankState.Unselected;
         }
     

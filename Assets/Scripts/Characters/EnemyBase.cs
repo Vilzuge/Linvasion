@@ -28,7 +28,6 @@ namespace Characters
         {
             
         }
-
         
         public void Kill()
         {
