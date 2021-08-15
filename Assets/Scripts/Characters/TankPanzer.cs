@@ -50,7 +50,6 @@ namespace Characters
         {
             base.SetAiming();
             Debug.Log("You are currently aiming");
-            // Todo: draw shootable tiles
         }
 
         public override List<TileBase> CalculateAvailableShots()

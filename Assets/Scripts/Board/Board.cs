@@ -44,7 +44,7 @@ namespace Board
         void Update()
         {
             GameObject hoverUnit = GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<TankBase>())
+            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming)
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -78,8 +78,13 @@ namespace Board
             {
                 // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS -> TRY SHOOTING WITH THE UNIT
                 if (selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
+                {
                     selectedUnit.GetComponent<TankBase>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
-                
+                    ClearBoardShootables();
+                    DeselectUnit();
+                }
+
+
                 // SELECTED UNIT IS BEING PRESSED -> DESELECT
                 else if (unitObject != null && selectedUnit == unitObject)
                     DeselectUnit();
@@ -228,6 +233,15 @@ namespace Board
                     tile.SetDefault();
             }
         }
+        
+        public void ClearBoardShootables()
+        {
+            foreach (TileBase tile in tileArray)
+            {
+                if (tile.state == TileState.Shootable)
+                    tile.SetDefault();
+            }
+        }
 
         public void ApplyDamage(Vector2Int coordsShotAt, int damageValue)
         {
@@ -236,7 +250,7 @@ namespace Board
             
             if (damagedUnit.GetComponent<TankBase>())
                 damagedUnit.GetComponent<TankBase>().Damage(damageValue);
-            
+
             else if (damagedUnit.GetComponent<EnemyBase>())
                 damagedUnit.GetComponent<EnemyBase>().Damage(damageValue);
         }
