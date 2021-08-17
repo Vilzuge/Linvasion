@@ -9,6 +9,6 @@ namespace Game
 {
     public enum GameState
     {
-        Init, Play, Finished
+        PlayerTurn, EnemyTurn, Won, Lost
     }
 }

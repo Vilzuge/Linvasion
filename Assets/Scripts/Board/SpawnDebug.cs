@@ -21,11 +21,11 @@ public class SpawnDebug : MonoBehaviour
         if (exampleTank && exampleEnemy)
         {
             GameObject tank = exampleTank;
-            tank = Instantiate(tank, new Vector3(1f, -0.4f, 1f), Quaternion.identity);
+            tank = Instantiate(tank, new Vector3(1f, -0.4f, 3f), Quaternion.identity);
             tank.transform.SetParent(playerUnits.transform);
-            tank = Instantiate(tank, new Vector3(2f, -0.4f, 2f), Quaternion.identity);
+            tank = Instantiate(tank, new Vector3(3f, -0.4f, 2f), Quaternion.identity);
             tank.transform.SetParent(playerUnits.transform);
-            tank = Instantiate(tank, new Vector3(5f, -0.4f, 0f), Quaternion.identity);
+            tank = Instantiate(tank, new Vector3(6f, -0.4f, 2f), Quaternion.identity);
             tank.transform.SetParent(playerUnits.transform);
                 
             GameObject enemy = exampleEnemy;

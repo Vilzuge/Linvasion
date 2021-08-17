@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Board;
 using UnityEngine;
 
 /*
@@ -12,12 +13,15 @@ namespace Characters
 {
     public class EnemyBase : MonoBehaviour, IKillable, IDamageable<int>
     {
-
+        protected Board.Board board;
         public int health;
+        public int movement;
         public Vector2Int position;
+        public List<TileBase> availableMoves;
         
         protected virtual void Start()
         {
+            board = GameObject.Find("GameBoard").GetComponent<Board.Board>();
             var positionWorld = transform.position;
             position.x = (int)positionWorld.x;
             position.y = (int)positionWorld.z;
@@ -28,6 +32,8 @@ namespace Characters
         {
             
         }
+
+        public virtual void AITurn() { }
         
         public void Kill()
         {

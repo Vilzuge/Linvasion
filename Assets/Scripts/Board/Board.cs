@@ -33,7 +33,7 @@ namespace Board
         {
             mousePosition = new Vector2Int();
 
-            tileArray = GetComponent<BoardGenerator>().GenerateBoard();
+            tileArray = GetComponent<BoardGenerator>().GeneratePredetermined();
             Debug.Log("Board generated");
         
             InitializeGame();
@@ -44,7 +44,7 @@ namespace Board
         void Update()
         {
             GameObject hoverUnit = GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming)
+            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -57,8 +57,7 @@ namespace Board
         // Initialize the game, set a controller and spawn (debug) units
         private void InitializeGame()
         {
-            controller = Instantiate(controller);
-            controller.SetGameState(GameState.Play);
+            controller.SetGameState(GameState.PlayerTurn);
             GetComponent<SpawnDebug>().SpawnDebugUnits();
         }
 
@@ -247,7 +246,8 @@ namespace Board
         {
             TileBase damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
             GameObject damagedUnit = GetUnitOnTile(coordsShotAt);
-            
+            if (!damagedUnit)
+                return;
             if (damagedUnit.GetComponent<TankBase>())
                 damagedUnit.GetComponent<TankBase>().Damage(damageValue);
 
