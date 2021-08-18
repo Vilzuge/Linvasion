@@ -32,18 +32,25 @@ namespace Characters
         {
             
         }
+        
+        public void MoveTo(Vector2Int coordinates)
+        {
+            position = new Vector2Int(coordinates.x, coordinates.y);
+            gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
+        }
 
         public virtual void AITurn() { }
         
         public void Kill()
         {
-            Destroy(this.gameObject);
+            Debug.Log(gameObject.name + " was destroyed.");
+            Destroy(gameObject);
         }
 
         public void Damage(int damageTaken)
         {
             health -= damageTaken;
-            Debug.Log(this.name + " to be killed.");
+            Debug.Log(gameObject.name + " to be killed.");
             if (health <= 0)
                 Kill();
         }

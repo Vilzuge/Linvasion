@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.22644603, g: 0.22948125, b: 0.26512873, a: 1}
+  m_IndirectSpecularColor: {r: 0.22569385, g: 0.22871366, b: 0.2642548, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1435,6 +1435,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602122093083420556, guid: 38d0d1be88683e44bac7dd6805495e7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 224596165}
+    - target: {fileID: 6602122093083420556, guid: 38d0d1be88683e44bac7dd6805495e7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchToEnemyTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602122093083420556, guid: 38d0d1be88683e44bac7dd6805495e7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.GameController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6602122093083420557, guid: 38d0d1be88683e44bac7dd6805495e7e,
         type: 3}

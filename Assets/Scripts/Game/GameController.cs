@@ -27,6 +27,12 @@ namespace Game
             state = GameState.PlayerTurn;
         }
 
+        public void SwitchToEnemyTurn()
+        {
+            state = GameState.EnemyTurn;
+            ExecuteEnemyTurn();
+        }
+
         public void ExecuteEnemyTurn()
         {
             if (!enemyUnits)
@@ -39,6 +45,9 @@ namespace Game
                     child.GetComponent<EnemyBase>().AITurn();
                 }
             }
+            
+            SwitchToPlayerTurn();
+            
             // if going to hit, execute hit
 
             // check where player/building can be hit

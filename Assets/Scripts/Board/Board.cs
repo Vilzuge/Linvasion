@@ -14,7 +14,7 @@ namespace Board
 {
     public class Board : MonoBehaviour
     {
-        public const int BoardSize = 8;
+        private const int BoardSize = 8;
         [SerializeField] private GameController controller;
         private TileBase[,] tileArray;
         public List<TileBase> path;
