@@ -15,21 +15,20 @@ namespace Board
     public class Board : MonoBehaviour
     {
         private const int BoardSize = 8;
-        [SerializeField] private GameController controller;
         private TileBase[,] tileArray;
-        public List<TileBase> path;
-        public Vector2Int mousePosition;
-        
-        private GameObject selectedUnit;
-        public GameObject playerUnits;
-        public GameObject enemyUnits;
+        private List<TileBase> path;
+        private Vector2Int mousePosition;
+        [SerializeField] private GameController controller;
+        [SerializeField] private GameObject selectedUnit;
+        [SerializeField] private GameObject playerUnits;
+        [SerializeField] private GameObject enemyUnits;
 
-        void Awake()
+        private void Awake()
         {
             tileArray = new TileBase[BoardSize, BoardSize];
         }
         
-        void Start()
+        private void Start()
         {
             mousePosition = new Vector2Int();
 
@@ -38,10 +37,9 @@ namespace Board
         
             InitializeGame();
             Debug.Log("Game initialized");
-        
         }
         
-        void Update()
+        private void Update()
         {
             GameObject hoverUnit = GetUnitOnTile(mousePosition);
             if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
@@ -83,7 +81,6 @@ namespace Board
                     DeselectUnit();
                 }
 
-
                 // SELECTED UNIT IS BEING PRESSED -> DESELECT
                 else if (unitObject != null && selectedUnit == unitObject)
                     DeselectUnit();
@@ -120,7 +117,7 @@ namespace Board
         }
         
         // Draw path if unit is selected
-        public void TryDrawPath()
+        private void TryDrawPath()
         {
             if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) ||
                 selectedUnit.GetComponent<TankBase>().state != TankState.Selected)
@@ -161,7 +158,7 @@ namespace Board
             return neighbours;
         }
 
-        public void DrawMovableTiles(GameObject hoverUnit)
+        private void DrawMovableTiles(GameObject hoverUnit)
         {
             int moves = hoverUnit.transform.GetComponent<TankBase>().movementValue;
             Vector2Int myPos = hoverUnit.transform.GetComponent<TankBase>().position;
@@ -171,7 +168,6 @@ namespace Board
             {
                 tile.SetMovable();
             }
-            
         }
         
         public void DrawShootableTiles(List<TileBase> tilesToShoot)
@@ -180,10 +176,9 @@ namespace Board
             {
                 tile.SetShootable();
             }
-            
         }
-        
-        public void DrawPath(Vector2Int start, Vector2Int end)
+
+        private void DrawPath(Vector2Int start, Vector2Int end)
         {
             if (!tileArray[end.x, end.y].walkable)
                 return;
@@ -214,8 +209,8 @@ namespace Board
             }
             
         }
-        
-        public void ClearBoardMovement()
+
+        private void ClearBoardMovement()
         {
             foreach (TileBase tile in tileArray)
             {
@@ -223,8 +218,8 @@ namespace Board
                     tile.SetDefault();
             }
         }
-        
-        public void ClearBoardPathfinding()
+
+        private void ClearBoardPathfinding()
         {
             foreach (TileBase tile in tileArray)
             {
@@ -232,8 +227,8 @@ namespace Board
                     tile.SetDefault();
             }
         }
-        
-        public void ClearBoardShootables()
+
+        private void ClearBoardShootables()
         {
             foreach (TileBase tile in tileArray)
             {
@@ -262,7 +257,7 @@ namespace Board
         }
         */
 
-        public void MoveSelectedUnit(Vector2Int endCoordinates)
+        private void MoveSelectedUnit(Vector2Int endCoordinates)
         {
             Vector2Int pos = selectedUnit.GetComponent<TankBase>().position;
             selectedUnit.GetComponent<TankBase>().MoveTo(endCoordinates);
@@ -309,8 +304,8 @@ namespace Board
             }
             return null;
         }
-        
-        public bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
+
+        private bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
         {
             if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BoardSize || coordinates.y >= BoardSize)
             {

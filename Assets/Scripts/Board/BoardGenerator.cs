@@ -13,18 +13,18 @@ namespace Board
 {
     public class BoardGenerator : MonoBehaviour
     {
-        
-        public TileBase[,] tileArray;
-        public GameObject grassTile;
-        public GameObject waterTile;
-        public GameObject buildingTile;
-        public const int BoardSize = 8;
-        
-        void Awake()
+        private const int BoardSize = 8;
+        private TileBase[,] tileArray;
+        [SerializeField] private GameObject grassTile;
+        [SerializeField] private GameObject waterTile;
+        [SerializeField] private GameObject buildingTile;
+
+        private void Awake()
         {
             tileArray = new TileBase[BoardSize, BoardSize];
         }
         
+        // Randomize a board
         public TileBase[,] GenerateBoard()
         {
             var tempList = transform.Cast<Transform>().ToList();

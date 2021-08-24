@@ -21,8 +21,8 @@ namespace Board
         
         public List<TileBase> FindPath(TileBase start, TileBase target)
         {
-            List<TileBase> openSet = new List<TileBase>();
-            HashSet<TileBase> closedSet = new HashSet<TileBase>();
+            var openSet = new List<TileBase>();
+            var closedSet = new HashSet<TileBase>();
             openSet.Add(start);
 
             while (openSet.Count > 0)
@@ -68,7 +68,7 @@ namespace Board
             return null;
         }
 
-        public List<TileBase> RetracePath(TileBase start, TileBase end)
+        private List<TileBase> RetracePath(TileBase start, TileBase end)
         {
             List<TileBase> path = new List<TileBase>();
             TileBase current = end;
@@ -81,8 +81,8 @@ namespace Board
             path.Reverse();
             return path;
         }
-        
-        int GetDistance(TileBase a, TileBase b)
+
+        private int GetDistance(TileBase a, TileBase b)
         {
             int dstX = Mathf.Abs(a.gridX - b.gridX);
             int dstY = Mathf.Abs(a.gridY - b.gridY);

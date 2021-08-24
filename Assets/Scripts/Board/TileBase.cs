@@ -59,6 +59,5 @@ namespace Board
         {
             state = TileState.Shootable;
         }
-        
     }
 }

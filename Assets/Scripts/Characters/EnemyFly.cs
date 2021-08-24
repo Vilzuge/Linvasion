@@ -25,7 +25,6 @@ namespace Characters
         public override void AITurn()
         {
             availableMoves = board.CalculateMovableTiles(position, movement);
-            // 
             Dictionary<TileBase, TileBase> posHitPairs = new Dictionary<TileBase, TileBase>();
             
             foreach (TileBase tile in availableMoves)

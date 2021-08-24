@@ -18,23 +18,21 @@ public class SpawnDebug : MonoBehaviour
     
     public void SpawnDebugUnits()
     {
-        if (exampleTank && exampleEnemy)
-        {
-            GameObject tank = exampleTank;
-            tank = Instantiate(tank, new Vector3(1f, -0.4f, 3f), Quaternion.identity);
-            tank.transform.SetParent(playerUnits.transform);
-            tank = Instantiate(tank, new Vector3(3f, -0.4f, 2f), Quaternion.identity);
-            tank.transform.SetParent(playerUnits.transform);
-            tank = Instantiate(tank, new Vector3(6f, -0.4f, 2f), Quaternion.identity);
-            tank.transform.SetParent(playerUnits.transform);
+        if (!exampleTank || !exampleEnemy) return;
+        var tank = exampleTank;
+        tank = Instantiate(tank, new Vector3(1f, -0.4f, 3f), Quaternion.identity);
+        tank.transform.SetParent(playerUnits.transform);
+        tank = Instantiate(tank, new Vector3(3f, -0.4f, 2f), Quaternion.identity);
+        tank.transform.SetParent(playerUnits.transform);
+        tank = Instantiate(tank, new Vector3(6f, -0.4f, 2f), Quaternion.identity);
+        tank.transform.SetParent(playerUnits.transform);
                 
-            GameObject enemy = exampleEnemy;
-            enemy = Instantiate(enemy, new Vector3(4f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-            enemy.transform.SetParent(enemyUnits.transform);
-            enemy = Instantiate(enemy, new Vector3(6f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-            enemy.transform.SetParent(enemyUnits.transform);
-            enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
-            enemy.transform.SetParent(enemyUnits.transform);
-        }
+        var enemy = exampleEnemy;
+        enemy = Instantiate(enemy, new Vector3(4f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy.transform.SetParent(enemyUnits.transform);
+        enemy = Instantiate(enemy, new Vector3(6f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy.transform.SetParent(enemyUnits.transform);
+        enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy.transform.SetParent(enemyUnits.transform);
     }
 }
