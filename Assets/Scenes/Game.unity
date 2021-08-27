@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.22569385, g: 0.22871366, b: 0.2642548, a: 1}
+  m_IndirectSpecularColor: {r: 0.18273515, g: 0.19013906, b: 0.2211225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,7 +1069,7 @@ AudioSource:
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -1213,8 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 224596165}
-  path: []
-  mousePosition: {x: 0, y: 0}
+  selectedUnit: {fileID: 0}
   playerUnits: {fileID: 1683225348}
   enemyUnits: {fileID: 636441419}
 --- !u!114 &1805138033
