@@ -44,10 +44,9 @@ namespace Characters
             position.y = (int)positionWorld.z;
         }
 
-        public bool CanMoveTo(Vector2Int coordinates)
+        public bool CanMoveTo(TileBase tileToMove)
         {
-            // return availableMoves.Contains(coordinates);
-            return true; // For testing only
+            return availableMoves.Contains(tileToMove);
         }
 
         public void MoveTo(Vector2Int coordinates)

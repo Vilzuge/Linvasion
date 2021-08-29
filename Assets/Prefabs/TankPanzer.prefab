@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880126163704468201}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 4, y: -0.4, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.173038, y: 5.173038, z: 5.173038}
   m_Children:
   - {fileID: 9063653255358540922}
@@ -129,14 +129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356befa5e19917d47a8363981f5430d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultMaterial: {fileID: 0}
-  _selectedMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}
+  myCanvas: {fileID: 0}
   aimButton: {fileID: 2771757513410737254, guid: 3ec97020687c7f64ca7ce4d191650cf9,
     type: 3}
+  state: 0
+  health: 0
+  movementValue: 0
+  damageValue: 0
   availableMoves: []
-  isPlayersUnit: 0
+  availableShots: []
   position: {x: 0, y: 0}
-  explosion: {fileID: 0}
+  panzerAimButton: {fileID: 0}
 --- !u!1 &5969718166440021241
 GameObject:
   m_ObjectHideFlags: 0

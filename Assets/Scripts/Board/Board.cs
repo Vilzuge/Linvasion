@@ -90,7 +90,7 @@ namespace Board
                     SelectUnit(coordinates);
                 
                 // UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED
-                else if (selectedUnit.GetComponent<TankBase>().CanMoveTo(coordinates) && selectedUnit.GetComponent<TankBase>().state == TankState.Selected)
+                else if (selectedUnit.GetComponent<TankBase>().CanMoveTo(tileArray[coordinates.x, coordinates.y]) && selectedUnit.GetComponent<TankBase>().state == TankState.Selected)
                 {
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
