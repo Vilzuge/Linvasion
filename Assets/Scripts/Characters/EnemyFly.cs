@@ -52,13 +52,11 @@ namespace Characters
 
         IEnumerator TurnCoroutine(Dictionary<TileBase, TileBase> phPairs)
         {
-            
             Debug.Log(gameObject.name + " about to move...");
             yield return new WaitForSeconds(2);
             if (phPairs.Count > 0)
                 MoveTo(new Vector2Int(phPairs.First().Key.gridX, phPairs.First().Key.gridX));
             
-
             Debug.Log(gameObject.name + " moved.");
             yield return new WaitForSeconds(2);
             
@@ -67,4 +65,3 @@ namespace Characters
         }
     }
 }
-

@@ -286,7 +286,7 @@ namespace Board
             {
                 foreach (Transform child in playerUnits.transform)
                 {
-                    Vector2Int temp = child.GetComponent<TankBase>().position;
+                    Vector2Int temp = child.GetComponent<TankBase>().position; //GetComponent<TankBase>().position;
                     if (temp.x == coordinates.x && temp.y == coordinates.y)
                     {
                         return child.gameObject;

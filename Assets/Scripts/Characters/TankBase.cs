@@ -71,13 +71,13 @@ namespace Characters
         public virtual void SetSelected()
         {
             state = TankState.Selected;
-            GetComponent<MeshRenderer>().material = selectedMaterial;
+            GetComponentInChildren<MeshRenderer>().material = selectedMaterial;
         }
 
         public virtual void SetDeselected()
         {
             state = TankState.Unselected;
-            GetComponent<MeshRenderer>().material = defaultMaterial;
+            GetComponentInChildren<MeshRenderer>().material = defaultMaterial;
         }
 
         public virtual void SetAiming()
