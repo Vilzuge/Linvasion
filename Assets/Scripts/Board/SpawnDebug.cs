@@ -28,11 +28,11 @@ public class SpawnDebug : MonoBehaviour
         tank.transform.SetParent(playerUnits.transform);
                 
         var enemy = exampleEnemy;
-        enemy = Instantiate(enemy, new Vector3(4f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy = Instantiate(enemy, new Vector3(4f, 0f, 7f), Quaternion.identity * Quaternion.Euler(-180, 0, 0));
         enemy.transform.SetParent(enemyUnits.transform);
-        enemy = Instantiate(enemy, new Vector3(6f, -0.4f, 7f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy = Instantiate(enemy, new Vector3(6f, 0f, 7f), Quaternion.identity * Quaternion.Euler(-180, 0, 0));
         enemy.transform.SetParent(enemyUnits.transform);
-        enemy = Instantiate(enemy, new Vector3(3f, -0.4f, 6f), Quaternion.identity * Quaternion.Euler(-90, 0, -90));
+        enemy = Instantiate(enemy, new Vector3(3f, 0f, 6f), Quaternion.identity * Quaternion.Euler(-180, 0, 0));
         enemy.transform.SetParent(enemyUnits.transform);
     }
 }
