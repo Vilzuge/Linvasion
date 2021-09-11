@@ -154,6 +154,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health
       objectReference: {fileID: 0}
+    - target: {fileID: 408871248172973962, guid: c59358df72fca2c4483ee457200aea04,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}
       propertyPath: m_Pivot.x

@@ -18,8 +18,10 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            health = 2;
-            movement = 3;
+            health = 3;
+            movement = 4;
+            damage = 2;
+            startHealth = health;
         }
 
         public override void AITurn()
@@ -46,7 +48,6 @@ namespace Characters
             {
                 Debug.Log($"Position: {kvp.Key}, HitLocation: {kvp.Value}");
             }
-
             StartCoroutine(TurnCoroutine(posHitPairs));
         }
 
@@ -59,6 +60,9 @@ namespace Characters
             
             Debug.Log(gameObject.name + " moved.");
             yield return new WaitForSeconds(2);
+
+            Vector2Int hitPost = new Vector2Int(phPairs.First().Value.gridX, phPairs.First().Value.gridY);
+            board.ApplyDamage(hitPost, damage);
             
             Debug.Log(gameObject.name + " attacked.");
             yield return new WaitForSeconds(2);

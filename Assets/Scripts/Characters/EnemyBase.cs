@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Board;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
 -------------------------------------------
@@ -16,6 +17,12 @@ namespace Characters
         protected Board.Board board;
         public int health;
         public int movement;
+        public int damage;
+
+        public Image healthBar;
+        public int startHealth;
+        
+        
         public Vector2Int position;
         public List<TileBase> availableMoves;
         
@@ -50,6 +57,8 @@ namespace Characters
         public void Damage(int damageTaken)
         {
             health -= damageTaken;
+            
+            healthBar.fillAmount = (float)health / (float)startHealth;
             Debug.Log(gameObject.name + " to be killed.");
             if (health <= 0)
                 Kill();

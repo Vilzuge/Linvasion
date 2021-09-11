@@ -26,7 +26,7 @@ namespace Characters
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
             panzerAimButton.SetActive(false);
             
-            movementValue = 3;
+            movementValue = 2;
             damageValue = 2;
             health = 3;
             availableMoves = CalculateMovableTiles();
