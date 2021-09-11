@@ -2,6 +2,7 @@
 using Board;
 using SFX;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
 -------------------------------------------
@@ -24,6 +25,9 @@ namespace Characters
         public int health;
         public int movementValue;
         public int damageValue;
+        
+        public Image healthBar;
+        public int startHealth;
     
         
         public List<TileBase> availableMoves;
@@ -98,6 +102,8 @@ namespace Characters
         public void Damage(int damageTaken)
         {
             health -= damageTaken;
+            
+            healthBar.fillAmount = (float)health / (float)startHealth;
             Debug.Log(this.name + " to be killed.");
             if (health <= 0)
                 Kill();

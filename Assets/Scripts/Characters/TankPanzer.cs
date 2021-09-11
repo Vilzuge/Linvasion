@@ -31,6 +31,7 @@ namespace Characters
             health = 3;
             availableMoves = CalculateMovableTiles();
             availableShots = CalculateAvailableShots();
+            startHealth = health;
         }
 
         public override void SetSelected()
