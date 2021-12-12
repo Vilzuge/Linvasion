@@ -13,11 +13,14 @@ namespace InputSystem
     {
         private Vector3 clickPosition;
         private Vector3 mousePosition;
+        //private Vector3 touchPosition;
 
         private void Update()
         {
             
             mousePosition = Mouse.current.position.ReadValue();
+            //touchPosition = Touchscreen.current.position.ReadValue();
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             

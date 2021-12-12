@@ -57,6 +57,7 @@ namespace Board
         {
             controller.SetGameState(GameState.PlayerTurn);
             GetComponent<SpawnDebug>().SpawnDebugUnits();
+            
         }
 
         // Handles unit selection and movement by tracking clicks on the gameboard's colliders
