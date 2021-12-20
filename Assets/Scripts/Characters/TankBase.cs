@@ -28,7 +28,6 @@ namespace Characters
         
         public Image healthBar;
         public int startHealth;
-    
         
         public List<TileBase> availableMoves;
         public List<TileBase> availableShots;

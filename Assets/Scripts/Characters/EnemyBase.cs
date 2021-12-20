@@ -57,7 +57,6 @@ namespace Characters
         public void Damage(int damageTaken)
         {
             health -= damageTaken;
-            
             healthBar.fillAmount = (float)health / (float)startHealth;
             Debug.Log(gameObject.name + " to be killed.");
             if (health <= 0)

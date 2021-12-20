@@ -16,7 +16,6 @@ namespace Characters
         // UI
         public GameObject panzerAimButton;
         
-
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -26,7 +25,7 @@ namespace Characters
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
             panzerAimButton.SetActive(false);
             
-            movementValue = 2;
+            movementValue = 3;
             damageValue = 2;
             health = 3;
             availableMoves = CalculateMovableTiles();

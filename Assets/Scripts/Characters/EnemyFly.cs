@@ -32,6 +32,7 @@ namespace Characters
             foreach (TileBase tile in availableMoves)
             {
                 List<TileBase> neighbours = board.GetNeighbours(tile);
+                Debug.Log(neighbours);
                 foreach (TileBase neighbour in neighbours)
                 {
                     GameObject unit = board.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));

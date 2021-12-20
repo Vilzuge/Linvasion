@@ -22,7 +22,7 @@ namespace Board
         [SerializeField] private GameObject selectedUnit;
         [SerializeField] private GameObject playerUnits;
         [SerializeField] private GameObject enemyUnits;
-
+        
         private void Awake()
         {
             tileArray = new TileBase[BoardSize, BoardSize];
@@ -57,6 +57,16 @@ namespace Board
         {
             controller.SetGameState(GameState.PlayerTurn);
             GetComponent<SpawnDebug>().SpawnDebugUnits();
+            
+            foreach (TileBase tile in tileArray)
+            {
+                int row = (int) tile.worldPosition.x;
+                int col = (int) tile.worldPosition.z;
+                if (GetUnitOnTile(new Vector2Int(row, col)) != null)
+                {
+                    tileArray[row, col].walkable = false;
+                }
+            }
             
         }
 
