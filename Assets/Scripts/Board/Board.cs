@@ -38,10 +38,19 @@ namespace Board
         {
             mousePosition = new Vector2Int();
 
-            InitializeGame();
-            Debug.Log("Game initialized");
+            controller.SetGameState(GameState.PlayerTurn);
+
+            foreach (TileBase tile in tileArray)
+            {
+                int row = (int) tile.worldPosition.x;
+                int col = (int) tile.worldPosition.z;
+                if (GetUnitOnTile(new Vector2Int(row, col)) != null)
+                {
+                    tileArray[row, col].walkable = false;
+                }
+            }
         }
-        
+
         private void Update()
         {
             GameObject hoverUnit = GetUnitOnTile(mousePosition);
@@ -55,24 +64,15 @@ namespace Board
             TryDrawPath();
         }
         
-
-        private void InitializeGame()
+        
+        /* CALLED FROM BOARDINPUTHANDLER.CS*/
+        public void TrackMousePosition(Vector3 inputPosition)
         {
-            controller.SetGameState(GameState.PlayerTurn);
-
-            foreach (TileBase tile in tileArray)
-            {
-                int row = (int) tile.worldPosition.x;
-                int col = (int) tile.worldPosition.z;
-                if (GetUnitOnTile(new Vector2Int(row, col)) != null)
-                {
-                    tileArray[row, col].walkable = false;
-                }
-            }
-            
+            Vector2Int endPosition = CalculateCoordinatesFromPosition(inputPosition);
+            mousePosition = endPosition;
         }
 
-        // Handles unit selection and movement by tracking clicks on the gameboard's colliders
+        /* CALLED FROM BOARDINPUTHANDLER.CS*/
         public void OnTileSelected(Vector3 inputPosition)
         {
             Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
@@ -121,14 +121,7 @@ namespace Board
                 }
             }
         }
-        
-        // Tracking the current mouse position
-        public void TrackMousePosition(Vector3 inputPosition)
-        {
-            Vector2Int endPosition = CalculateCoordinatesFromPosition(inputPosition);
-            mousePosition = endPosition;
-        }
-        
+
         // Draw path if unit is selected
         private void TryDrawPath()
         {
