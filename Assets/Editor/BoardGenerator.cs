@@ -18,6 +18,11 @@ public class BoardGenerator : EditorWindow
    private TileBase[,] boardTileArray;
    private GameObject grassTile;
    private GameObject waterTile;
+   private GameObject buildingTile;
+   
+   private GameObject playerUnit;
+   private GameObject enemyUnit;
+   
    private int BoardSize = 8;
 
 
@@ -32,11 +37,11 @@ public class BoardGenerator : EditorWindow
       GUILayout.Label("Generate new game board", EditorStyles.boldLabel);
       grassTile = EditorGUILayout.ObjectField("Grass Tile", grassTile, typeof(GameObject), false) as GameObject;
       waterTile = EditorGUILayout.ObjectField("Water Tile", waterTile, typeof(GameObject), false) as GameObject;
+      buildingTile = EditorGUILayout.ObjectField("Building Tile", buildingTile, typeof(GameObject), false) as GameObject;
 
       if (GUILayout.Button("Spawn new board"))
       {
          FindBoard();
-         GenerateBoard();
          SpawnBoard();
       }
       
@@ -44,6 +49,20 @@ public class BoardGenerator : EditorWindow
       {
          EmptyBoard();
       }
+      
+      playerUnit = EditorGUILayout.ObjectField("Player Unit", playerUnit, typeof(GameObject), false) as GameObject;
+      enemyUnit = EditorGUILayout.ObjectField("Enemy Unit", enemyUnit, typeof(GameObject), false) as GameObject;
+      
+      if (GUILayout.Button("Spawn units"))
+      {
+         //Do spawning stuff
+      }
+      
+      if (GUILayout.Button("Clear units"))
+      {
+         //Do clearing stuff
+      }
+      
    }
    private void FindBoard()
    {
@@ -55,15 +74,10 @@ public class BoardGenerator : EditorWindow
          return;
       }
    }
-   
-   private void GenerateBoard()
-   {
-      // GENERATING A NEW GAMEBOARD TO A LIST
-      boardTileArray = new TileBase[BoardSize, BoardSize];
-   }
 
    private void SpawnBoard()
    {
+      boardTileArray = new TileBase[BoardSize, BoardSize];
       // EMPTY THE OLD GAMEBOARD
       var tempList = gameBoard.transform.Cast<Transform>().ToList();
       foreach (var child in tempList)
@@ -71,12 +85,24 @@ public class BoardGenerator : EditorWindow
          GameObject.DestroyImmediate(child.gameObject);
       }
       
+      var tileTypeArray = new int[,]
+      {
+         { 1, 1, 1, 1, 2, 1, 1, 1},
+         { 1, 1, 1, 1, 2, 1, 1, 1},
+         { 1, 1, 1, 1, 3, 1, 1, 1},
+         { 1, 1, 1, 1, 1, 1, 1, 1},
+         { 2, 2, 1, 1, 1, 1, 1, 1},
+         { 2, 2, 3, 3, 1, 1, 1, 1},
+         { 1, 1, 1, 3, 1, 1, 1, 1},
+         { 1, 1, 1, 1, 1, 1, 1, 1},
+      };
+      
       for (int row = 0; row <= BoardSize - 1; row++)
       {
          for (int col = 0; col <= BoardSize - 1; col++)
          {
             float randomChance = Random.Range(0.0f, 1.0f);
-            if (randomChance < 0.8f)
+            if (tileTypeArray[row, col] == 1)
             {
                GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity);
                TileGrass component = newTile.AddComponent<TileGrass>();
@@ -84,24 +110,36 @@ public class BoardGenerator : EditorWindow
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
-               boardTileArray[row, col] = newTile.GetComponent<TileGrass>();
+               //tileArray[row, col] = newTile.GetComponent<TileGrass>();
                newTile.name = $"({row},{col}) {newTile.name}";
+               newTile.transform.SetParent(gameBoard.transform);
             }
-            else
+            else if (tileTypeArray[row, col] == 2)
             {
-               GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.5f, col), Quaternion.identity);
+               GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.60f, col), Quaternion.identity);
                TileWater component = newTile.AddComponent<TileWater>();
                component.walkable = false;
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
-               boardTileArray[row, col] = newTile.GetComponent<TileWater>();
+               //tileArray[row, col] = newTile.GetComponent<TileWater>();
                newTile.name = $"({row},{col}) {newTile.name}";
+               newTile.transform.SetParent(gameBoard.transform);
+            }
+            else if (tileTypeArray[row, col] == 3)
+            {
+               GameObject newTile = Instantiate(buildingTile, new Vector3(row, -0.50f, col), Quaternion.identity);
+               TileBuilding component = newTile.AddComponent<TileBuilding>();
+               component.walkable = false;
+               component.worldPosition = new Vector3(row, -0.5f, col);
+               component.gridX = row;
+               component.gridY = col;
+               //tileArray[row, col] = newTile.GetComponent<TileBuilding>();
+               newTile.name = $"({row},{col}) {newTile.name}";
+               newTile.transform.SetParent(gameBoard.transform);
             }
          }
       }
-      // ASSIGNING VALUES TO GRID MANAGER
-      //gameBoard.GetComponent<GridManager>().BOARD_SIZE = gridDimension;
    }
 
    private void EmptyBoard()

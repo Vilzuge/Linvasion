@@ -16,8 +16,8 @@ namespace Board
     {
         private const int BoardSize = 8;
         private TileBase[,] tileArray;
-        private List<TileBase> path;
         private Vector2Int mousePosition;
+        
         [SerializeField] private GameController controller;
         [SerializeField] private GameObject selectedUnit;
         [SerializeField] private GameObject playerUnits;
@@ -25,16 +25,19 @@ namespace Board
         
         private void Awake()
         {
+            //Getting board reference
             tileArray = new TileBase[BoardSize, BoardSize];
+            var tempList = transform.Cast<Transform>().ToList();
+            foreach (var child in tempList)
+            {
+                tileArray[child.GetComponent<TileBase>().gridX, child.GetComponent<TileBase>().gridY] = child.GetComponent<TileBase>();
+            }
         }
         
         private void Start()
         {
             mousePosition = new Vector2Int();
 
-            tileArray = GetComponent<BoardGenerator>().GeneratePredetermined();
-            Debug.Log("Board generated");
-        
             InitializeGame();
             Debug.Log("Game initialized");
         }
@@ -52,7 +55,7 @@ namespace Board
             TryDrawPath();
         }
         
-        // Initialize the game, set a controller and spawn (debug) units
+
         private void InitializeGame()
         {
             controller.SetGameState(GameState.PlayerTurn);
