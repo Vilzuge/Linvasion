@@ -25,7 +25,7 @@ namespace Board
         
         private void Awake()
         {
-            //Getting board reference
+            // Getting board reference
             tileArray = new TileBase[BoardSize, BoardSize];
             var tempList = transform.Cast<Transform>().ToList();
             foreach (var child in tempList)
@@ -59,8 +59,7 @@ namespace Board
         private void InitializeGame()
         {
             controller.SetGameState(GameState.PlayerTurn);
-            GetComponent<SpawnDebug>().SpawnDebugUnits();
-            
+
             foreach (TileBase tile in tileArray)
             {
                 int row = (int) tile.worldPosition.x;

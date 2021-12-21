@@ -15,13 +15,16 @@ Created initially to learn about editor scripts in Unity but was found quite use
 public class BoardGenerator : EditorWindow
 {
    private GameObject gameBoard;
-   private TileBase[,] boardTileArray;
+
    private GameObject grassTile;
    private GameObject waterTile;
    private GameObject buildingTile;
    
    private GameObject playerUnit;
    private GameObject enemyUnit;
+   
+   private GameObject playerUnitList;
+   private GameObject enemyUnitList;
    
    private int BoardSize = 8;
 
@@ -55,7 +58,8 @@ public class BoardGenerator : EditorWindow
       
       if (GUILayout.Button("Spawn units"))
       {
-         //Do spawning stuff
+         FindUnitParents();
+         SpawnUnits();
       }
       
       if (GUILayout.Button("Clear units"))
@@ -75,9 +79,18 @@ public class BoardGenerator : EditorWindow
       }
    }
 
+   private void FindUnitParents()
+   {
+      playerUnitList = GameObject.Find("PlayerUnits");
+      enemyUnitList = GameObject.Find("EnemyUnits");
+      if (playerUnitList == null || enemyUnitList == null)
+      {
+         Debug.Log("parents not found...");
+      }
+   }
+
    private void SpawnBoard()
    {
-      boardTileArray = new TileBase[BoardSize, BoardSize];
       // EMPTY THE OLD GAMEBOARD
       var tempList = gameBoard.transform.Cast<Transform>().ToList();
       foreach (var child in tempList)
@@ -155,4 +168,38 @@ public class BoardGenerator : EditorWindow
          GameObject.DestroyImmediate(child.gameObject);
       }
    }
+   
+   
+   private void SpawnUnits()
+   {
+      if (!playerUnit || !enemyUnit) return;
+       
+      //friendlies
+      SpawnUnit(playerUnit, new Vector3(1f, -0.4f, 3f), false);
+      SpawnUnit(playerUnit, new Vector3(3f, -0.4f, 2f), false);
+      SpawnUnit(playerUnit, new Vector3(6f, -0.4f, 2f), false);
+      
+      //enemies
+      SpawnUnit(enemyUnit, new Vector3(4f, 0f, 7f), true);
+      SpawnUnit(enemyUnit, new Vector3(6f, 0f, 7f), true);
+      SpawnUnit(enemyUnit, new Vector3(3f, 0f, 6f), true);
+        
+   }
+
+    
+   private void SpawnUnit(GameObject unit, Vector3 position, bool isEnemy)
+   {
+      unit = Instantiate(unit, position, Quaternion.identity);
+        
+      if (isEnemy)
+      {
+         unit.gameObject.transform.rotation = Quaternion.identity * Quaternion.Euler(-180, 0, 0); // purkkaa, modeli vinossa
+         unit.transform.SetParent(enemyUnitList.transform);
+      }
+      else
+      {
+         unit.transform.SetParent(playerUnitList.transform);
+      }
+   }
+   
 }
