@@ -14,32 +14,27 @@ namespace Board
 {
     public class Board : MonoBehaviour
     {
-        private Vector2Int mousePosition;
-        
         [SerializeField] private GameController controller;
-        [SerializeField] private GameObject selectedUnit;
-        
+        private Vector2Int mousePosition;
+        private GameObject selectedUnit;
+
         private BoardCalculator boardCalculator;
         private BoardDrawer boardDrawer;
-        
-        private void Awake()
-        {
-            boardCalculator = GetComponent<BoardCalculator>();
-            boardDrawer = GetComponent<BoardDrawer>();
-        }
-        
+
         private void Start()
         {
             mousePosition = new Vector2Int();
-
+            selectedUnit = null;
+            boardCalculator = GetComponent<BoardCalculator>();
+            boardDrawer = GetComponent<BoardDrawer>();
             controller.SetGameState(GameState.PlayerTurn);
             
+
             var tileArray = boardCalculator.GetTileArray();
-            
             foreach (TileBase tile in tileArray)
             {
-                int row = (int) tile.worldPosition.x;
-                int col = (int) tile.worldPosition.z;
+                var row = (int) tile.worldPosition.x;
+                var col = (int) tile.worldPosition.z;
                 if (boardCalculator.GetUnitOnTile(new Vector2Int(row, col)) != null)
                 {
                     tileArray[row, col].walkable = false;
@@ -49,26 +44,17 @@ namespace Board
 
         private void Update()
         {
-            GameObject hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
-                boardDrawer.DrawMovableTiles(hoverUnit);
-            else
-            {
-                boardDrawer.ClearBoardPathfinding();
-                boardDrawer.ClearBoardMovement();
-            }
-            boardDrawer.TryDrawPath(selectedUnit, mousePosition);
+            boardDrawer.UpdateHoverDraws(mousePosition, selectedUnit);
         }
-        
-        
-        /* CALLED FROM BOARDINPUTHANDLER.CS*/
+
+        /* CALLED FROM BOARDINPUTHANDLER.CS */
         public void TrackMousePosition(Vector3 inputPosition)
         {
             Vector2Int endPosition = boardCalculator.CalculateCoordinatesFromPosition(inputPosition);
             mousePosition = endPosition;
         }
 
-        /* CALLED FROM BOARDINPUTHANDLER.CS*/
+        /* CALLED FROM BOARDINPUTHANDLER.CS */
         public void OnTileSelected(Vector3 inputPosition)
         {
             var coordinates = boardCalculator.CalculateCoordinatesFromPosition(inputPosition);
@@ -149,15 +135,14 @@ namespace Board
             selectedUnit = boardCalculator.GetUnitOnTile(coordinates);
             selectedUnit.GetComponent<TankBase>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
-            // TODO: Drawing movable tiles
         }
         
         // Unit deselection
         private void DeselectUnit()
         {
             if (!selectedUnit) return;
-            Debug.Log(selectedUnit.name + " will be deselected");
             selectedUnit.GetComponent<TankBase>().SetDeselected();
+            Debug.Log(selectedUnit.name + " was deselected");
             selectedUnit = null;
         }
         

@@ -15,14 +15,21 @@ namespace Board
         {
             boardCalculator = GetComponent<BoardCalculator>();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
+        public void UpdateHoverDraws(Vector2Int mousePosition, GameObject selectedUnit)
+        {
+            var hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
+            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
+                DrawMovableTiles(hoverUnit);
+            else
+            {
+                ClearBoardPathfinding();
+                ClearBoardMovement();
+            }
+            TryDrawPath(selectedUnit, mousePosition);
         }
         
-        // Drawing movem
+        // Drawing movement tiles
         public void DrawMovableTiles(GameObject hoverUnit)
         {
             int moves = hoverUnit.transform.GetComponent<TankBase>().movementValue;
@@ -35,19 +42,20 @@ namespace Board
             }
         }
         
+        // Trying to draw a path for the unit
         public void TryDrawPath(GameObject selectedUnit, Vector2Int mousePosition)
         {
-            if (!selectedUnit || !boardCalculator.CheckIfCoordinatesAreOnBoard(mousePosition) ||
+            if (!selectedUnit || !BoardCalculator.CheckIfCoordinatesAreOnBoard(mousePosition) ||
                 selectedUnit.GetComponent<TankBase>().state != TankState.Selected)
             {
                 ClearBoardPathfinding();
                 return;
             }
 
-            int BoardSize = boardCalculator.GetBoardSize();
+            var boardSize = boardCalculator.GetBoardSize();
+            var startPosition = selectedUnit.GetComponent<TankBase>().position;
             
-            Vector2Int startPosition = selectedUnit.GetComponent<TankBase>().position;
-            if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
+            if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= boardSize-1 && mousePosition.y <= boardSize-1)
                 DrawPath(startPosition, mousePosition);
         }
         

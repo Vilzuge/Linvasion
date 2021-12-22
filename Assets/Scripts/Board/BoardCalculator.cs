@@ -12,13 +12,13 @@ namespace Board
         [SerializeField] private GameObject playerUnits;
         [SerializeField] private GameObject enemyUnits;
         
-        void Start()
+        private void Start()
         {
             tileArray = FindTileArray();
         }
 
         // Getting reference to tile array
-        public TileBase[,] FindTileArray()
+        private TileBase[,] FindTileArray()
         {
             tileArray = new TileBase[BoardSize,BoardSize];
             var tempList = transform.Cast<Transform>().ToList();
@@ -61,37 +61,32 @@ namespace Board
         // Getting a unit that occupies a tile
         public GameObject GetUnitOnTile(Vector2Int coordinates)
         {
-            if (CheckIfCoordinatesAreOnBoard(coordinates))
+            if (!CheckIfCoordinatesAreOnBoard(coordinates)) return null;
+            
+            foreach (Transform child in playerUnits.transform)
             {
-                foreach (Transform child in playerUnits.transform)
+                var temp = child.GetComponent<TankBase>().position;
+                if (temp.x == coordinates.x && temp.y == coordinates.y)
                 {
-                    Vector2Int temp = child.GetComponent<TankBase>().position; //GetComponent<TankBase>().position;
-                    if (temp.x == coordinates.x && temp.y == coordinates.y)
-                    {
-                        return child.gameObject;
-                    }
+                    return child.gameObject;
                 }
+            }
                 
-                foreach (Transform child in enemyUnits.transform)
+            foreach (Transform child in enemyUnits.transform)
+            {
+                var temp = child.GetComponent<EnemyBase>().position;
+                if (temp.x == coordinates.x && temp.y == coordinates.y)
                 {
-                    Vector2Int temp = child.GetComponent<EnemyBase>().position;
-                    if (temp.x == coordinates.x && temp.y == coordinates.y)
-                    {
-                        return child.gameObject;
-                    }
+                    return child.gameObject;
                 }
             }
             return null;
         }
         
         // Check if the given coordinates are on the board
-        public bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
+        public static bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
         {
-            if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BoardSize || coordinates.y >= BoardSize)
-            {
-                return false;
-            }
-            return true;
+            return coordinates.x >= 0 && coordinates.y >= 0 && coordinates.x < BoardSize && coordinates.y < BoardSize;
         }
         
         // Calculating 2D coordinates from a 3D vector
@@ -107,18 +102,17 @@ namespace Board
         
         public List<TileBase> CalculateMovableTiles(Vector2Int unitPos, int unitMovement)
         {
-            List<TileBase> moveTiles = new List<TileBase>();
-            moveTiles.Add(tileArray[unitPos.x, unitPos.y]);
-            for (int i = 0; i < unitMovement; i++)
+            var moveTiles = new List<TileBase> {tileArray[unitPos.x, unitPos.y]};
+            for (var i = 0; i < unitMovement; i++)
             {
                 foreach (TileBase tile in moveTiles.ToList())
                 {
-                    List<TileBase> neighbours = GetNeighbours(tile);
+                    var neighbours = GetNeighbours(tile);
                     foreach (TileBase loopTile in neighbours)
                     {
-                        if (!moveTiles.Contains(loopTile))
-                            if (loopTile is TileGrass)
-                                moveTiles.Add(loopTile);
+                        if (moveTiles.Contains(loopTile)) continue;
+                        if (loopTile is TileGrass)
+                            moveTiles.Add(loopTile);
                     }
                 }
             }
