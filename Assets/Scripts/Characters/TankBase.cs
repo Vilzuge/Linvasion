@@ -18,8 +18,11 @@ namespace Characters
         public Material selectedMaterial;
         public Canvas myCanvas;
         public GameObject aimButton;
-
+        
         protected Board.Board board;
+        protected Board.BoardCalculator boardCalculator;
+        protected Board.BoardDrawer boardDrawer;
+        
         private SoundManagerScript soundManager;
         public TankState state;
         public int health;
@@ -38,6 +41,8 @@ namespace Characters
         protected virtual void Start()
         { 
             board = GameObject.Find("GameBoard").GetComponent<Board.Board>();
+            boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
+            boardDrawer = GameObject.Find("GameBoard").GetComponent<BoardDrawer>();
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         
@@ -62,7 +67,7 @@ namespace Characters
         
         public virtual List<TileBase> CalculateMovableTiles()
         {
-            return board.CalculateMovableTiles(position, movementValue);
+            return boardCalculator.CalculateMovableTiles(position, movementValue);
         }
 
         public virtual List<TileBase> CalculateAvailableShots()
@@ -86,7 +91,7 @@ namespace Characters
         public virtual void SetAiming()
         {
             state = TankState.Aiming;
-            board.DrawShootableTiles(availableShots);
+            boardDrawer.DrawShootableTiles(availableShots);
         }
         
         public virtual void TryToShoot(TileBase tileToShoot) { }

@@ -14,24 +14,18 @@ namespace Board
 {
     public class Board : MonoBehaviour
     {
-        private const int BoardSize = 8;
-        private TileBase[,] tileArray;
         private Vector2Int mousePosition;
         
         [SerializeField] private GameController controller;
         [SerializeField] private GameObject selectedUnit;
-        [SerializeField] private GameObject playerUnits;
-        [SerializeField] private GameObject enemyUnits;
+        
+        private BoardCalculator boardCalculator;
+        private BoardDrawer boardDrawer;
         
         private void Awake()
         {
-            // Getting board reference
-            tileArray = new TileBase[BoardSize, BoardSize];
-            var tempList = transform.Cast<Transform>().ToList();
-            foreach (var child in tempList)
-            {
-                tileArray[child.GetComponent<TileBase>().gridX, child.GetComponent<TileBase>().gridY] = child.GetComponent<TileBase>();
-            }
+            boardCalculator = GetComponent<BoardCalculator>();
+            boardDrawer = GetComponent<BoardDrawer>();
         }
         
         private void Start()
@@ -39,12 +33,14 @@ namespace Board
             mousePosition = new Vector2Int();
 
             controller.SetGameState(GameState.PlayerTurn);
-
+            
+            var tileArray = boardCalculator.GetTileArray();
+            
             foreach (TileBase tile in tileArray)
             {
                 int row = (int) tile.worldPosition.x;
                 int col = (int) tile.worldPosition.z;
-                if (GetUnitOnTile(new Vector2Int(row, col)) != null)
+                if (boardCalculator.GetUnitOnTile(new Vector2Int(row, col)) != null)
                 {
                     tileArray[row, col].walkable = false;
                 }
@@ -53,35 +49,35 @@ namespace Board
 
         private void Update()
         {
-            GameObject hoverUnit = GetUnitOnTile(mousePosition);
+            GameObject hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
             if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
-                DrawMovableTiles(hoverUnit);
+                boardDrawer.DrawMovableTiles(hoverUnit);
             else
             {
-                ClearBoardPathfinding();
-                ClearBoardMovement();
+                boardDrawer.ClearBoardPathfinding();
+                boardDrawer.ClearBoardMovement();
             }
-            TryDrawPath();
+            boardDrawer.TryDrawPath(selectedUnit, mousePosition);
         }
         
         
         /* CALLED FROM BOARDINPUTHANDLER.CS*/
         public void TrackMousePosition(Vector3 inputPosition)
         {
-            Vector2Int endPosition = CalculateCoordinatesFromPosition(inputPosition);
+            Vector2Int endPosition = boardCalculator.CalculateCoordinatesFromPosition(inputPosition);
             mousePosition = endPosition;
         }
 
         /* CALLED FROM BOARDINPUTHANDLER.CS*/
         public void OnTileSelected(Vector3 inputPosition)
         {
-            Vector2Int coordinates = CalculateCoordinatesFromPosition(inputPosition);
+            var coordinates = boardCalculator.CalculateCoordinatesFromPosition(inputPosition);
+            var unitObject = boardCalculator.GetUnitOnTile(coordinates);
+            var tileArray = boardCalculator.GetTileArray();
             
             // IS IT PLAYERS TURN
             if (!controller.CanPerformMove())
                 return;
-
-            GameObject unitObject = GetUnitOnTile(coordinates);
 
             // IF SELECTED UNIT EXISTS
             if (selectedUnit)
@@ -90,7 +86,7 @@ namespace Board
                 if (selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
                 {
                     selectedUnit.GetComponent<TankBase>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
-                    ClearBoardShootables();
+                    boardDrawer.ClearBoardShootables();
                     DeselectUnit();
                 }
 
@@ -107,8 +103,8 @@ namespace Board
                 {
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
-                    ClearBoardMovement();
-                    ClearBoardPathfinding();
+                    boardDrawer.ClearBoardMovement();
+                    boardDrawer.ClearBoardPathfinding();
                 }
             }
             // IF THERE IS NO SELECTED UNIT
@@ -121,132 +117,14 @@ namespace Board
                 }
             }
         }
-
-        // Draw path if unit is selected
-        private void TryDrawPath()
-        {
-            if (!selectedUnit || !CheckIfCoordinatesAreOnBoard(mousePosition) ||
-                selectedUnit.GetComponent<TankBase>().state != TankState.Selected)
-            {
-                ClearBoardPathfinding();
-                return;
-            }
-            Vector2Int startPosition = selectedUnit.GetComponent<TankBase>().position;
-            if (mousePosition.x >= 0 && mousePosition.y >= 0 && mousePosition.x <= BoardSize-1 && mousePosition.y <= BoardSize-1)
-                DrawPath(startPosition, mousePosition);
-        }
         
-        // Get neighbour tiles of a tile (top bottom right left, no diagonals)
-        public List<TileBase> GetNeighbours(TileBase tile)
-        {
-            List<TileBase> neighbours = new List<TileBase>();
-
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    if (x == 0 && y == 0)
-                        continue;
-                    int checkX = tile.gridX + x;
-                    int checkY = tile.gridY + y;
-                    
-                    if (checkX != tile.gridX && checkY != tile.gridY)
-                    {
-                        continue;
-                    }
-                    
-                    if (checkX >= 0 && checkX < BoardSize && checkY >= 0 && checkY < BoardSize)
-                    {
-                        neighbours.Add(tileArray[checkX,checkY]);
-                    }
-                }
-            }
-            return neighbours;
-        }
-
-        private void DrawMovableTiles(GameObject hoverUnit)
-        {
-            int moves = hoverUnit.transform.GetComponent<TankBase>().movementValue;
-            Vector2Int myPos = hoverUnit.transform.GetComponent<TankBase>().position;
-            List<TileBase> moveTiles = CalculateMovableTiles(myPos, moves);
-            
-            foreach (TileBase tile in moveTiles)
-            {
-                tile.SetMovable();
-            }
-        }
-        
-        public void DrawShootableTiles(List<TileBase> tilesToShoot)
-        {
-            foreach (TileBase tile in tilesToShoot)
-            {
-                tile.SetShootable();
-            }
-        }
-
-        private void DrawPath(Vector2Int start, Vector2Int end)
-        {
-            if (!tileArray[end.x, end.y].walkable)
-                return;
-            
-            List<TileBase> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
-            if (drawTiles.Any())
-                drawTiles = drawTiles.Where(tile => tile.GetComponent<TileBase>().walkable).ToList();
-            List<TileBase> noDrawTiles = new List<TileBase>();
-            
-            foreach (TileBase tile in drawTiles)
-            {
-                if (tile.GetComponent<TileBase>().walkable)
-                    tile.SetPathfind();
-            }
-            
-            foreach (TileBase tile in tileArray)
-            {
-                if (!drawTiles.Contains(tile))
-                {
-                    noDrawTiles.Add(tile);
-                }
-            }
-
-            foreach (TileBase tile in noDrawTiles)
-            {
-                if (tile.walkable)
-                    tile.SetDefault();
-            }
-            
-        }
-
-        private void ClearBoardMovement()
-        {
-            foreach (TileBase tile in tileArray)
-            {
-                if (tile.state == TileState.Movable)
-                    tile.SetDefault();
-            }
-        }
-
-        private void ClearBoardPathfinding()
-        {
-            foreach (TileBase tile in tileArray)
-            {
-                if (tile.state == TileState.Pathfind)
-                    tile.SetDefault();
-            }
-        }
-
-        private void ClearBoardShootables()
-        {
-            foreach (TileBase tile in tileArray)
-            {
-                if (tile.state == TileState.Shootable)
-                    tile.SetDefault();
-            }
-        }
-
+        // Applying damage to a unit
         public void ApplyDamage(Vector2Int coordsShotAt, int damageValue)
         {
+            var tileArray = boardCalculator.GetTileArray();
+            
             TileBase damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
-            GameObject damagedUnit = GetUnitOnTile(coordsShotAt);
+            GameObject damagedUnit = boardCalculator.GetUnitOnTile(coordsShotAt);
             if (!damagedUnit)
                 return;
             if (damagedUnit.GetComponent<TankBase>())
@@ -256,13 +134,7 @@ namespace Board
                 damagedUnit.GetComponent<EnemyBase>().Damage(damageValue);
         }
         
-        /*
-        public void ApplyMovement(Vector2Int coordsShotAt, int damageValue)
-        {
-
-        }
-        */
-
+        // Moving a selected unit
         private void MoveSelectedUnit(Vector2Int endCoordinates)
         {
             Vector2Int pos = selectedUnit.GetComponent<TankBase>().position;
@@ -270,14 +142,17 @@ namespace Board
             Debug.Log(selectedUnit.name + " was moved");
         }
     
+        // Unit selection
         private void SelectUnit(Vector2Int coordinates)
         {
             DeselectUnit();
-            selectedUnit = GetUnitOnTile(coordinates);
+            selectedUnit = boardCalculator.GetUnitOnTile(coordinates);
             selectedUnit.GetComponent<TankBase>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
             // TODO: Drawing movable tiles
         }
+        
+        // Unit deselection
         private void DeselectUnit()
         {
             if (!selectedUnit) return;
@@ -285,73 +160,6 @@ namespace Board
             selectedUnit.GetComponent<TankBase>().SetDeselected();
             selectedUnit = null;
         }
-
-        public GameObject GetUnitOnTile(Vector2Int coordinates)
-        {
-            if (CheckIfCoordinatesAreOnBoard(coordinates))
-            {
-                foreach (Transform child in playerUnits.transform)
-                {
-                    Vector2Int temp = child.GetComponent<TankBase>().position; //GetComponent<TankBase>().position;
-                    if (temp.x == coordinates.x && temp.y == coordinates.y)
-                    {
-                        return child.gameObject;
-                    }
-                }
-                
-                foreach (Transform child in enemyUnits.transform)
-                {
-                    Vector2Int temp = child.GetComponent<EnemyBase>().position;
-                    if (temp.x == coordinates.x && temp.y == coordinates.y)
-                    {
-                        return child.gameObject;
-                    }
-                }
-            }
-            return null;
-        }
-
-        private bool CheckIfCoordinatesAreOnBoard(Vector2Int coordinates)
-        {
-            if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= BoardSize || coordinates.y >= BoardSize)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private Vector2Int CalculateCoordinatesFromPosition(Vector3 inputPosition)
-        {
-            if (inputPosition == new Vector3(-1, -1, -1))
-                return new Vector2Int(-1, -1);
-            int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).x + 0.5f);
-            int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPosition).z + 0.5f);
-            return new Vector2Int(x, y);
-        }
         
-        public List<TileBase> CalculateMovableTiles(Vector2Int unitPos, int unitMovement)
-        {
-            List<TileBase> moveTiles = new List<TileBase>();
-            moveTiles.Add(tileArray[unitPos.x, unitPos.y]);
-            for (int i = 0; i < unitMovement; i++)
-            {
-                foreach (TileBase tile in moveTiles.ToList())
-                {
-                    List<TileBase> neighbours = GetNeighbours(tile);
-                    foreach (TileBase loopTile in neighbours)
-                    {
-                        if (!moveTiles.Contains(loopTile))
-                            if (loopTile is TileGrass)
-                                moveTiles.Add(loopTile);
-                    }
-                }
-            }
-            return moveTiles;
-        }
-
-        public TileBase[,] GetTileArray()
-        {
-            return tileArray;
-        }
     }
 }

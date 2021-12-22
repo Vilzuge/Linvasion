@@ -26,16 +26,16 @@ namespace Characters
 
         public override void AITurn()
         {
-            availableMoves = board.CalculateMovableTiles(position, movement);
+            availableMoves = boardCalculator.CalculateMovableTiles(position, movement);
             Dictionary<TileBase, TileBase> posHitPairs = new Dictionary<TileBase, TileBase>();
             
             foreach (TileBase tile in availableMoves)
             {
-                List<TileBase> neighbours = board.GetNeighbours(tile);
+                List<TileBase> neighbours = boardCalculator.GetNeighbours(tile);
                 Debug.Log(neighbours);
                 foreach (TileBase neighbour in neighbours)
                 {
-                    GameObject unit = board.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));
+                    GameObject unit = boardCalculator.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));
                     if (unit)
                         if (unit.GetComponent<TankBase>())
                         {

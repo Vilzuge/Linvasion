@@ -12,11 +12,11 @@ namespace Board
 {
     public class Pathfinding : MonoBehaviour
     {
-        private Board board;
+        private BoardCalculator boardCalculator;
 
         private void Awake()
         {
-            board = GetComponent<Board>();
+            boardCalculator = GetComponent<BoardCalculator>();
         }
         
         public List<TileBase> FindPath(TileBase start, TileBase target)
@@ -44,7 +44,7 @@ namespace Board
                     return RetracePath(start, target);
                 }
 
-                foreach (TileBase neighbour in board.GetNeighbours(current))
+                foreach (TileBase neighbour in boardCalculator.GetNeighbours(current))
                 {
                     if ( !neighbour.walkable || closedSet.Contains(neighbour))
                     {

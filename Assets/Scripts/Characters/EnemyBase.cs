@@ -14,6 +14,7 @@ namespace Characters
 {
     public class EnemyBase : MonoBehaviour, IKillable, IDamageable<int>
     {
+        protected Board.BoardCalculator boardCalculator;
         protected Board.Board board;
         public int health;
         public int movement;
@@ -28,7 +29,7 @@ namespace Characters
         
         protected virtual void Start()
         {
-            board = GameObject.Find("GameBoard").GetComponent<Board.Board>();
+            boardCalculator = GameObject.Find("GameBoard").GetComponent<Board.BoardCalculator>();
             var positionWorld = transform.position;
             position.x = (int)positionWorld.x;
             position.y = (int)positionWorld.z;

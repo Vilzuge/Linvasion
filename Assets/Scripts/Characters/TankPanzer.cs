@@ -55,7 +55,7 @@ namespace Characters
         public override List<TileBase> CalculateAvailableShots()
         {
             base.CalculateAvailableShots();
-            TileBase[,] tiles = board.GetTileArray();
+            TileBase[,] tiles = boardCalculator.GetTileArray();
             List<TileBase> tileList = new List<TileBase>();
             
             foreach (TileBase tile in tiles)
