@@ -57,7 +57,8 @@ namespace Characters
             base.CalculateAvailableShots();
             TileBase[,] tiles = boardCalculator.GetTileArray();
             List<TileBase> tileList = new List<TileBase>();
-            
+
+            if (tiles == null) return null;
             foreach (TileBase tile in tiles)
             {
                 if (tile.gridX == position.x || tile.gridY == position.y)

@@ -102,6 +102,7 @@ namespace Board
         
         public List<TileBase> CalculateMovableTiles(Vector2Int unitPos, int unitMovement)
         {
+            if (tileArray == null) return null;
             var moveTiles = new List<TileBase> {tileArray[unitPos.x, unitPos.y]};
             for (var i = 0; i < unitMovement; i++)
             {

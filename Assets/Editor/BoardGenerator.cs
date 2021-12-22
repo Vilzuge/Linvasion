@@ -118,36 +118,30 @@ public class BoardGenerator : EditorWindow
             if (tileTypeArray[row, col] == 1)
             {
                GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity);
-               TileGrass component = newTile.AddComponent<TileGrass>();
-               component.walkable = true;
+               TileGrass component = newTile.GetComponent<TileGrass>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
-               //tileArray[row, col] = newTile.GetComponent<TileGrass>();
                newTile.name = $"({row},{col}) {newTile.name}";
                newTile.transform.SetParent(gameBoard.transform);
             }
             else if (tileTypeArray[row, col] == 2)
             {
                GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.60f, col), Quaternion.identity);
-               TileWater component = newTile.AddComponent<TileWater>();
-               component.walkable = false;
+               TileWater component = newTile.GetComponent<TileWater>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
-               //tileArray[row, col] = newTile.GetComponent<TileWater>();
                newTile.name = $"({row},{col}) {newTile.name}";
                newTile.transform.SetParent(gameBoard.transform);
             }
             else if (tileTypeArray[row, col] == 3)
             {
                GameObject newTile = Instantiate(buildingTile, new Vector3(row, -0.50f, col), Quaternion.identity);
-               TileBuilding component = newTile.AddComponent<TileBuilding>();
-               component.walkable = false;
+               TileBuilding component = newTile.GetComponent<TileBuilding>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
-               //tileArray[row, col] = newTile.GetComponent<TileBuilding>();
                newTile.name = $"({row},{col}) {newTile.name}";
                newTile.transform.SetParent(gameBoard.transform);
             }

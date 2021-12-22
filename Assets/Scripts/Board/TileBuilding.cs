@@ -7,6 +7,9 @@ namespace Board
 {
     public class TileBuilding : TileBase
     {
+        public override void Start()
+        {
 
+        }
     }
 }

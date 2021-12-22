@@ -46,7 +46,7 @@ namespace Board
 
                 foreach (TileBase neighbour in boardCalculator.GetNeighbours(current))
                 {
-                    if ( !neighbour.walkable || closedSet.Contains(neighbour))
+                    if ( !neighbour.IsWalkable() || closedSet.Contains(neighbour))
                     {
                         continue;
                     }

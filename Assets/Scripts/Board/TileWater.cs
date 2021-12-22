@@ -12,12 +12,7 @@ namespace Board
     {
         public override void Start()
         {
-            defaultTile = Resources.Load<Material>("Materials/M_GroundWater");
-        }
-        
-        public override void SetDefault()
-        {
-            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = defaultTile;
+
         }
     }
 }

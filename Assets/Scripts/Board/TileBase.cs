@@ -11,21 +11,23 @@ namespace Board
 {
     public class TileBase : MonoBehaviour
     {
-        protected Material defaultTile;
-        protected Material moveableTile;
-        protected Material pathTile;
-        protected Material aimTile;
-
-        public TileState state;
-        public bool walkable;
-        public Vector3 worldPosition;
+        // Visuals 
+        [SerializeField] protected Material defaultTile;
+        [SerializeField] protected Material moveableTile;
+        [SerializeField] protected Material pathTile;
+        [SerializeField] protected Material aimTile;
         
+        // Pathfinding variables
         public int gridX;
         public int gridY;
-        
         public int gCost;
         public int hCost;
         public TileBase parent;
+        
+
+        public TileState state;
+        private bool walkable;
+        public Vector3 worldPosition;
 
         public virtual void Start()
         {
@@ -40,24 +42,43 @@ namespace Board
             }
         }
 
-        public virtual void SetDefault()
+        public virtual void SetDefaultVisual()
         {
             state = TileState.Default;
+            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = defaultTile;
         }
 
-        public virtual void SetMovable()
+        public virtual void SetMovableVisual()
         {
             state = TileState.Movable;
+            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = moveableTile;
         }
 
-        public virtual void SetPathfind()
+        public virtual void SetPathfindVisual()
         {
             state = TileState.Pathfind;
+            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = pathTile;
         }
 
-        public virtual void SetShootable()
+        public virtual void SetShootableVisual()
         {
             state = TileState.Shootable;
+            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = aimTile;
+        }
+
+        public void SetWalkable()
+        {
+            walkable = true;
+        }
+        
+        public void SetUnWalkable()
+        {
+            walkable = false;
+        }
+
+        public bool IsWalkable()
+        {
+            return walkable;
         }
     }
 }

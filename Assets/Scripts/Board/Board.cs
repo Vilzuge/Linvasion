@@ -37,7 +37,7 @@ namespace Board
                 var col = (int) tile.worldPosition.z;
                 if (boardCalculator.GetUnitOnTile(new Vector2Int(row, col)) != null)
                 {
-                    tileArray[row, col].walkable = false;
+                    tileArray[row, col].SetUnWalkable();
                 }
             }
         }

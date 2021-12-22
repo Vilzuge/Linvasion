@@ -38,7 +38,7 @@ namespace Board
             
             foreach (TileBase tile in moveTiles)
             {
-                tile.SetMovable();
+                tile.SetMovableVisual();
             }
         }
         
@@ -62,18 +62,18 @@ namespace Board
         private void DrawPath(Vector2Int start, Vector2Int end)
         {
             var tileArray = boardCalculator.GetTileArray();
-            if (!tileArray[end.x, end.y].walkable)
+            if (!tileArray[end.x, end.y].IsWalkable())
                 return;
             
             List<TileBase> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
             if (drawTiles.Any())
-                drawTiles = drawTiles.Where(tile => tile.GetComponent<TileBase>().walkable).ToList();
+                drawTiles = drawTiles.Where(tile => tile.GetComponent<TileBase>().IsWalkable()).ToList();
             List<TileBase> noDrawTiles = new List<TileBase>();
             
             foreach (TileBase tile in drawTiles)
             {
-                if (tile.GetComponent<TileBase>().walkable)
-                    tile.SetPathfind();
+                if (tile.GetComponent<TileBase>().IsWalkable())
+                    tile.SetPathfindVisual();
             }
             
             foreach (TileBase tile in tileArray)
@@ -86,8 +86,8 @@ namespace Board
 
             foreach (TileBase tile in noDrawTiles)
             {
-                if (tile.walkable)
-                    tile.SetDefault();
+                if (tile.IsWalkable())
+                    tile.SetDefaultVisual();
             }
             
         }
@@ -96,7 +96,7 @@ namespace Board
         {
             foreach (TileBase tile in tilesToShoot)
             {
-                tile.SetShootable();
+                tile.SetShootableVisual();
             }
         }
         
@@ -106,7 +106,7 @@ namespace Board
             foreach (TileBase tile in tileArray)
             {
                 if (tile.state == TileState.Movable)
-                    tile.SetDefault();
+                    tile.SetDefaultVisual();
             }
         }
         
@@ -116,7 +116,7 @@ namespace Board
             foreach (TileBase tile in tileArray)
             {
                 if (tile.state == TileState.Pathfind)
-                    tile.SetDefault();
+                    tile.SetDefaultVisual();
             }
         }
 
@@ -126,7 +126,7 @@ namespace Board
             foreach (TileBase tile in tileArray)
             {
                 if (tile.state == TileState.Shootable)
-                    tile.SetDefault();
+                    tile.SetDefaultVisual();
             }
         }
     }
