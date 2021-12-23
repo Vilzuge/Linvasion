@@ -8,8 +8,9 @@ Artillery unit
 
 namespace Characters
 {
-    public class TankArtillery : TankBase
+    public class TankArtillery : BaseUnit
     {
+        /*
         // UI
         public GameObject artilleryAimButton;
         
@@ -39,5 +40,6 @@ namespace Characters
             base.SetDeselected();
             Destroy(artilleryAimButton);
         }
+        */
     }
 }

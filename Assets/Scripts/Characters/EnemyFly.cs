@@ -37,7 +37,7 @@ namespace Characters
                 {
                     GameObject unit = boardCalculator.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));
                     if (unit)
-                        if (unit.GetComponent<TankBase>())
+                        if (unit.GetComponent<BaseUnit>())
                         {
                             posHitPairs.Add(tile, neighbour);
                         }

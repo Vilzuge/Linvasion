@@ -11,8 +11,9 @@ Regular panzer tank
 
 namespace Characters
 {
-    public class TankPanzer : TankBase
+    public class TankPanzer : BaseUnit
     {
+        /*
         // UI
         public GameObject panzerAimButton;
         
@@ -20,16 +21,13 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            defaultMaterial = Resources.Load<Material>("Materials/Common");
-            selectedMaterial = Resources.Load<Material>("Materials/M_TankSelected");
             panzerAimButton = Instantiate(aimButton, myCanvas.transform, false);
             panzerAimButton.SetActive(false);
             
-            movementValue = 3;
             damageValue = 2;
             health = 3;
             availableMoves = CalculateMovableTiles();
-            availableShots = CalculateAvailableShots();
+            availableShots = CalculateShootableTiles();
             startHealth = health;
         }
 
@@ -52,9 +50,9 @@ namespace Characters
             Debug.Log("You are currently aiming");
         }
 
-        public override List<TileBase> CalculateAvailableShots()
+        public override List<TileBase> CalculateShootableTiles()
         {
-            base.CalculateAvailableShots();
+            base.CalculateShootableTiles();
             TileBase[,] tiles = boardCalculator.GetTileArray();
             List<TileBase> tileList = new List<TileBase>();
 
@@ -84,5 +82,6 @@ namespace Characters
             else
                 Debug.Log("You cant shoot there...");
         }
+        */
     }
 }

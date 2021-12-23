@@ -19,7 +19,7 @@ namespace Board
         public void UpdateHoverDraws(Vector2Int mousePosition, GameObject selectedUnit)
         {
             var hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<TankBase>() && hoverUnit.GetComponent<TankBase>().state != TankState.Aiming && !selectedUnit)
+            if (hoverUnit && hoverUnit.GetComponent<BaseUnit>() && hoverUnit.GetComponent<BaseUnit>().state != TankState.Aiming && !selectedUnit)
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -32,8 +32,8 @@ namespace Board
         // Drawing movement tiles
         public void DrawMovableTiles(GameObject unit)
         {
-            int moves = unit.transform.GetComponent<TankBase>().movementValue;
-            Vector2Int myPos = unit.transform.GetComponent<TankBase>().position;
+            int moves = unit.transform.GetComponent<UnitMovement>().movementValue;
+            Vector2Int myPos = unit.transform.GetComponent<UnitMovement>().position;
             List<TileBase> moveTiles = boardCalculator.CalculateMovableTiles(myPos, moves);
             
             foreach (TileBase tile in moveTiles)
@@ -48,11 +48,11 @@ namespace Board
             if (!selectedUnit)
                 return;
             
-            var startPosition = selectedUnit.GetComponent<TankBase>().position;
+            var startPosition = selectedUnit.GetComponent<UnitMovement>().position;
             var boardSize = boardCalculator.GetBoardSize();
             
             
-            if (selectedUnit.GetComponent<TankBase>().state != TankState.Selected)
+            if (selectedUnit.GetComponent<BaseUnit>().state != TankState.Selected)
                 ClearBoardPathfinding();
             else
             {
@@ -68,7 +68,7 @@ namespace Board
         private void DrawPath(GameObject selectedUnit, Vector2Int start, Vector2Int end)
         {
             var tileArray = boardCalculator.GetTileArray();
-            var movableTiles = selectedUnit.GetComponent<TankBase>().CalculateMovableTiles();
+            var movableTiles = selectedUnit.GetComponent<UnitMovement>().CalculateMovableTiles();
             
             if (!tileArray[end.x, end.y].IsWalkable())
                 return;

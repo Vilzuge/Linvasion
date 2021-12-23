@@ -23,10 +23,9 @@ namespace Characters
         public Image healthBar;
         public int startHealth;
         
-        
         public Vector2Int position;
         public List<TileBase> availableMoves;
-        
+
         protected virtual void Start()
         {
             boardCalculator = GameObject.Find("GameBoard").GetComponent<Board.BoardCalculator>();

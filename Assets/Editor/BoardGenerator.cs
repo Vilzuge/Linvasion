@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using Board;
+using Characters;
 
 /*
 -------------------------------------------

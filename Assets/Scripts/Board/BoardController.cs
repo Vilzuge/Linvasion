@@ -57,9 +57,9 @@ namespace Board
             if (selectedUnit)
             {
                 // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS -> TRY SHOOTING WITH THE UNIT
-                if (selectedUnit.GetComponent<TankBase>().state == TankState.Aiming)
+                if (selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
                 {
-                    selectedUnit.GetComponent<TankBase>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
+                    selectedUnit.GetComponent<UnitShooting>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
                     boardDrawer.ClearBoardShootables();
                     DeselectUnit();
                 }
@@ -73,7 +73,7 @@ namespace Board
                     SelectUnit(coordinates);
                 
                 // UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED
-                else if (selectedUnit.GetComponent<TankBase>().CanMoveTo(tileArray[coordinates.x, coordinates.y]) && selectedUnit.GetComponent<TankBase>().state == TankState.Selected)
+                else if (selectedUnit.GetComponent<UnitMovement>().CanMoveTo(tileArray[coordinates.x, coordinates.y]) && selectedUnit.GetComponent<BaseUnit>().state == TankState.Selected)
                 {
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
@@ -85,7 +85,7 @@ namespace Board
             else
             {
                 // NO UNITS SELECTED -> SELECT THE NEW ONE
-                if (unitObject != null && controller.IsTeamTurnActive() && unitObject.GetComponent<TankBase>())
+                if (unitObject != null && controller.IsTeamTurnActive() && unitObject.GetComponent<BaseUnit>())
                 {
                     SelectUnit(coordinates);
                 }
@@ -101,8 +101,8 @@ namespace Board
             GameObject damagedUnit = boardCalculator.GetUnitOnTile(coordsShotAt);
             if (!damagedUnit)
                 return;
-            if (damagedUnit.GetComponent<TankBase>())
-                damagedUnit.GetComponent<TankBase>().Damage(damageValue);
+            if (damagedUnit.GetComponent<BaseUnit>())
+                damagedUnit.GetComponent<BaseUnit>().Damage(damageValue);
 
             else if (damagedUnit.GetComponent<EnemyBase>())
                 damagedUnit.GetComponent<EnemyBase>().Damage(damageValue);
@@ -111,8 +111,8 @@ namespace Board
         // Moving a selected unit
         private void MoveSelectedUnit(Vector2Int endCoordinates)
         {
-            Vector2Int pos = selectedUnit.GetComponent<TankBase>().position;
-            selectedUnit.GetComponent<TankBase>().MoveTo(endCoordinates);
+            Vector2Int pos = selectedUnit.GetComponent<UnitMovement>().position;
+            selectedUnit.GetComponent<UnitMovement>().MoveTo(endCoordinates);
             Debug.Log(selectedUnit.name + " was moved");
         }
     
@@ -121,7 +121,7 @@ namespace Board
         {
             DeselectUnit();
             selectedUnit = boardCalculator.GetUnitOnTile(coordinates);
-            selectedUnit.GetComponent<TankBase>().SetSelected();
+            selectedUnit.GetComponent<BaseUnit>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
         }
         
@@ -129,7 +129,7 @@ namespace Board
         private void DeselectUnit()
         {
             if (!selectedUnit) return;
-            selectedUnit.GetComponent<TankBase>().SetDeselected();
+            selectedUnit.GetComponent<BaseUnit>().SetDeselected();
             Debug.Log(selectedUnit.name + " was deselected");
             selectedUnit = null;
         }

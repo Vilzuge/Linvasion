@@ -8,8 +8,9 @@ Harpoon tank
 
 namespace Characters
 {
-    public class TankHarpoon : TankBase
+    public class TankHarpoon : BaseUnit
     {
+        /*
         // UI
         public GameObject harpoonAimButton;
         
@@ -39,6 +40,7 @@ namespace Characters
             base.SetDeselected();
             Destroy(harpoonAimButton);
         }
+        */
     
     }
 }

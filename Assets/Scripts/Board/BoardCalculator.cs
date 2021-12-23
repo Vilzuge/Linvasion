@@ -66,7 +66,7 @@ namespace Board
             
             foreach (Transform child in playerUnits.transform)
             {
-                var temp = child.GetComponent<TankBase>().position;
+                var temp = child.GetComponent<UnitMovement>().position;
                 if (temp.x == coordinates.x && temp.y == coordinates.y)
                 {
                     return child.gameObject;
