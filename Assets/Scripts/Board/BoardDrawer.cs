@@ -32,13 +32,18 @@ namespace Board
         // Drawing movement tiles
         public void DrawMovableTiles(GameObject unit)
         {
-            int moves = unit.transform.GetComponent<UnitMovement>().movementValue;
-            Vector2Int myPos = unit.transform.GetComponent<UnitMovement>().position;
-            List<TileBase> moveTiles = boardCalculator.CalculateMovableTiles(myPos, moves);
-            
+            List<TileBase> moveTiles = boardCalculator.CalculateMovableTiles(unit);
             foreach (TileBase tile in moveTiles)
             {
                 tile.SetMovableVisual();
+            }
+        }
+        
+        public void DrawShootableTiles(List<TileBase> tilesToShoot)
+        {
+            foreach (TileBase tile in tilesToShoot)
+            {
+                tile.SetShootableVisual();
             }
         }
         
@@ -68,7 +73,7 @@ namespace Board
         private void DrawPath(GameObject selectedUnit, Vector2Int start, Vector2Int end)
         {
             var tileArray = boardCalculator.GetTileArray();
-            var movableTiles = selectedUnit.GetComponent<UnitMovement>().CalculateMovableTiles();
+            var movableTiles = selectedUnit.GetComponent<UnitMovement>().GetAvailableMoves();
             
             if (!tileArray[end.x, end.y].IsWalkable())
                 return;
@@ -83,15 +88,7 @@ namespace Board
                     tile.SetPathfindVisual();
             }
         }
-        
-        public void DrawShootableTiles(List<TileBase> tilesToShoot)
-        {
-            foreach (TileBase tile in tilesToShoot)
-            {
-                tile.SetShootableVisual();
-            }
-        }
-        
+
         public void ClearBoardMovement()
         {
             var tileArray = boardCalculator.GetTileArray();

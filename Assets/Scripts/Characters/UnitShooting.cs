@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using Board;
-using SFX;
 using UnityEngine;
 
 namespace Characters
@@ -9,31 +7,29 @@ namespace Characters
     
     public class UnitShooting : MonoBehaviour
     {
-        
-        [SerializeField] protected GameObject aimButton;
-        protected BoardDrawer boardDrawer;
+        private BoardDrawer boardDrawer;
+        private BoardCalculator boardCalculator;
 
         void Start()
         {
             boardDrawer = GameObject.Find("GameBoard").GetComponent<BoardDrawer>();
+            boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
         }
 
         public bool CanShootTo(TileBase tileToShoot)
         {
-            return CalculateShootableTiles().Contains(tileToShoot);
+            return GetAvailableShots().Contains(tileToShoot);
         }
 
 
-        public virtual List<TileBase> CalculateShootableTiles()
+        private List<TileBase> GetAvailableShots()
         {
-            //return boardCalculator.CalculateShootableTiles();
-            return null;
+            return boardCalculator.CalculateShootableTiles(gameObject);
         }
         
-        public virtual void SetAiming()
+        public void Aim()
         {
-            GetComponent<BaseUnit>().state = TankState.Aiming;
-            boardDrawer.DrawShootableTiles(CalculateShootableTiles());
+            boardDrawer.DrawShootableTiles(GetAvailableShots());
         }
         
         public virtual void TryToShoot(TileBase tileToShoot) { }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Board;
 using UnityEngine;
@@ -26,24 +25,23 @@ namespace Characters {
             
         }
         
-        
         public bool CanMoveTo(TileBase tileToMove)
         {
-            return CalculateMovableTiles().Contains(tileToMove);
+            return GetAvailableMoves().Contains(tileToMove);
         }
         
-        public virtual List<TileBase> CalculateMovableTiles()
+        public virtual List<TileBase> GetAvailableMoves()
         {
-            return boardCalculator.CalculateMovableTiles(position, movementValue);
+            return boardCalculator.CalculateMovableTiles(gameObject);
         }
         
         public void MoveTo(Vector2Int coordinates)
         {
             position = new Vector2Int(coordinates.x, coordinates.y);
+
             gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
-            availableMoves = CalculateMovableTiles();
+            availableMoves = GetAvailableMoves();
         }
-        
         
     }
 

@@ -125,6 +125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1250976382179444819}
   - component: {fileID: 2332927875657428586}
+  - component: {fileID: -8983430107595067900}
+  - component: {fileID: -2940555856455373778}
+  - component: {fileID: -1392638571348330263}
   m_Layer: 0
   m_Name: TankPanzer
   m_TagString: Untagged
@@ -162,19 +165,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMaterial: {fileID: 2100000, guid: 3ebf0f2b9ef27814c98435711e363a5c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: 7280b5e4e0bb0c14aafa8c1c3bfc5a6e, type: 2}
-  myCanvas: {fileID: 0}
-  aimButton: {fileID: 2771757513410737254, guid: 3ec97020687c7f64ca7ce4d191650cf9,
-    type: 3}
   state: 0
-  health: 0
-  movementValue: 0
-  damageValue: 0
-  healthBar: {fileID: 2268838794160205873}
-  startHealth: 0
-  availableMoves: []
-  availableShots: []
+  panzerAimButton: {fileID: 2771757513410737254, guid: 3ec97020687c7f64ca7ce4d191650cf9,
+    type: 3}
+--- !u!114 &-8983430107595067900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880126163704468201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c111411bd85925248ba2331e73cc4829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
-  panzerAimButton: {fileID: 0}
+  movementValue: 3
+  availableMoves: []
+--- !u!114 &-2940555856455373778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880126163704468201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455aeb5f4c83a494682bf3419de092a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1392638571348330263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880126163704468201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4dc4829d301e6a4e8cf3a8ee344e898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHealth: 3
+  currentHealth: 0
+  healthBar: {fileID: 2268838794160205873}
 --- !u!1001 &6401069349355360928
 PrefabInstance:
   m_ObjectHideFlags: 0

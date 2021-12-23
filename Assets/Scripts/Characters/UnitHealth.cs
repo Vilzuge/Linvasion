@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
-public class UnitHealth : MonoBehaviour
+namespace Characters
 {
-    // Start is called before the first frame update
-    void Start()
+    public class UnitHealth : MonoBehaviour
     {
+        public int startHealth;
+        public int currentHealth;
+        public Image healthBar;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Start()
+        {
+            currentHealth = startHealth;
+        }
     }
 }

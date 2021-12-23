@@ -101,8 +101,11 @@ namespace Board
         }
         
         
-        public List<TileBase> CalculateMovableTiles(Vector2Int unitPos, int unitMovement)
+        public List<TileBase> CalculateMovableTiles(GameObject unit)
         {
+            Vector2Int unitPos = unit.GetComponent<UnitMovement>().position;
+            int unitMovement = unit.GetComponent<UnitMovement>().movementValue;
+            
             if (tileArray == null) return null;
             var moveTiles = new List<TileBase> {tileArray[unitPos.x, unitPos.y]};
             for (var i = 0; i < unitMovement; i++)
@@ -120,7 +123,18 @@ namespace Board
             }
             return moveTiles;
         }
+        public List<TileBase> CalculateShootableTiles(GameObject unit)
+        {
+            Vector2Int unitPos = unit.GetComponent<UnitMovement>().position;
 
+            var shootTiles = new List<TileBase>();
+            foreach (TileBase tile in tileArray)
+            {
+                if ((tile.gridX == unitPos.x) ^ (tile.gridY == unitPos.y)) // logical exclusive OR
+                    shootTiles.Add(tile);
+            }
+            return shootTiles;
+        }
         private void SetInitialOccupants()
         {
             foreach (TileBase tile in tileArray)

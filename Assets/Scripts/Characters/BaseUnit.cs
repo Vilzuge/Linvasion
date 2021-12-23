@@ -13,11 +13,6 @@ namespace Characters
         protected Canvas myCanvas;
         public TankState state;
         private SoundManagerScript soundManager;
-
-        public int health;
-        public Image healthBar;
-        public int startHealth;
-        
         
         protected virtual void Start()
         {
@@ -37,18 +32,27 @@ namespace Characters
             state = TankState.Unselected;
             GetComponentInChildren<MeshRenderer>().material = defaultMaterial;
         }
+        
+        public virtual void SetAiming()
+        {
+            state = TankState.Aiming;
+            GetComponent<UnitShooting>().Aim(); //boardDrawer.DrawShootableTiles(CalculateShootableTiles());
+        }
 
 
         /* INTERFACE STUFF */
         public void Kill()
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         public void Damage(int damageTaken)
         {
-            health -= damageTaken;
+            var health = GetComponent<UnitHealth>().currentHealth;
+            var startHealth = GetComponent<UnitHealth>().startHealth;
+            var healthBar = GetComponent<UnitHealth>().healthBar;
             
+            health -= damageTaken;
             healthBar.fillAmount = (float)health / (float)startHealth;
             Debug.Log(this.name + " to be killed.");
             if (health <= 0)
