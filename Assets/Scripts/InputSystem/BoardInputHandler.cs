@@ -12,21 +12,21 @@ namespace InputSystem
 {
     public class BoardInputHandler : MonoBehaviour, IInputHandler
     {
-        private Board.Board board;
+        private Board.BoardController boardController;
 
         private void Awake()
         {
-            board = GetComponent<Board.Board>();
+            boardController = GetComponent<Board.BoardController>();
         }
     
         public void ProcessClickInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
-            board.OnTileSelected(inputPosition);
+            boardController.OnTileSelected(inputPosition);
         }
         
         public void ProcessHoverInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
-            board.TrackMousePosition(inputPosition);
+            boardController.TrackMousePosition(inputPosition);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Characters
 
             if (availableShots.Contains(tileToShoot))
             {
-                board.ApplyDamage(tilePos, damageValue);
+                boardController.ApplyDamage(tilePos, damageValue);
                 Debug.Log("You shot at " + tilePos);
             }
             else

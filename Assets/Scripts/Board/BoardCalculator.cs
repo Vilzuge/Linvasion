@@ -112,7 +112,7 @@ namespace Board
                     var neighbours = GetNeighbours(tile);
                     foreach (TileBase loopTile in neighbours)
                     {
-                        if (moveTiles.Contains(loopTile)) continue;
+                        if (moveTiles.Contains(loopTile) || !loopTile.IsWalkable()) continue;
                         if (loopTile is TileGrass)
                             moveTiles.Add(loopTile);
                     }
@@ -121,7 +121,7 @@ namespace Board
             return moveTiles;
         }
 
-        public void SetInitialOccupants()
+        private void SetInitialOccupants()
         {
             foreach (TileBase tile in tileArray)
             {

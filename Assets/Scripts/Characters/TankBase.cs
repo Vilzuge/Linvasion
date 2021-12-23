@@ -19,7 +19,7 @@ namespace Characters
         public Canvas myCanvas;
         public GameObject aimButton;
         
-        protected Board.Board board;
+        protected Board.BoardController boardController;
         protected Board.BoardCalculator boardCalculator;
         protected Board.BoardDrawer boardDrawer;
         
@@ -40,7 +40,7 @@ namespace Characters
     
         protected virtual void Start()
         { 
-            board = GameObject.Find("GameBoard").GetComponent<Board.Board>();
+            boardController = GameObject.Find("GameBoard").GetComponent<Board.BoardController>();
             boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
             boardDrawer = GameObject.Find("GameBoard").GetComponent<BoardDrawer>();
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();

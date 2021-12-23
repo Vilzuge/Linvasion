@@ -12,7 +12,7 @@ This script handles the game-board and it's visualization
 
 namespace Board
 {
-    public class Board : MonoBehaviour
+    public class BoardController : MonoBehaviour
     {
         [SerializeField] private GameController controller;
         private Vector2Int mousePosition;

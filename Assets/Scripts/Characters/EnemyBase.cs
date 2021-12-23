@@ -15,7 +15,7 @@ namespace Characters
     public class EnemyBase : MonoBehaviour, IKillable, IDamageable<int>
     {
         protected Board.BoardCalculator boardCalculator;
-        protected Board.Board board;
+        protected Board.BoardController boardController;
         public int health;
         public int movement;
         public int damage;

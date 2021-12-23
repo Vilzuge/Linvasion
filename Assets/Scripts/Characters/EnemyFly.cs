@@ -63,7 +63,7 @@ namespace Characters
             yield return new WaitForSeconds(2);
 
             Vector2Int hitPost = new Vector2Int(phPairs.First().Value.gridX, phPairs.First().Value.gridY);
-            board.ApplyDamage(hitPost, damage);
+            boardController.ApplyDamage(hitPost, damage);
             
             Debug.Log(gameObject.name + " attacked.");
             yield return new WaitForSeconds(2);
