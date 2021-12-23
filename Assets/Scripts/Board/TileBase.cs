@@ -26,7 +26,7 @@ namespace Board
         
 
         public TileState state;
-        private bool walkable;
+        public bool walkable;
         public Vector3 worldPosition;
 
         public virtual void Start()

@@ -15,6 +15,7 @@ namespace Board
         private void Start()
         {
             tileArray = FindTileArray();
+            SetInitialOccupants();
         }
 
         // Getting reference to tile array
@@ -119,7 +120,20 @@ namespace Board
             }
             return moveTiles;
         }
-        
+
+        public void SetInitialOccupants()
+        {
+            foreach (TileBase tile in tileArray)
+            {
+                var row = (int) tile.worldPosition.x;
+                var col = (int) tile.worldPosition.z;
+                if (GetUnitOnTile(new Vector2Int(row, col)) != null)
+                {
+                    tileArray[row, col].SetUnWalkable();
+                }
+            }
+        }
+
         public TileBase[,] GetTileArray()
         {
             return tileArray;

@@ -28,18 +28,6 @@ namespace Board
             boardCalculator = GetComponent<BoardCalculator>();
             boardDrawer = GetComponent<BoardDrawer>();
             controller.SetGameState(GameState.PlayerTurn);
-            
-
-            var tileArray = boardCalculator.GetTileArray();
-            foreach (TileBase tile in tileArray)
-            {
-                var row = (int) tile.worldPosition.x;
-                var col = (int) tile.worldPosition.z;
-                if (boardCalculator.GetUnitOnTile(new Vector2Int(row, col)) != null)
-                {
-                    tileArray[row, col].SetUnWalkable();
-                }
-            }
         }
 
         private void Update()
