@@ -119,7 +119,7 @@ public class BoardGenerator : EditorWindow
             if (tileTypeArray[row, col] == 1)
             {
                GameObject newTile = Instantiate(grassTile, new Vector3(row, -0.5f, col), Quaternion.identity);
-               TileGrass component = newTile.GetComponent<TileGrass>();
+               BaseTileGrass component = newTile.GetComponent<BaseTileGrass>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
@@ -129,7 +129,7 @@ public class BoardGenerator : EditorWindow
             else if (tileTypeArray[row, col] == 2)
             {
                GameObject newTile = Instantiate(waterTile, new Vector3(row, -0.60f, col), Quaternion.identity);
-               TileWater component = newTile.GetComponent<TileWater>();
+               BaseTileWater component = newTile.GetComponent<BaseTileWater>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;
@@ -139,7 +139,7 @@ public class BoardGenerator : EditorWindow
             else if (tileTypeArray[row, col] == 3)
             {
                GameObject newTile = Instantiate(buildingTile, new Vector3(row, -0.50f, col), Quaternion.identity);
-               TileBuilding component = newTile.GetComponent<TileBuilding>();
+               BaseTileBuilding component = newTile.GetComponent<BaseTileBuilding>();
                component.worldPosition = new Vector3(row, -0.5f, col);
                component.gridX = row;
                component.gridY = col;

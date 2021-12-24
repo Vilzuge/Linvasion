@@ -12,8 +12,10 @@ Base class for enemies
 
 namespace Characters
 {
-    public class BaseEnemy : MonoBehaviour, IKillable, IDamageable<int>
+    public abstract class BaseEnemy : BaseUnit
     {
+        
+        
         protected Board.BoardCalculator boardCalculator;
         protected Board.BoardController boardController;
         public int health;
@@ -24,7 +26,7 @@ namespace Characters
         public int startHealth;
         
         public Vector2Int position;
-        public List<TileBase> availableMoves;
+        public List<BaseTile> availableMoves;
 
         protected virtual void Start()
         {
@@ -48,19 +50,6 @@ namespace Characters
 
         public virtual void AITurn() { }
         
-        public void Kill()
-        {
-            Debug.Log(gameObject.name + " was destroyed.");
-            Destroy(gameObject);
-        }
-
-        public void Damage(int damageTaken)
-        {
-            health -= damageTaken;
-            healthBar.fillAmount = (float)health / (float)startHealth;
-            Debug.Log(gameObject.name + " to be killed.");
-            if (health <= 0)
-                Kill();
-        }
+        
     }
 }

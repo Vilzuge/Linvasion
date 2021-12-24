@@ -11,7 +11,7 @@ Regular panzer tank
 
 namespace Characters
 {
-    public class TankPanzer : BaseUnit
+    public class PlayerPanzer : BasePlayer
     {
 
         // UI

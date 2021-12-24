@@ -19,15 +19,15 @@ namespace Board
             boardCalculator = GetComponent<BoardCalculator>();
         }
         
-        public List<TileBase> FindPath(TileBase start, TileBase target)
+        public List<BaseTile> FindPath(BaseTile start, BaseTile target)
         {
-            var openSet = new List<TileBase>();
-            var closedSet = new HashSet<TileBase>();
+            var openSet = new List<BaseTile>();
+            var closedSet = new HashSet<BaseTile>();
             openSet.Add(start);
 
             while (openSet.Count > 0)
             {
-                TileBase current = openSet[0];
+                BaseTile current = openSet[0];
                 for (int i = 1; i < openSet.Count; i++)
                 {
                     if (openSet[i].fCost < current.fCost || openSet[i].fCost == current.fCost && openSet[i].hCost < current.hCost)
@@ -44,7 +44,7 @@ namespace Board
                     return RetracePath(start, target);
                 }
 
-                foreach (TileBase neighbour in boardCalculator.GetNeighbours(current))
+                foreach (BaseTile neighbour in boardCalculator.GetNeighbours(current))
                 {
                     if ( !neighbour.IsWalkable() || closedSet.Contains(neighbour))
                     {
@@ -68,10 +68,10 @@ namespace Board
             return null;
         }
 
-        private List<TileBase> RetracePath(TileBase start, TileBase end)
+        private List<BaseTile> RetracePath(BaseTile start, BaseTile end)
         {
-            List<TileBase> path = new List<TileBase>();
-            TileBase current = end;
+            List<BaseTile> path = new List<BaseTile>();
+            BaseTile current = end;
 
             while (current != start)
             {
@@ -82,7 +82,7 @@ namespace Board
             return path;
         }
 
-        private int GetDistance(TileBase a, TileBase b)
+        private int GetDistance(BaseTile a, BaseTile b)
         {
             int dstX = Mathf.Abs(a.gridX - b.gridX);
             int dstY = Mathf.Abs(a.gridY - b.gridY);

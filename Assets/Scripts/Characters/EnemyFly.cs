@@ -12,7 +12,7 @@ Flying enemy unit
 
 namespace Characters
 {
-    public class BaseEnemyFly : BaseEnemy
+    public class EnemyFly : BaseEnemy
     {
         
         protected override void Start()
@@ -27,13 +27,13 @@ namespace Characters
         public override void AITurn()
         {
             availableMoves = boardCalculator.CalculateMovableTiles(gameObject);
-            Dictionary<TileBase, TileBase> posHitPairs = new Dictionary<TileBase, TileBase>();
+            Dictionary<BaseTile, BaseTile> posHitPairs = new Dictionary<BaseTile, BaseTile>();
             
-            foreach (TileBase tile in availableMoves)
+            foreach (BaseTile tile in availableMoves)
             {
-                List<TileBase> neighbours = boardCalculator.GetNeighbours(tile);
+                List<BaseTile> neighbours = boardCalculator.GetNeighbours(tile);
                 Debug.Log(neighbours);
-                foreach (TileBase neighbour in neighbours)
+                foreach (BaseTile neighbour in neighbours)
                 {
                     GameObject unit = boardCalculator.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));
                     if (unit)
@@ -45,14 +45,14 @@ namespace Characters
             }
             
             Debug.Log("Here are the available hits for " + gameObject.name);
-            foreach (KeyValuePair<TileBase, TileBase> kvp in posHitPairs)
+            foreach (KeyValuePair<BaseTile, BaseTile> kvp in posHitPairs)
             {
                 Debug.Log($"Position: {kvp.Key}, HitLocation: {kvp.Value}");
             }
             StartCoroutine(TurnCoroutine(posHitPairs));
         }
 
-        IEnumerator TurnCoroutine(Dictionary<TileBase, TileBase> phPairs)
+        IEnumerator TurnCoroutine(Dictionary<BaseTile, BaseTile> phPairs)
         {
             Debug.Log(gameObject.name + " about to move...");
             yield return new WaitForSeconds(2);

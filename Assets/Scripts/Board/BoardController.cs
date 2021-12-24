@@ -57,7 +57,7 @@ namespace Board
             if (selectedUnit)
             {
                 // UNIT IS AIMING AND TRIES TO SHOOT AT COORDS -> TRY SHOOTING WITH THE UNIT
-                if (selectedUnit.GetComponent<BaseUnit>().state == TankState.Aiming)
+                if (selectedUnit.GetComponent<BasePlayer>().state == TankState.Aiming)
                 {
                     selectedUnit.GetComponent<UnitShooting>().TryToShoot(tileArray[coordinates.x, coordinates.y]);
                     boardDrawer.ClearBoardShootables();
@@ -73,7 +73,7 @@ namespace Board
                     SelectUnit(coordinates);
                 
                 // UNIT IS SELECTED AND CAN MOVE TO THE TILE PRESSED
-                else if (selectedUnit.GetComponent<UnitMovement>().CanMoveTo(tileArray[coordinates.x, coordinates.y]) && selectedUnit.GetComponent<BaseUnit>().state == TankState.Selected)
+                else if (selectedUnit.GetComponent<UnitMovement>().CanMoveTo(tileArray[coordinates.x, coordinates.y]) && selectedUnit.GetComponent<BasePlayer>().state == TankState.Selected)
                 {
                     MoveSelectedUnit(coordinates);
                     DeselectUnit();
@@ -97,7 +97,7 @@ namespace Board
         {
             var tileArray = boardCalculator.GetTileArray();
             
-            TileBase damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
+            BaseTile damaged = tileArray[coordsShotAt.x, coordsShotAt.y];
             GameObject damagedUnit = boardCalculator.GetUnitOnTile(coordsShotAt);
             if (!damagedUnit)
                 return;
@@ -121,7 +121,7 @@ namespace Board
         {
             DeselectUnit();
             selectedUnit = boardCalculator.GetUnitOnTile(coordinates);
-            selectedUnit.GetComponent<BaseUnit>().SetSelected();
+            selectedUnit.GetComponent<BasePlayer>().SetSelected();
             Debug.Log(selectedUnit.name + " was selected");
         }
         
@@ -129,10 +129,9 @@ namespace Board
         private void DeselectUnit()
         {
             if (!selectedUnit) return;
-            selectedUnit.GetComponent<BaseUnit>().SetDeselected();
+            selectedUnit.GetComponent<BasePlayer>().SetDeselected();
             Debug.Log(selectedUnit.name + " was deselected");
             selectedUnit = null;
         }
-        
     }
 }

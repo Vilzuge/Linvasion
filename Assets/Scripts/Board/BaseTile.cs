@@ -9,7 +9,7 @@ Base tile that other tile types are extended from
 
 namespace Board
 {
-    public class TileBase : MonoBehaviour
+    public class BaseTile : MonoBehaviour
     {
         // Visuals 
         [SerializeField] protected Material defaultTile;
@@ -22,7 +22,7 @@ namespace Board
         public int gridY;
         public int gCost;
         public int hCost;
-        public TileBase parent;
+        public BaseTile parent;
         
 
         public TileState state;

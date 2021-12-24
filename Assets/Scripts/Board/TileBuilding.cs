@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Board
 {
-    public class TileBuilding : TileBase
+    public class BaseTileBuilding : BaseTile
     {
         public override void Start()
         {

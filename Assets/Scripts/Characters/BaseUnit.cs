@@ -6,41 +6,18 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
+    public abstract class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
     {
         [SerializeField] protected Material defaultMaterial;
         [SerializeField] protected Material selectedMaterial;
-        protected Canvas myCanvas;
-        public TankState state;
-        private SoundManagerScript soundManager;
+        protected SoundManagerScript soundManager;
         
         protected virtual void Start()
         {
             soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
-            myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
-            state = TankState.Unselected;
-        }
-
-        public virtual void SetSelected()
-        {
-            state = TankState.Selected;
-            GetComponentInChildren<MeshRenderer>().material = selectedMaterial;
-        }
-
-        public virtual void SetDeselected()
-        {
-            state = TankState.Unselected;
-            GetComponentInChildren<MeshRenderer>().material = defaultMaterial;
         }
         
-        public virtual void SetAiming()
-        {
-            state = TankState.Aiming;
-            GetComponent<UnitShooting>().Aim(); //boardDrawer.DrawShootableTiles(CalculateShootableTiles());
-        }
-
-
-        /* INTERFACE STUFF */
+        /* INTERFACE STUFF FOR KILLABLE AND DAMAGEABLE UNITS */
         public void Kill()
         {
             Destroy(gameObject);

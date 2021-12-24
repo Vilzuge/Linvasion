@@ -19,7 +19,7 @@ namespace Board
         public void UpdateHoverDraws(Vector2Int mousePosition, GameObject selectedUnit)
         {
             var hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<BaseUnit>() && hoverUnit.GetComponent<BaseUnit>().state != TankState.Aiming && !selectedUnit)
+            if (hoverUnit && hoverUnit.GetComponent<BaseUnit>() && hoverUnit.GetComponent<BasePlayer>().state != TankState.Aiming && !selectedUnit)
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -32,16 +32,16 @@ namespace Board
         // Drawing movement tiles
         public void DrawMovableTiles(GameObject unit)
         {
-            List<TileBase> moveTiles = boardCalculator.CalculateMovableTiles(unit);
-            foreach (TileBase tile in moveTiles)
+            List<BaseTile> moveTiles = boardCalculator.CalculateMovableTiles(unit);
+            foreach (BaseTile tile in moveTiles)
             {
                 tile.SetMovableVisual();
             }
         }
         
-        public void DrawShootableTiles(List<TileBase> tilesToShoot)
+        public void DrawShootableTiles(List<BaseTile> tilesToShoot)
         {
-            foreach (TileBase tile in tilesToShoot)
+            foreach (BaseTile tile in tilesToShoot)
             {
                 tile.SetShootableVisual();
             }
@@ -57,7 +57,7 @@ namespace Board
             var boardSize = boardCalculator.GetBoardSize();
             
             
-            if (selectedUnit.GetComponent<BaseUnit>().state != TankState.Selected)
+            if (selectedUnit.GetComponent<BasePlayer>().state != TankState.Selected)
                 ClearBoardPathfinding();
             else
             {
@@ -78,11 +78,11 @@ namespace Board
             if (!tileArray[end.x, end.y].IsWalkable())
                 return;
 
-            List<TileBase> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
+            List<BaseTile> drawTiles = GetComponent<Pathfinding>().FindPath(tileArray[start.x, start.y], tileArray[end.x, end.y]);
             if (drawTiles.Any())
-                drawTiles = drawTiles.Where(tile => tile.GetComponent<TileBase>().IsWalkable()).ToList();
+                drawTiles = drawTiles.Where(tile => tile.GetComponent<BaseTile>().IsWalkable()).ToList();
             
-            foreach (TileBase tile in drawTiles)
+            foreach (BaseTile tile in drawTiles)
             {
                 if (movableTiles.Contains(tile))
                     tile.SetPathfindVisual();
@@ -92,7 +92,7 @@ namespace Board
         public void ClearBoardMovement()
         {
             var tileArray = boardCalculator.GetTileArray();
-            foreach (TileBase tile in tileArray)
+            foreach (BaseTile tile in tileArray)
             {
                 if (tile.state == TileState.Movable)
                     tile.SetDefaultVisual();
@@ -102,7 +102,7 @@ namespace Board
         public void ClearBoardPathfinding()
         {
             var tileArray = boardCalculator.GetTileArray();
-            foreach (TileBase tile in tileArray)
+            foreach (BaseTile tile in tileArray)
             {
                 if (tile.state == TileState.Pathfind)
                     tile.SetDefaultVisual();
@@ -112,7 +112,7 @@ namespace Board
         public void ClearBoardShootables()
         {
             var tileArray = boardCalculator.GetTileArray();
-            foreach (TileBase tile in tileArray)
+            foreach (BaseTile tile in tileArray)
             {
                 if (tile.state == TileState.Shootable)
                     tile.SetDefaultVisual();

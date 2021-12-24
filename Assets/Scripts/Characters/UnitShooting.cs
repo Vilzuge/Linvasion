@@ -16,13 +16,13 @@ namespace Characters
             boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
         }
 
-        public bool CanShootTo(TileBase tileToShoot)
+        public bool CanShootTo(BaseTile baseTileToShoot)
         {
-            return GetAvailableShots().Contains(tileToShoot);
+            return GetAvailableShots().Contains(baseTileToShoot);
         }
 
 
-        private List<TileBase> GetAvailableShots()
+        private List<BaseTile> GetAvailableShots()
         {
             return boardCalculator.CalculateShootableTiles(gameObject);
         }
@@ -32,6 +32,6 @@ namespace Characters
             boardDrawer.DrawShootableTiles(GetAvailableShots());
         }
         
-        public virtual void TryToShoot(TileBase tileToShoot) { }
+        public virtual void TryToShoot(BaseTile baseTileToShoot) { }
     }
 }

@@ -8,7 +8,7 @@ namespace Characters {
         protected BoardCalculator boardCalculator;
         public Vector2Int position;
         public int movementValue;
-        public List<TileBase> availableMoves;
+        public List<BaseTile> availableMoves;
 
         // Start is called before the first frame update
         void Start()
@@ -25,12 +25,12 @@ namespace Characters {
             
         }
         
-        public bool CanMoveTo(TileBase tileToMove)
+        public bool CanMoveTo(BaseTile baseTileToMove)
         {
-            return GetAvailableMoves().Contains(tileToMove);
+            return GetAvailableMoves().Contains(baseTileToMove);
         }
         
-        public virtual List<TileBase> GetAvailableMoves()
+        public virtual List<BaseTile> GetAvailableMoves()
         {
             return boardCalculator.CalculateMovableTiles(gameObject);
         }

@@ -8,7 +8,7 @@ namespace Board
     public class BoardCalculator : MonoBehaviour
     {
         private const int BoardSize = 8;
-        private TileBase[,] tileArray;
+        private BaseTile[,] tileArray;
         [SerializeField] private GameObject playerUnits;
         [SerializeField] private GameObject enemyUnits;
         
@@ -19,33 +19,33 @@ namespace Board
         }
 
         // Getting reference to tile array
-        private TileBase[,] FindTileArray()
+        private BaseTile[,] FindTileArray()
         {
-            tileArray = new TileBase[BoardSize,BoardSize];
+            tileArray = new BaseTile[BoardSize,BoardSize];
             var tempList = transform.Cast<Transform>().ToList();
             foreach (var child in tempList)
             {
-                var tileComponent = child.GetComponent<TileBase>();
-                tileArray[tileComponent.gridX, tileComponent.gridY] = child.GetComponent<TileBase>();
+                var tileComponent = child.GetComponent<BaseTile>();
+                tileArray[tileComponent.gridX, tileComponent.gridY] = child.GetComponent<BaseTile>();
             }
             return tileArray;
         }
         
         
         // Returns neighbouring tiles of the parameter tile (N,E,S,W)
-        public List<TileBase> GetNeighbours(TileBase tile)
+        public List<BaseTile> GetNeighbours(BaseTile baseTile)
         {
-            var neighbours = new List<TileBase>();
+            var neighbours = new List<BaseTile>();
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
                 {
                     if (x == 0 && y == 0)
                         continue;
-                    int checkX = tile.gridX + x;
-                    int checkY = tile.gridY + y;
+                    int checkX = baseTile.gridX + x;
+                    int checkY = baseTile.gridY + y;
                     
-                    if (checkX != tile.gridX && checkY != tile.gridY)
+                    if (checkX != baseTile.gridX && checkY != baseTile.gridY)
                     {
                         continue;
                     }
@@ -101,34 +101,34 @@ namespace Board
         }
         
         
-        public List<TileBase> CalculateMovableTiles(GameObject unit)
+        public List<BaseTile> CalculateMovableTiles(GameObject unit)
         {
             Vector2Int unitPos = unit.GetComponent<UnitMovement>().position;
             int unitMovement = unit.GetComponent<UnitMovement>().movementValue;
             
             if (tileArray == null) return null;
-            var moveTiles = new List<TileBase> {tileArray[unitPos.x, unitPos.y]};
+            var moveTiles = new List<BaseTile> {tileArray[unitPos.x, unitPos.y]};
             for (var i = 0; i < unitMovement; i++)
             {
-                foreach (TileBase tile in moveTiles.ToList())
+                foreach (BaseTile tile in moveTiles.ToList())
                 {
                     var neighbours = GetNeighbours(tile);
-                    foreach (TileBase loopTile in neighbours)
+                    foreach (BaseTile loopTile in neighbours)
                     {
                         if (moveTiles.Contains(loopTile) || !loopTile.IsWalkable()) continue;
-                        if (loopTile is TileGrass)
+                        if (loopTile is BaseTileGrass)
                             moveTiles.Add(loopTile);
                     }
                 }
             }
             return moveTiles;
         }
-        public List<TileBase> CalculateShootableTiles(GameObject unit)
+        public List<BaseTile> CalculateShootableTiles(GameObject unit)
         {
             Vector2Int unitPos = unit.GetComponent<UnitMovement>().position;
 
-            var shootTiles = new List<TileBase>();
-            foreach (TileBase tile in tileArray)
+            var shootTiles = new List<BaseTile>();
+            foreach (BaseTile tile in tileArray)
             {
                 if ((tile.gridX == unitPos.x) ^ (tile.gridY == unitPos.y)) // logical exclusive OR
                     shootTiles.Add(tile);
@@ -137,7 +137,7 @@ namespace Board
         }
         private void SetInitialOccupants()
         {
-            foreach (TileBase tile in tileArray)
+            foreach (BaseTile tile in tileArray)
             {
                 var row = (int) tile.worldPosition.x;
                 var col = (int) tile.worldPosition.z;
@@ -148,7 +148,7 @@ namespace Board
             }
         }
 
-        public TileBase[,] GetTileArray()
+        public BaseTile[,] GetTileArray()
         {
             return tileArray;
         }
