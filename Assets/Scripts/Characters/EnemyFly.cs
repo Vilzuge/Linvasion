@@ -12,7 +12,7 @@ Flying enemy unit
 
 namespace Characters
 {
-    public class EnemyFly : EnemyBase
+    public class BaseEnemyFly : BaseEnemy
     {
         
         protected override void Start()

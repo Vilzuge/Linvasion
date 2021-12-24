@@ -75,7 +75,7 @@ namespace Board
                 
             foreach (Transform child in enemyUnits.transform)
             {
-                var temp = child.GetComponent<EnemyBase>().position;
+                var temp = child.GetComponent<BaseEnemy>().position;
                 if (temp.x == coordinates.x && temp.y == coordinates.y)
                 {
                     return child.gameObject;

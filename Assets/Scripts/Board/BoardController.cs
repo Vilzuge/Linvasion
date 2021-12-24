@@ -104,8 +104,8 @@ namespace Board
             if (damagedUnit.GetComponent<BaseUnit>())
                 damagedUnit.GetComponent<BaseUnit>().Damage(damageValue);
 
-            else if (damagedUnit.GetComponent<EnemyBase>())
-                damagedUnit.GetComponent<EnemyBase>().Damage(damageValue);
+            else if (damagedUnit.GetComponent<BaseEnemy>())
+                damagedUnit.GetComponent<BaseEnemy>().Damage(damageValue);
         }
         
         // Moving a selected unit
