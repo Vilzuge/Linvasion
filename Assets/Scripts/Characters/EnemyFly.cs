@@ -12,7 +12,7 @@ Flying enemy unit
 
 namespace Characters
 {
-    public class EnemyFly : BaseEnemy
+    public class EnemyFly : BaseUnitEnemy
     {
         private BoardCalculator boardCalculator;
         

@@ -19,19 +19,19 @@ namespace Characters
         /* INTERFACE STUFF FOR KILLABLE AND DAMAGEABLE UNITS */
         public void Kill()
         {
+            Debug.Log("Going to kill this");
             Destroy(gameObject);
         }
 
         public void Damage(int damageTaken)
         {
-            var health = GetComponent<UnitHealth>().currentHealth;
             var startHealth = GetComponent<UnitHealth>().startHealth;
             var healthBar = GetComponent<UnitHealth>().healthBar;
             
-            health -= damageTaken;
-            healthBar.fillAmount = (float)health / (float)startHealth;
+            var newHealth = GetComponent<UnitHealth>().currentHealth -= damageTaken;
+            healthBar.fillAmount = (float)newHealth / (float)startHealth;
             Debug.Log(this.name + " to be killed.");
-            if (health <= 0)
+            if (newHealth <= 0)
                 Kill();
         }
     }

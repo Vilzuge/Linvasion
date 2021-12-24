@@ -9,6 +9,7 @@ namespace Characters
     {
         private BoardDrawer boardDrawer;
         private BoardCalculator boardCalculator;
+        [SerializeField] private int damageValue;
 
         void Start()
         {
@@ -31,7 +32,22 @@ namespace Characters
         {
             boardDrawer.DrawShootableTiles(GetAvailableShots());
         }
+
+        public virtual void TryToShoot(BaseTile tileToShoot)
+        {
+            if (CanShootTo(tileToShoot))
+            {
+                GameObject unit = boardCalculator.GetUnitOnTile(new Vector2Int(tileToShoot.gridX, tileToShoot.gridY));
+                if (unit)
+                {
+                    unit.GetComponent<BaseUnit>().Damage(damageValue);
+                }
+            }
+            else
+            {
+                Debug.Log("Could not shoot that tile :/");
+            }
+        }
         
-        public virtual void TryToShoot(BaseTile baseTileToShoot) { }
     }
 }

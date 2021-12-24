@@ -11,7 +11,7 @@ Regular panzer tank
 
 namespace Characters
 {
-    public class PlayerPanzer : BasePlayer
+    public class PlayerPanzer : BaseUnitPlayer
     {
         
         [SerializeField] private GameObject panzerAimButton;

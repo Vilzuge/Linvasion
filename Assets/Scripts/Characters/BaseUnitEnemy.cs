@@ -12,7 +12,7 @@ Base class for enemies
 
 namespace Characters
 {
-    public abstract class BaseEnemy : BaseUnit
+    public abstract class BaseUnitEnemy : BaseUnit
     {
         
         

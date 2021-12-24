@@ -40,9 +40,9 @@ namespace Game
 
             foreach (Transform child in enemyUnits.transform)
             {
-                if (child.GetComponent<BaseEnemy>())
+                if (child.GetComponent<BaseUnitEnemy>())
                 {
-                    child.GetComponent<BaseEnemy>().AITurn();
+                    child.GetComponent<BaseUnitEnemy>().AITurn();
                 }
             }
             

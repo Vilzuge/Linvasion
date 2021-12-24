@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public abstract class BasePlayer : BaseUnit
+    public abstract class BaseUnitPlayer : BaseUnit
     {
         [SerializeField] protected Material selectedMaterial;
         protected Canvas myCanvas;

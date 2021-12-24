@@ -65,7 +65,7 @@ public class BoardGenerator : EditorWindow
       
       if (GUILayout.Button("Clear units"))
       {
-         //Do clearing stuff
+         EmptyUnits();
       }
       
    }
@@ -194,6 +194,26 @@ public class BoardGenerator : EditorWindow
       else
       {
          unit.transform.SetParent(playerUnitList.transform);
+      }
+   }
+   
+   private void EmptyUnits()
+   {
+      if (playerUnitList == null || enemyUnitList == null)
+      {
+         return;
+      }
+      // EMPTY THE GAMEBOARD
+      var tempList = playerUnitList.transform.Cast<Transform>().ToList();
+      foreach (var child in tempList)
+      {
+         GameObject.DestroyImmediate(child.gameObject);
+      }
+      
+      var tempList2 = enemyUnitList.transform.Cast<Transform>().ToList();
+      foreach (var child in tempList2)
+      {
+         GameObject.DestroyImmediate(child.gameObject);
       }
    }
    

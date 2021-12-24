@@ -97,14 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a4da18ae954bf40b0c8fb6b561e556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 0}
-  health: 0
-  movement: 0
-  damage: 0
-  healthBar: {fileID: 4408566420122614525}
-  startHealth: 0
-  position: {x: 0, y: 0}
-  availableMoves: []
+  defaultMaterial: {fileID: -884419984241045665, guid: c94d7f8d65bee5e42a514ef626c0079a,
+    type: 3}
 --- !u!114 &4937417439655869108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
-  movementValue: 0
+  movementValue: 4
   availableMoves: []
 --- !u!1001 &8829304566909720684
 PrefabInstance:

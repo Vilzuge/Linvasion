@@ -19,7 +19,7 @@ namespace Board
         public void UpdateHoverDraws(Vector2Int mousePosition, GameObject selectedUnit)
         {
             var hoverUnit = boardCalculator.GetUnitOnTile(mousePosition);
-            if (hoverUnit && hoverUnit.GetComponent<BasePlayer>() && hoverUnit.GetComponent<BasePlayer>().state != TankState.Aiming && !selectedUnit)
+            if (hoverUnit && hoverUnit.GetComponent<BaseUnitPlayer>() && hoverUnit.GetComponent<BaseUnitPlayer>().state != TankState.Aiming && !selectedUnit)
                 DrawMovableTiles(hoverUnit);
             else
             {
@@ -57,7 +57,7 @@ namespace Board
             var boardSize = boardCalculator.GetBoardSize();
             
             
-            if (selectedUnit.GetComponent<BasePlayer>().state != TankState.Selected)
+            if (selectedUnit.GetComponent<BaseUnitPlayer>().state != TankState.Selected)
                 ClearBoardPathfinding();
             else
             {
