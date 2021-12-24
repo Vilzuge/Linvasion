@@ -8,7 +8,7 @@ Water tile, not walkable tile
 
 namespace Board
 {
-    public class BaseTileWater : BaseTile
+    public class TileWater : BaseTile
     {
         public override void Start()
         {

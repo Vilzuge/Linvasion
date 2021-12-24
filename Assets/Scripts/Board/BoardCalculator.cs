@@ -75,7 +75,7 @@ namespace Board
                 
             foreach (Transform child in enemyUnits.transform)
             {
-                var temp = child.GetComponent<BaseEnemy>().position;
+                var temp = child.GetComponent<UnitMovement>().position;
                 if (temp.x == coordinates.x && temp.y == coordinates.y)
                 {
                     return child.gameObject;
@@ -116,7 +116,7 @@ namespace Board
                     foreach (BaseTile loopTile in neighbours)
                     {
                         if (moveTiles.Contains(loopTile) || !loopTile.IsWalkable()) continue;
-                        if (loopTile is BaseTileGrass)
+                        if (loopTile is TileGrass)
                             moveTiles.Add(loopTile);
                     }
                 }

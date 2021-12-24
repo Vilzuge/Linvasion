@@ -5,7 +5,6 @@ namespace Characters
 {
     public abstract class BasePlayer : BaseUnit
     {
-        [SerializeField] protected Material defaultMaterial;
         [SerializeField] protected Material selectedMaterial;
         protected Canvas myCanvas;
         public TankState state;
@@ -13,7 +12,6 @@ namespace Characters
         protected override void Start()
         {
             base.Start();
-            soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
             state = TankState.Unselected;
         }

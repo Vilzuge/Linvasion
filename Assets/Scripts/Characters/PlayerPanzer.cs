@@ -13,11 +13,9 @@ namespace Characters
 {
     public class PlayerPanzer : BasePlayer
     {
-
-        // UI
+        
         [SerializeField] private GameObject panzerAimButton;
         
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();

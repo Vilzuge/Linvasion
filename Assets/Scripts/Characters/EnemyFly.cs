@@ -14,21 +14,21 @@ namespace Characters
 {
     public class EnemyFly : BaseEnemy
     {
+        private BoardCalculator boardCalculator;
         
         protected override void Start()
         {
             base.Start();
-            health = 3;
-            movement = 4;
-            damage = 2;
-            startHealth = health;
+            boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
         }
 
         public override void AITurn()
         {
-            availableMoves = boardCalculator.CalculateMovableTiles(gameObject);
-            Dictionary<BaseTile, BaseTile> posHitPairs = new Dictionary<BaseTile, BaseTile>();
+            var availableMoves = GetComponent<UnitMovement>().GetAvailableMoves();
+            var posHitPairs = new Dictionary<BaseTile, BaseTile>();
             
+            
+            /*
             foreach (BaseTile tile in availableMoves)
             {
                 List<BaseTile> neighbours = boardCalculator.GetNeighbours(tile);
@@ -43,6 +43,7 @@ namespace Characters
                         }
                 }
             }
+
             
             Debug.Log("Here are the available hits for " + gameObject.name);
             foreach (KeyValuePair<BaseTile, BaseTile> kvp in posHitPairs)
@@ -50,20 +51,21 @@ namespace Characters
                 Debug.Log($"Position: {kvp.Key}, HitLocation: {kvp.Value}");
             }
             StartCoroutine(TurnCoroutine(posHitPairs));
+            */
         }
-
+        
         IEnumerator TurnCoroutine(Dictionary<BaseTile, BaseTile> phPairs)
         {
             Debug.Log(gameObject.name + " about to move...");
             yield return new WaitForSeconds(2);
-            if (phPairs.Count > 0)
-                MoveTo(new Vector2Int(phPairs.First().Key.gridX, phPairs.First().Key.gridX));
+            //if (phPairs.Count > 0)
+                //MoveTo(new Vector2Int(phPairs.First().Key.gridX, phPairs.First().Key.gridX));
             
             Debug.Log(gameObject.name + " moved.");
             yield return new WaitForSeconds(2);
 
             Vector2Int hitPost = new Vector2Int(phPairs.First().Value.gridX, phPairs.First().Value.gridY);
-            boardController.ApplyDamage(hitPost, damage);
+            //boardController.ApplyDamage(hitPost, damage);
             
             Debug.Log(gameObject.name + " attacked.");
             yield return new WaitForSeconds(2);

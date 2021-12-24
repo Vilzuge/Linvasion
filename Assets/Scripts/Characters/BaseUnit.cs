@@ -9,7 +9,6 @@ namespace Characters
     public abstract class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
     {
         [SerializeField] protected Material defaultMaterial;
-        [SerializeField] protected Material selectedMaterial;
         protected SoundManagerScript soundManager;
         
         protected virtual void Start()

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3873879267490358432}
   - component: {fileID: 4352106837964524226}
   - component: {fileID: 2132185986819569021}
+  - component: {fileID: 4937417439655869108}
+  - component: {fileID: 4425670022271362263}
   m_Layer: 0
   m_Name: EnemyFly
   m_TagString: Untagged
@@ -95,12 +97,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a4da18ae954bf40b0c8fb6b561e556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   health: 0
   movement: 0
   damage: 0
   healthBar: {fileID: 4408566420122614525}
   startHealth: 0
   position: {x: 0, y: 0}
+  availableMoves: []
+--- !u!114 &4937417439655869108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8681533556981278644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4dc4829d301e6a4e8cf3a8ee344e898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHealth: 3
+  currentHealth: 0
+  healthBar: {fileID: 4408566420122614525}
+--- !u!114 &4425670022271362263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8681533556981278644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c111411bd85925248ba2331e73cc4829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  movementValue: 0
   availableMoves: []
 --- !u!1001 &8829304566909720684
 PrefabInstance:
