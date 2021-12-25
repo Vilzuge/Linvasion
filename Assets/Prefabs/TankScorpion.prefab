@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660105524073695079}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1250976382179444819}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2813467912831258332, guid: 8ea8790fdeb57674abffdcd1d1e1e3d8, type: 3}
+  - {fileID: 2100000, guid: 3ebf0f2b9ef27814c98435711e363a5c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250976382179444819}
-  - component: {fileID: 2332927875657428586}
+  - component: {fileID: 3229166727965908235}
   - component: {fileID: -8983430107595067900}
   - component: {fileID: -2940555856455373778}
   - component: {fileID: -1392638571348330263}
@@ -151,7 +151,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2332927875657428586
+--- !u!114 &3229166727965908235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1880126163704468201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356befa5e19917d47a8363981f5430d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 479e87cd4e48b7f4181c59d6f395ee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMaterial: {fileID: 2100000, guid: 3ebf0f2b9ef27814c98435711e363a5c, type: 2}
@@ -301,7 +301,7 @@ PrefabInstance:
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.085
+      value: -0.143
       objectReference: {fileID: 0}
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}
@@ -326,12 +326,12 @@ PrefabInstance:
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.023
+      value: 0.149
       objectReference: {fileID: 0}
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.515
+      value: 0.432
       objectReference: {fileID: 0}
     - target: {fileID: 408871248172974004, guid: c59358df72fca2c4483ee457200aea04,
         type: 3}

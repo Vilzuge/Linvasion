@@ -48,14 +48,14 @@ MonoBehaviour:
   moveableTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
   pathTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
   aimTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
-  state: 0
-  walkable: 0
-  worldPosition: {x: 0, y: 0, z: 0}
   gridX: 0
   gridY: 0
   gCost: 0
   hCost: 0
   parent: {fileID: 0}
+  state: 0
+  walkable: 0
+  worldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &4973255113366725408
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ namespace Characters {
             boardCalculator.GetTile(position).walkable = true;
             position = new Vector2Int(coordinates.x, coordinates.y);
             boardCalculator.GetTile(position).walkable = false;
-            gameObject.transform.position = new Vector3(coordinates.x, -0.4f, coordinates.y);
+            gameObject.transform.position = new Vector3(coordinates.x, 0f, coordinates.y);
             availableMoves = GetAvailableMoves();
         }
         

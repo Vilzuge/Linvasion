@@ -28,7 +28,7 @@ namespace Characters
             return boardCalculator.CalculateShootableTiles(gameObject);
         }
         
-        public void Aim()
+        public virtual void Aim()
         {
             boardDrawer.DrawShootableTiles(GetAvailableShots());
         }

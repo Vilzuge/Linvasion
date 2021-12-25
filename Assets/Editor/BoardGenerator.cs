@@ -21,7 +21,9 @@ public class BoardGenerator : EditorWindow
    private GameObject waterTile;
    private GameObject buildingTile;
    
-   private GameObject playerUnit;
+   private GameObject playerUnitPanzer;
+   private GameObject playerUnitScorpion;
+   private GameObject playerUnitBurst;
    private GameObject enemyUnit;
    
    private GameObject playerUnitList;
@@ -54,7 +56,10 @@ public class BoardGenerator : EditorWindow
          EmptyBoard();
       }
       
-      playerUnit = EditorGUILayout.ObjectField("Player Unit", playerUnit, typeof(GameObject), false) as GameObject;
+      playerUnitPanzer = EditorGUILayout.ObjectField("Panzer Unit", playerUnitPanzer, typeof(GameObject), false) as GameObject;
+      playerUnitScorpion = EditorGUILayout.ObjectField("Scorpion Unit", playerUnitScorpion, typeof(GameObject), false) as GameObject;
+      playerUnitBurst = EditorGUILayout.ObjectField("Burst Unit", playerUnitBurst, typeof(GameObject), false) as GameObject;
+      
       enemyUnit = EditorGUILayout.ObjectField("Enemy Unit", enemyUnit, typeof(GameObject), false) as GameObject;
       
       if (GUILayout.Button("Spawn units"))
@@ -167,12 +172,12 @@ public class BoardGenerator : EditorWindow
    
    private void SpawnUnits()
    {
-      if (!playerUnit || !enemyUnit) return;
+      if (!playerUnitPanzer || !playerUnitBurst || !playerUnitScorpion || !enemyUnit) return;
        
       //friendlies
-      SpawnUnit(playerUnit, new Vector3(1f, -0.4f, 3f), false);
-      SpawnUnit(playerUnit, new Vector3(3f, -0.4f, 2f), false);
-      SpawnUnit(playerUnit, new Vector3(6f, -0.4f, 2f), false);
+      SpawnUnit(playerUnitPanzer, new Vector3(1f, 0f, 3f), false);
+      SpawnUnit(playerUnitScorpion, new Vector3(3f, 0f, 2f), false);
+      SpawnUnit(playerUnitBurst, new Vector3(6f, 0f, 2f), false);
       
       //enemies
       SpawnUnit(enemyUnit, new Vector3(4f, 0f, 7f), true);
@@ -188,7 +193,6 @@ public class BoardGenerator : EditorWindow
         
       if (isEnemy)
       {
-         unit.gameObject.transform.rotation = Quaternion.identity * Quaternion.Euler(-180, 0, 0); // purkkaa, modeli vinossa
          unit.transform.SetParent(enemyUnitList.transform);
       }
       else
