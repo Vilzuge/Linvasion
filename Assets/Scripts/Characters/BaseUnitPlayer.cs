@@ -32,7 +32,7 @@ namespace Characters
         public virtual void SetAiming()
         {
             state = TankState.Aiming;
-            GetComponent<UnitShooting>().Aim(); //boardDrawer.DrawShootableTiles(CalculateShootableTiles());
+            GetComponent<UnitShooting>().Aim();
         }
         
     }

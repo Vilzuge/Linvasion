@@ -148,6 +148,11 @@ namespace Board
             }
         }
 
+        public BaseTile GetTile(Vector2Int coordinates)
+        {
+            return tileArray[coordinates.x, coordinates.y];
+        }
+
         public BaseTile[,] GetTileArray()
         {
             return tileArray;

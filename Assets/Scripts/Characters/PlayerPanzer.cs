@@ -41,7 +41,5 @@ namespace Characters
             base.SetAiming();
             Debug.Log("You are currently aiming");
         }
-        
-        
     }
 }
