@@ -28,7 +28,7 @@ namespace Characters
             var posHitPairs = new Dictionary<BaseTile, BaseTile>();
             
             
-            /*
+
             foreach (BaseTile tile in availableMoves)
             {
                 List<BaseTile> neighbours = boardCalculator.GetNeighbours(tile);
@@ -44,7 +44,7 @@ namespace Characters
                 }
             }
 
-            
+            /*
             Debug.Log("Here are the available hits for " + gameObject.name);
             foreach (KeyValuePair<BaseTile, BaseTile> kvp in posHitPairs)
             {

@@ -19,7 +19,6 @@ namespace Characters
         /* INTERFACE STUFF FOR KILLABLE AND DAMAGEABLE UNITS */
         public void Kill()
         {
-            Debug.Log("Going to kill this");
             Destroy(gameObject);
         }
 
