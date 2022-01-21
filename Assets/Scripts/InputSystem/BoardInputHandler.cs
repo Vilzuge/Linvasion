@@ -12,13 +12,8 @@ namespace InputSystem
 {
     public class BoardInputHandler : MonoBehaviour, IInputHandler
     {
-        private Board.BoardController boardController;
-
-        private void Awake()
-        {
-            boardController = GetComponent<Board.BoardController>();
-        }
-    
+        [SerializeField] private Board.BoardController boardController;
+        
         public void ProcessClickInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
         {
             boardController.OnTileSelected(inputPosition);

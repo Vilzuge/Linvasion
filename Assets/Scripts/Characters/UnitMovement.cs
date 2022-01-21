@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Characters {
     public class UnitMovement : MonoBehaviour
     {
-        protected BoardCalculator boardCalculator;
+        private BoardCalculator boardCalculator;
         public Vector2Int position;
         public int movementValue;
         public List<BaseTile> availableMoves;
@@ -43,7 +43,5 @@ namespace Characters {
             gameObject.transform.position = new Vector3(coordinates.x, 0f, coordinates.y);
             availableMoves = GetAvailableMoves();
         }
-        
     }
-
 }

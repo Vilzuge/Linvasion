@@ -12,12 +12,7 @@ namespace Board
 {
     public class Pathfinding : MonoBehaviour
     {
-        private BoardCalculator boardCalculator;
-
-        private void Awake()
-        {
-            boardCalculator = GetComponent<BoardCalculator>();
-        }
+        [SerializeField] private BoardCalculator boardCalculator;
         
         public List<BaseTile> FindPath(BaseTile start, BaseTile target)
         {
@@ -28,7 +23,7 @@ namespace Board
             while (openSet.Count > 0)
             {
                 BaseTile current = openSet[0];
-                for (int i = 1; i < openSet.Count; i++)
+                for (var i = 1; i < openSet.Count; i++)
                 {
                     if (openSet[i].fCost < current.fCost || openSet[i].fCost == current.fCost && openSet[i].hCost < current.hCost)
                     {
@@ -51,17 +46,19 @@ namespace Board
                         continue;
                     }
 
-                    int newMovementCostToNeighbour = current.gCost + GetDistance(current, neighbour);
-                    if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                    var newMovementCostToNeighbour = current.gCost + GetDistance(current, neighbour);
+                    if (newMovementCostToNeighbour >= neighbour.gCost && openSet.Contains(neighbour))
                     {
-                        neighbour.gCost = newMovementCostToNeighbour;
-                        neighbour.hCost = GetDistance(neighbour, target);
-                        neighbour.parent = current;
+                        continue;
+                    }
+                    
+                    neighbour.gCost = newMovementCostToNeighbour;
+                    neighbour.hCost = GetDistance(neighbour, target);
+                    neighbour.parent = current;
 
-                        if (!openSet.Contains(neighbour))
-                        {
-                            openSet.Add(neighbour);
-                        }
+                    if (!openSet.Contains(neighbour))
+                    {
+                        openSet.Add(neighbour);
                     }
                 }
             }
@@ -70,8 +67,8 @@ namespace Board
 
         private List<BaseTile> RetracePath(BaseTile start, BaseTile end)
         {
-            List<BaseTile> path = new List<BaseTile>();
-            BaseTile current = end;
+            var path = new List<BaseTile>();
+            var current = end;
 
             while (current != start)
             {
@@ -84,8 +81,8 @@ namespace Board
 
         private int GetDistance(BaseTile a, BaseTile b)
         {
-            int dstX = Mathf.Abs(a.gridX - b.gridX);
-            int dstY = Mathf.Abs(a.gridY - b.gridY);
+            var dstX = Mathf.Abs(a.gridX - b.gridX);
+            var dstY = Mathf.Abs(a.gridY - b.gridY);
 
             if (dstX > dstY)
                 return 14 * dstY + 10 * (dstX - dstY);

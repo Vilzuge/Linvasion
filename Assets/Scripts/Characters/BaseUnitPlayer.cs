@@ -6,27 +6,28 @@ namespace Characters
     public abstract class BaseUnitPlayer : BaseUnit
     {
         [SerializeField] protected Material selectedMaterial;
+        [SerializeField] protected MeshRenderer meshRenderer;
+        
         protected Canvas myCanvas;
-        public TankState state;
+        public TankState state = TankState.Unselected;
 
         protected override void Start()
         {
             base.Start();
             myCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
-            state = TankState.Unselected;
         }
 
         /* Tank selection behaviour */
         public virtual void SetSelected()
         {
             state = TankState.Selected;
-            GetComponentInChildren<MeshRenderer>().material = selectedMaterial;
+            meshRenderer.material = selectedMaterial;
         }
 
         public virtual void SetDeselected()
         {
             state = TankState.Unselected;
-            GetComponentInChildren<MeshRenderer>().material = defaultMaterial;
+            meshRenderer.material = defaultMaterial;
         }
 
         public virtual void SetAiming()
@@ -34,6 +35,5 @@ namespace Characters
             state = TankState.Aiming;
             GetComponent<UnitShooting>().Aim();
         }
-        
     }
 }

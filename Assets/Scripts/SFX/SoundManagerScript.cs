@@ -12,21 +12,11 @@ namespace SFX
     {
 
         public AudioClip playerShoot, laserShoot, strongShoot, spawnTank;
-        public static AudioSource audioSrc;
-        // Start is called before the first frame update
-        void Start()
-        {
-            audioSrc = GetComponent<AudioSource>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        private AudioSource audioSrc;
         
         public void PlaySound(string clip)
         {
+            audioSrc = GetComponent<AudioSource>();
             switch (clip)
             {
                 case "playerShoot":

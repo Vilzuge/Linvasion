@@ -15,57 +15,76 @@ namespace Characters
     public class EnemyFly : BaseUnitEnemy
     {
         private BoardCalculator boardCalculator;
-        
+        private int damage = 1;
+
         protected override void Start()
         {
             base.Start();
             boardCalculator = GameObject.Find("GameBoard").GetComponent<BoardCalculator>();
         }
 
-        public override void AITurn()
+        /*
+         * THIS IS WHOLE AI SOLUTION VERY EXPERIMENTAL AND TERRIBLE AT THE MOMENT
+         */
+
+        private class FavourablePosition
+        {
+            public BaseTile AttackerPosition { get; }
+            public GameObject Receiver { get; }
+
+            public FavourablePosition(BaseTile attPosition, GameObject receiver)
+            {
+                AttackerPosition = attPosition;
+                Receiver = receiver;
+            }
+        }
+
+        public override IEnumerator AITurn()
         {
             var availableMoves = GetComponent<UnitMovement>().GetAvailableMoves();
-            var posHitPairs = new Dictionary<BaseTile, BaseTile>();
+            var posHitPairs = new List<FavourablePosition>();
             
-            
-
-            foreach (BaseTile tile in availableMoves)
+            foreach (var tile in availableMoves)
             {
                 List<BaseTile> neighbours = boardCalculator.GetNeighbours(tile);
-                Debug.Log(neighbours);
-                foreach (BaseTile neighbour in neighbours)
+                foreach (var neighbour in neighbours)
                 {
                     GameObject unit = boardCalculator.GetUnitOnTile(new Vector2Int(neighbour.gridX, neighbour.gridY));
                     if (unit)
-                        if (unit.GetComponent<BaseUnit>())
+                        if (unit.GetComponent<BaseUnitPlayer>())
                         {
-                            posHitPairs.Add(tile, neighbour);
+                            posHitPairs.Add(new FavourablePosition(tile, unit));
                         }
                 }
             }
-
-            /*
+            
             Debug.Log("Here are the available hits for " + gameObject.name);
-            foreach (KeyValuePair<BaseTile, BaseTile> kvp in posHitPairs)
+            foreach (var pair in posHitPairs)
             {
-                Debug.Log($"Position: {kvp.Key}, HitLocation: {kvp.Value}");
+                Debug.Log($"Attacker position: {pair.AttackerPosition}, Receiver position: {pair.Receiver}");
             }
-            StartCoroutine(TurnCoroutine(posHitPairs));
-            */
+            
+            if (posHitPairs.Count > 0)
+                yield return StartCoroutine(TurnCoroutine(posHitPairs));
+            else
+            {
+                Debug.Log("No possible moves.");
+            }
         }
         
-        IEnumerator TurnCoroutine(Dictionary<BaseTile, BaseTile> phPairs)
+        IEnumerator TurnCoroutine(List<FavourablePosition> phPairs)
         {
             Debug.Log(gameObject.name + " about to move...");
+            var amountOfMoves = phPairs.Count();
+            
             yield return new WaitForSeconds(2);
-            //if (phPairs.Count > 0)
-                //MoveTo(new Vector2Int(phPairs.First().Key.gridX, phPairs.First().Key.gridX));
+            if (amountOfMoves > 0)
+                GetComponent<UnitMovement>().MoveTo(new Vector2Int(phPairs.First().AttackerPosition.gridX, phPairs.First().AttackerPosition.gridY));
             
             Debug.Log(gameObject.name + " moved.");
             yield return new WaitForSeconds(2);
-
-            Vector2Int hitPost = new Vector2Int(phPairs.First().Value.gridX, phPairs.First().Value.gridY);
-            //boardController.ApplyDamage(hitPost, damage);
+            
+            phPairs.First().Receiver.GetComponent<BaseUnit>().Damage(damage);
             
             Debug.Log(gameObject.name + " attacked.");
             yield return new WaitForSeconds(2);

@@ -52,14 +52,15 @@ MonoBehaviour:
     type: 3}
   aimTile: {fileID: -2813467912831258332, guid: 8ea8790fdeb57674abffdcd1d1e1e3d8,
     type: 3}
-  state: 0
-  walkable: 0
-  worldPosition: {x: 0, y: 0, z: 0}
+  meshRenderer: {fileID: 7627737947887768001}
   gridX: 0
   gridY: 0
   gCost: 0
   hCost: 0
   parent: {fileID: 0}
+  state: 0
+  walkable: 0
+  worldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &4973255113366725408
 GameObject:
   m_ObjectHideFlags: 0

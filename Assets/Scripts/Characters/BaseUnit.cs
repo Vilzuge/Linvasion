@@ -9,11 +9,11 @@ namespace Characters
     public abstract class BaseUnit : MonoBehaviour, IKillable, IDamageable<int>
     {
         [SerializeField] protected Material defaultMaterial;
-        protected SoundManagerScript soundManager;
+
         
         protected virtual void Start()
         {
-            soundManager = GameObject.Find("SoundManager").GetComponent<SoundManagerScript>();
+
         }
         
         /* INTERFACE STUFF FOR KILLABLE AND DAMAGEABLE UNITS */
@@ -24,14 +24,16 @@ namespace Characters
 
         public void Damage(int damageTaken)
         {
-            var startHealth = GetComponent<UnitHealth>().startHealth;
-            var healthBar = GetComponent<UnitHealth>().healthBar;
-            
-            var newHealth = GetComponent<UnitHealth>().currentHealth -= damageTaken;
-            healthBar.fillAmount = (float)newHealth / (float)startHealth;
-            Debug.Log(this.name + " to be killed.");
+            var unitHealth = GetComponent<UnitHealth>();
+            var healthBar = unitHealth.healthBar;
+            var newHealth = unitHealth.currentHealth -= damageTaken;
+
+            healthBar.fillAmount = (float) newHealth / (float) unitHealth.startHealth;
+            Debug.Log(name + " to be killed.");
             if (newHealth <= 0)
+            {
                 Kill();
+            }
         }
     }
 }

@@ -48,6 +48,7 @@ MonoBehaviour:
   moveableTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
   pathTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
   aimTile: {fileID: 2100000, guid: 9197dbf1c0fd100479ea403f8b19ef09, type: 2}
+  meshRenderer: {fileID: 7627737947887768001}
   gridX: 0
   gridY: 0
   gCost: 0

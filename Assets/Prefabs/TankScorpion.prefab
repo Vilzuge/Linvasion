@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMaterial: {fileID: 2100000, guid: 3ebf0f2b9ef27814c98435711e363a5c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: 7280b5e4e0bb0c14aafa8c1c3bfc5a6e, type: 2}
+  meshRenderer: {fileID: 7391709752210975436}
   state: 0
   panzerAimButton: {fileID: 2771757513410737254, guid: 3ec97020687c7f64ca7ce4d191650cf9,
     type: 3}

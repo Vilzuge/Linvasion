@@ -21,10 +21,13 @@ namespace Characters
         {
             base.Start();
         }
-        
 
-        public virtual void AITurn() { }
-        
-        
+
+        public virtual IEnumerator AITurn()
+        {
+            yield return null;
+        }
+
+
     }
 }

@@ -62,7 +62,10 @@ namespace Board
         // Getting a unit that occupies a tile
         public GameObject GetUnitOnTile(Vector2Int coordinates)
         {
-            if (!CheckIfCoordinatesAreOnBoard(coordinates)) return null;
+            if (!CheckIfCoordinatesAreOnBoard(coordinates))
+            {
+                return null;
+            }
             
             foreach (Transform child in playerUnits.transform)
             {
@@ -113,16 +116,22 @@ namespace Board
                 foreach (BaseTile tile in moveTiles.ToList())
                 {
                     var neighbours = GetNeighbours(tile);
-                    foreach (BaseTile loopTile in neighbours)
+                    foreach (BaseTile neighbour in neighbours)
                     {
-                        if (moveTiles.Contains(loopTile) || !loopTile.IsWalkable()) continue;
-                        if (loopTile is TileGrass)
-                            moveTiles.Add(loopTile);
+                        if (moveTiles.Contains(neighbour) || !neighbour.IsWalkable())
+                        {
+                            continue;
+                        }
+                        if (neighbour is TileGrass)
+                        {
+                            moveTiles.Add(neighbour);
+                        }
                     }
                 }
             }
             return moveTiles;
         }
+        
         public List<BaseTile> CalculateShootableTiles(GameObject unit)
         {
             Vector2Int unitPos = unit.GetComponent<UnitMovement>().position;
@@ -135,6 +144,7 @@ namespace Board
             }
             return shootTiles;
         }
+        
         private void SetInitialOccupants()
         {
             foreach (BaseTile tile in tileArray)

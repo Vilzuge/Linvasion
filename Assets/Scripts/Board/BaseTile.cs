@@ -16,6 +16,7 @@ namespace Board
         [SerializeField] protected Material moveableTile;
         [SerializeField] protected Material pathTile;
         [SerializeField] protected Material aimTile;
+        [SerializeField] protected MeshRenderer meshRenderer;
         
         // Pathfinding variables
         public int gridX;
@@ -23,15 +24,14 @@ namespace Board
         public int gCost;
         public int hCost;
         public BaseTile parent;
-        
 
-        public TileState state;
+        public TileState state = TileState.Default;
         public bool walkable;
         public Vector3 worldPosition;
 
         public virtual void Start()
         {
-            state = TileState.Default;
+            
         }
 
         public int fCost
@@ -45,25 +45,25 @@ namespace Board
         public virtual void SetDefaultVisual()
         {
             state = TileState.Default;
-            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = defaultTile;
+            meshRenderer.material = defaultTile;
         }
 
         public virtual void SetMovableVisual()
         {
             state = TileState.Movable;
-            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = moveableTile;
+            meshRenderer.material = moveableTile;
         }
 
         public virtual void SetPathfindVisual()
         {
             state = TileState.Pathfind;
-            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = pathTile;
+            meshRenderer.material = pathTile;
         }
 
         public virtual void SetShootableVisual()
         {
             state = TileState.Shootable;
-            transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material = aimTile;
+            meshRenderer.material = aimTile;
         }
 
         public void SetWalkable()

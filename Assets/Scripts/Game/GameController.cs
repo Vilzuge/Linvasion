@@ -1,4 +1,6 @@
-﻿using Characters;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Characters;
 using UnityEngine;
 
 /*
@@ -22,7 +24,7 @@ namespace Game
             
         }
 
-        public void SwitchToPlayerTurn()
+        private void SwitchToPlayerTurn()
         {
             state = GameState.PlayerTurn;
         }
@@ -33,50 +35,37 @@ namespace Game
             ExecuteEnemyTurn();
         }
 
-        public void ExecuteEnemyTurn()
+        private void ExecuteEnemyTurn()
         {
-            if (!enemyUnits)
-                return;
+            if (!enemyUnits) return;
 
+            StartCoroutine(StartEnemyTurn());
+            SwitchToPlayerTurn();
+        }
+
+        
+        /* Very WIP */
+        private IEnumerator StartEnemyTurn()
+        {
             foreach (Transform child in enemyUnits.transform)
             {
                 if (child.GetComponent<BaseUnitEnemy>())
                 {
-                    child.GetComponent<BaseUnitEnemy>().AITurn();
+                    yield return StartCoroutine(child.GetComponent<BaseUnitEnemy>().AITurn());
                 }
             }
-            
-            SwitchToPlayerTurn();
-            
-            // if going to hit, execute hit
-
-            // check where player/building can be hit
-
-            // choose position
-
-            // move to position, if no available, move towards middle
-
-            // prepare to hit the target (Show indicator)
         }
+        
         
         public void SetGameState(GameState stateToSet)
         {
             state = stateToSet;
         }
 
-        public bool IsTeamTurnActive()
+        public bool IsPlayerTurnActive()
         {
             return state == GameState.PlayerTurn;
         }
         
-    
-        public bool CanPerformMove()
-        {
-            if (!IsTeamTurnActive())
-            {
-                return false;
-            }
-            return true;
-        }
     }
 }

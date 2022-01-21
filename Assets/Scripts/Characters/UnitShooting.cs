@@ -28,12 +28,12 @@ namespace Characters
             return boardCalculator.CalculateShootableTiles(gameObject);
         }
         
-        public virtual void Aim()
+        public void Aim()
         {
             boardDrawer.DrawShootableTiles(GetAvailableShots());
         }
 
-        public virtual void TryToShoot(BaseTile tileToShoot)
+        public void TryToShoot(BaseTile tileToShoot)
         {
             if (CanShootTo(tileToShoot))
             {
@@ -45,9 +45,8 @@ namespace Characters
             }
             else
             {
-                Debug.Log("Could not shoot that tile :/");
+                Debug.Log("Could not shoot that tile..");
             }
         }
-        
     }
 }
